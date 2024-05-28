@@ -1,0 +1,1019 @@
+<html lang="ko">
+<head>
+	<title> 재산세 미리계산(2024)</title>
+<style>
+/* Reset some default browser styles */
+body, h4, p, ul, li, table, th, td, input, select, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Body style */
+body {
+    line-height: 1.6;
+    padding: 20px;
+    background-color: #f4f6f9;
+    color: #333;
+}
+
+/* General content styles */
+.real_contents {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.top_guide_txt {
+    margin-bottom: 20px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.top_guide_txt strong {
+    color: #000;
+}
+
+/* Form header */
+.heading_wrap {
+    margin-bottom: 20px;
+}
+
+.heading_wrap h4 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: #007bff;
+}
+
+.notice_txt {
+    font-size: 0.9em;
+    color: #e74c3c;
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background: #f9fafb;
+    text-align: left;
+    font-weight: normal;
+}
+
+table th.left {
+    width: 25%;
+}
+
+table th, table td {
+    vertical-align: middle;
+}
+
+table td.last {
+    border-right: none;
+}
+
+table .right {
+    text-align: right;
+}
+
+table .btm_h5 {
+    margin-bottom: 8px;
+    font-size: 1em;
+    color: #007bff;
+}
+
+table .btm_ul {
+    list-style-type: none;
+    padding-left: 20px;
+    color: #666;
+}
+
+table .btm_ul li {
+    margin-bottom: 5px;
+}
+
+/* Input and Select styles */
+input.txt, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+input.txt.right {
+    text-align: right;
+}
+
+input.txtpCls {
+    max-width: 100px;
+}
+
+select {
+    appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+    background-size: 12px;
+}
+
+button {
+    padding: 12px 20px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Misc styles */
+.f_b {
+    font-weight: bold;
+}
+
+.popup_red_font {
+    color: #e74c3c;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt30 {
+    margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+    .table, .table th, .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table th, .table td {
+        text-align: right;
+    }
+
+    .table th:last-child, .table td:last-child {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table th {
+        text-align: left;
+        background: #f9fafb;
+    }
+
+    .table td.last {
+        border-right: 1px solid #ddd;
+    }
+}
+
+</style>
+</head>
+
+<head>
+<body>
+</body>
+</head>
+			</div>
+			<div class="real_contents info_contents" style="display: block;">
+				<div class="top_guide_txt txt_top">
+					- <strong>재산세</strong>는 매년 6월 1일 현재 토지와 건물 등을 사실상 보유한 자에 대하여 부과되는 지방세임.<br>
+					- 재산세, 지역자원시설세, 지방교육세, 재산세 도시지역분의 세율은 각 지방자치단체의 조례로 정하는 바에 따라 달리 적용할  <br>
+					&nbsp;&nbsp;수 있음. <strong>따라서, 해당 자동계산으로 계산된 금액은 실제 부과징수되는 금액과 다를 수 있음.</strong><br>
+					- 과세대상 중 선박과 항공기는 고려하지 아니함.<br>
+					- 재산세의 세부담상한과 가산세는 고려하지 아니함.
+				</div>
+			</div>
+
+			
+			<form name="actForm" method="post">
+				<div class="heading_wrap">
+					<h4>재산세 산출세액</h4>
+					<p class="notice_txt">* 표시항목은 반드시 모두 입력해 주시기 바랍니다.</p>
+				</div>
+				<table class="btm">
+					<colgroup>
+						<col style="width:16%" />
+						<col style="width:6%" />
+						<col style="width:23%" />
+						<col style="width:55%" />
+					</colgroup>
+					<tbody>
+					<tr>
+						<th scope="row" class="left">과세대상</th>
+						<th scope="row">(<em>*</em>)</th>
+						<td colspan="2" class="last">
+							<select name="tax_sel" id="tax_sel" onchange="taxSelCng()" >
+								<option value="0" selected="selected">- 선   택 -</option>
+								<option value="1">주택분</option>
+								<option value="2">건축물</option>
+								<option value="3">토지</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="mulShow1" style=" display: none;">
+						<th scope="row" class="left">과세대상구분</th>
+						<th scope="row">(<em>*</em>)</th>
+						<td colspan="2" class="last">
+							<select name="mul1" id="mul1" onchange="mul1Select()">
+								<option value="0" selected="selected">- 과세대상구분을 선택하세요 -</option>
+								<option value="1">골프장, 고급오락장</option>
+								<option value="2">주거지역 및 지정지역 내 공장용 건축물</option>
+								<option value="3">기타건축물</option>
+							</select>
+						</td>
+					</tr>
+					<tr id="mulShow2" style=" display: none;">
+						<th scope="row" class="left">과세대상구분</th>
+						<th scope="row">(<em>*</em>)</th>
+						<td colspan="2" class="last">
+							<select name="mul2" id="mul2"  onchange="mul2Select()">
+								<option value="0" selected="selected">- 과세대상구분을 선택하세요 -</option>
+								<option value="1">나대지 등(종합합산과세)</option>
+								<option value="2">사업용토지(별도합산과세)</option>
+								<option value="3">전·답·과수원·목장용지 및 임야(분리과세)</option>
+								<option value="4">골프장 및 고급오락장용 토지(분리과세)</option>
+								<option value="5">그 외의 토지(분리과세)</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="left">시가표준액(합계)</th>
+						<th scope="row">a (<em>*</em>)</th>
+						<td><input type="text" name="money" id="money" size="15" class="txt right txtpCls" onblur="check_num(false, document.actForm.money);" /> 원</td>
+						<td class="last">
+							<h5 class="btm_h5">시가표준액</h5>
+							<ul class="btm_ul">
+								<li id="moneyTxt1">주택 : 주택공시가격  </li>
+								<li id="moneyTxt2">건축물 : 자치단체장이 고시한 가격 </li>
+								<li id="moneyTxt3">토지 : 개별공시지가 </li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="left">공정시장가액비율</th>
+						<th scope="row">b (<font class="popup_red_font">*</font>)</th>
+						<td><input type="text" name="gong_pst" id="gong_pst" size="15" class="txt right" onblur="check_num(false, document.actForm.gong_pst);" value="0"/> %</td>
+						<td class="last">
+							<h5 class="btm_h5">공정시장가액비율</h5>
+							<ul class="btm_ul">
+								<li id="pstTxt1">주택 : 60%</li>
+								<li id="pstTxt2">건축물 : 70%</li>
+								<li id="pstTxt3">토지 : 70%</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="left">과세표준</th>
+						<th scope="row">가</th>
+						<td class="right" id="summary"></td>
+						<td class="last"><span class="f_b">= a x b</span></td>
+					</tr>
+					<tr id="prptyRate1">
+						<th scope="row" class="left">재산세율</th>
+						<th scope="row">c</th>
+						<td class="right" id="resultRateTxt1"></td>
+						<td class="last">
+							<h5 class="btm_h5">주택재산세율</h5>
+							<ul class="btm_ul">
+								<li>6천만원 이하 <span style="margin-left:18px;">: 과세표준 x 0.10%</span></li>
+								<li>1억5천만원 이하 : 60,000 + (과세표준 - 6천만원) x 0.15%</li>
+								<li>3억원 이하 <span style="margin-left:30px;">: 195,000 + (과세표준 - 1억5천만원) x 0.25%</span></li>
+								<li>3억원 초과 <span style="margin-left:30px;">: 570,000 + (과세표준 - 3억원) x 0.40%</span></li>
+							</ul>
+						</td>
+					</tr>
+					<tr id="prptyRate2" style="display: none;">
+						<th scope="row" class="left">재산세율</th>
+						<th scope="row">c</th>
+						<td class="right" id="resultRateTxt2"></td>
+						<td class="last">
+							<h5 class="btm_h5">건물분류</h5>
+							<ul class="btm_ul">
+								<li>골프장,고급오락장<span style="margin-left:104px;">  : 과세표준 x 4%</span></li>
+								<li>주거지역 및 지정지역 내 공장용 건축물  : 과세표준 x 0.50%</li>
+								<li>기타건축물 <span style="margin-left:141px;">  : 과세표준 x 0.25%</span></li>
+							</ul>
+						</td>
+					</tr>
+					<tr id="prptyRate3" style="display: none;">
+						<th scope="row" class="left">재산세율</th>
+						<th scope="row">c</th>
+						<td class="right">
+							<p id="resultRateTxt3"></p><br>
+							<p id="resultRateSubTxt"></p>
+						</td>
+						<td class="last">
+							<h5 class="btm_h5">나대지 등(종합합산과세)</h5>
+							<ul class="btm_ul">
+								<li>5천만원 이하 <span style="margin-left:5px;"> : 과세표준 x 0.20% </span></li>
+								<li>1억원 이하 <span style="margin-left:16px;"> : 100,000 + (과세표준 - 5천만원) x 0.3%</span></li>
+								<li>1억원 초과 <span style="margin-left:16px;">  : 250,000 + (과세표준 - 1억원) x 0.5%</span></li>
+							</ul>
+							<h5 class="btm_h5" style="margin-top: 8px;">사업용토지(별도합산과세)</h5>
+							<ul class="btm_ul">
+								<li>2억원 이하<span style="margin-left:13px;">  : 과세표준 x 0.20% </span></li>
+								<li>10억원 이하 <span style="margin-left:5px;">   : 400,000 + (과세표준 - 2억원) x 0.3%</span></li>
+								<li>10억원 초과 <span style="margin-left:5px;">  : 2,800,000 + (과세표준 - 10억원) x 0.4%</span></li>
+							</ul>
+							<h5 class="btm_h5" style="margin-top: 8px;">분리과세대상토지</h5>
+							<ul class="btm_ul">
+								<li>전·답·과수원·목장용지 및 임야 <span style="margin-left:5px;"> : 과세표준 x 0.07%</span></li>
+								<li>골프장 및 고급오락장용 토지 <span style="margin-left:16px;"> : 과세표준 x 4%</span></li>
+								<li>그 외의 토지 <span style="margin-left:16px;">  : 과세표준 x 0.2%</span></li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="left">재산세</th>
+						<th scope="row">나</th>
+						<td class="right" id="resultValue"></td>
+						<td class="last"><span class="f_b">= 가 x c</span></td>
+					</tr>
+					<tr>
+						<th scope="row" class="left">도시지역분</th>
+						<th scope="row">다</th>
+						<td class="right" id="resultCityLocValue"></td>
+						<td class="last">
+							<span class="f_b">= 가 x 0.14% </span>
+							<ul class="btm_ul" style="margin-top: 5px;">
+								<li>재산세 도시지역분은 국토의 계획 및 이용에 관한 법률 제6조제1호에
+									따른 도시지역중 해당 지방의회의 의결을 거쳐 고시한 지역 안에
+									있는 대통령령으로 정하는 토지, 건축물 또는 주택에 해당하므로 지역에 따라 부과되지 않을 수 있음.</li>
+							</ul>
+						</td>
+					</tr>
+					<tr id="locHidden0" style="display: none;">
+						<th scope="row" class="left">지역자원시설세 <br>시가표준액</th>
+						<th scope="row">라</th>
+						<td><input type="text" name="locMoney" id="locMoney" size="15" class="txt right txtpCls" onblur="check_num(false, document.actForm.locMoney);" value="0"/> 원</td>
+						<td class="last">
+							<ul class="btm_ul" style="margin-top: 5px;">
+								<li>
+									건축물에 대한 시가표준액은 소득세법 제99조제1항제1호나목에 따라
+									산정·고시하는 건물신축가격기준액(2020년 730,000원/㎡)에 구조별, 용도별, 위치별
+									지수와 경과연수별 잔가율을 곱하여 ㎡당 금액을 산출한다.
+									계산식: 건물신축가격기준액 * (구조지수 * 용도지수 * 위치지수) * 경과연수별 잔가율 * 면적 * 가감산율
+								</li>
+							</ul>
+						</td>
+					</tr>
+					<tr id="locHidden1">
+						<th scope="row" class="left">지역자원시설세<br>과세표준</th>
+						<th scope="row" id="f_b1">라</th>
+						<td class="right" id="locSummary"></td>
+						<td class="last">
+							<h5 class="btm_h5">지역자원시설세 과세대상 : 건축물</h5>
+							<span class="f_b"><p id="f_b7">= a x b</p></span>
+						</td>
+					</tr>
+					<tr id="locHidden2">
+						<th scope="row" class="left">지역자원시설세<br>세율</th>
+						<th scope="row">d</th>
+						<td class="right" id="locRateTxt"></td>
+						<td class="last">
+							<h5 class="btm_h5">건축물(지역자원시설세 과세표준 기준)</h5>
+							<ul class="btm_ul">
+								<li>6백만원 이하 <span style="margin-left:18px;">: 과세표준 x 0.04%</span></li>
+								<li>1천3백만원 이하 : 2,400 + (과세표준 - 6백만원) x 0.05%</li>
+								<li>2천6백만원 이하 : 5,900 + (과세표준 - 1천3백만원) x 0.06%</li>
+								<li>3천9백만원 이하 : 13,700 + (과세표준 - 2천6백만원) x 0.08%</li>
+								<li>6천4백만원 이하 : 24,100 + (과세표준 - 3천9백만원) x 0.1%</li>
+								<li>6천4백만원 초과 : 49,100 + (과세표준 - 6천4백만원) x 0.12%</li>
+							</ul>
+						</td>
+					</tr>
+					<tr id="locHidden3">
+						<th scope="row" class="left">지역자원시설세</th>
+						<th scope="row" id="f_b2">마</th>
+						<td class="right" id="locValue"></td>
+						<td class="last">
+							<span class="f_b"><p id="f_b6"></p></span>
+							<h5 class="btm_h5 mt10">특정건축물</h5>
+							<ul class="btm_ul">
+								<li>저유장, 주유소, 정유소, 유흥장, 극장, 4층이상 10층이하의 건축물 등 대통령령으로 정하는 화재위험 건축물 : 2배 중과</li>
+								<li>대형마트, 복합상영관(상기 극장 제외), 백화점, 호텔, 11층 이상의 건축물 등 대통령령으로 정하는 대형 화재위험 건축물 : 3배 중과</li>
+							</ul>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row" class="left">지방교육세</th>
+						<th scope="row" id="f_b3">바</th>
+						<td class="right" id="resultDistrictValue"></td>
+						<td class="last"><span class="f_b">= 나 x 20%</span></td>
+					</tr>
+					<tr>
+						<th scope="row" class="left">Total</th>
+						<th scope="row" id="f_b4">사</th>
+						<td class="right" id="totResultValue"></td>
+						<td class="last" id="f_b5">= 나  + 다 + 마 + 바</td>
+					</tr>
+					</tbody>
+				</table>
+
+				<div class="btn_middle">
+					<button type="button" onclick="calculation()">계산하기</button>
+				</div>
+
+				<div id="tableInfo"></div>
+
+			</form>
+			
+			
+	<script>
+
+		function taxSelCng(){
+			var taxDaeSang = document.getElementById("tax_sel");
+			var taxName = taxDaeSang.options[taxDaeSang.selectedIndex].value;
+			var taxDaeSangText;
+
+			// 과세대상 다른거 선택시 출력했던 값 초기화
+			document.getElementById("summary").innerHTML = "";
+			document.getElementById("locMoney").value = "0";
+			document.getElementById("resultRateTxt1").innerHTML = "";
+			document.getElementById("resultRateTxt2").innerHTML = "";
+			document.getElementById("resultRateTxt3").innerHTML = "";
+			document.getElementById("resultRateSubTxt").innerHTML = "";
+			document.getElementById("resultValue").innerHTML = "";
+			document.getElementById("resultCityLocValue").innerHTML = "";
+			document.getElementById("locSummary").innerHTML = "";
+			document.getElementById("locRateTxt").innerHTML = "";
+			document.getElementById("locValue").innerHTML = "";
+			document.getElementById("resultDistrictValue").innerHTML = "";
+			document.getElementById("totResultValue").innerHTML = "";
+
+			if(taxName == '0'){
+				taxDaeSangText = '0';
+				//시가표준액 text 표시
+				document.getElementById("moneyTxt1").style.display = "";
+				document.getElementById("moneyTxt2").style.display = "";
+				document.getElementById("moneyTxt3").style.display = "";
+
+				//공정시장가액비율 text 표시
+				document.getElementById("pstTxt1").style.display = "";
+				document.getElementById("pstTxt2").style.display = "";
+				document.getElementById("pstTxt3").style.display = "";
+
+				//지역자원시설세 시가표준액
+				document.getElementById("locHidden0").style.display = "none";
+
+				//지역자원시설세 3가지 항목 보여주기 위한
+				document.getElementById("locHidden1").style.display = "";
+				document.getElementById("locHidden2").style.display = "";
+				document.getElementById("locHidden3").style.display = "";
+
+				//과세대상구분을 가리기 위한
+				document.getElementById("mulShow1").style.display = "none";
+				document.getElementById("mulShow2").style.display = "none";
+
+				//재산세율을 가리기 위한
+				document.getElementById("prptyRate1").style.display = "";
+				document.getElementById("prptyRate2").style.display = "none";
+				document.getElementById("prptyRate3").style.display = "none";
+
+				document.getElementById("f_b1").innerHTML = "라";
+				document.getElementById("f_b2").innerHTML = "마";
+				document.getElementById("f_b3").innerHTML = "바";
+				document.getElementById("f_b4").innerHTML = "사";
+				document.getElementById("f_b5").innerHTML = "= 나  + 다 + 마 + 바";
+				document.getElementById("f_b6").innerHTML = "= 라 x d";
+				document.getElementById("f_b7").innerHTML = "= a x b";
+
+			} else if(taxName == '1'){  // 주택분
+				taxDaeSangText = '60';
+				//시가표준액 text 표시
+				document.getElementById("moneyTxt1").style.display = "";
+				document.getElementById("moneyTxt2").style.display = "";
+				document.getElementById("moneyTxt3").style.display = "none";
+
+				//공정시장가액비율 text 표시
+				document.getElementById("pstTxt1").style.display = "";
+				document.getElementById("pstTxt2").style.display = "";
+				document.getElementById("pstTxt3").style.display = "none";
+
+				//지역자원시설세 시가표준액
+				document.getElementById("locHidden0").style.display = "";
+
+				//지역자원시설세 3가지 항목 보여주기 위한
+				document.getElementById("locHidden1").style.display = "";
+				document.getElementById("locHidden2").style.display = "";
+				document.getElementById("locHidden3").style.display = "";
+
+				//과세대상구분을 가리기 위한
+				document.getElementById("mulShow1").style.display = "none";
+				document.getElementById("mulShow2").style.display = "none";
+
+				//재산세율을 가리기 위한
+				document.getElementById("prptyRate1").style.display = "";
+				document.getElementById("prptyRate2").style.display = "none";
+				document.getElementById("prptyRate3").style.display = "none";
+
+				document.getElementById("f_b1").innerHTML = "마";
+				document.getElementById("f_b2").innerHTML = "바";
+				document.getElementById("f_b3").innerHTML = "사";
+				document.getElementById("f_b4").innerHTML = "아";
+				document.getElementById("f_b5").innerHTML = "= 나  + 다 + 바 + 사";
+				document.getElementById("f_b6").innerHTML = "= 마 x d";
+				document.getElementById("f_b7").innerHTML = "= 라 x b";
+
+			} else if(taxName == '2'){  // 건축물
+				taxDaeSangText = '70';
+				//시가표준액 text 표시
+				document.getElementById("moneyTxt1").style.display = "";
+				document.getElementById("moneyTxt2").style.display = "";
+				document.getElementById("moneyTxt3").style.display = "none";
+
+				//공정시장가액비율 text 표시
+				document.getElementById("pstTxt1").style.display = "";
+				document.getElementById("pstTxt2").style.display = "";
+				document.getElementById("pstTxt3").style.display = "none";
+
+				//지역자원시설세 시가표준액
+				document.getElementById("locHidden0").style.display = "none";
+
+				//지역자원시설세 3가지 항목 보여주기 위한
+				document.getElementById("locHidden1").style.display = "";
+				document.getElementById("locHidden2").style.display = "";
+				document.getElementById("locHidden3").style.display = "";
+
+				//과세대상구분을 가리기 위한
+				document.getElementById("mulShow1").style.display = "";
+				document.getElementById("mulShow2").style.display = "none";
+
+				//재산세율을 가리기 위한
+				document.getElementById("prptyRate1").style.display = "none";
+				document.getElementById("prptyRate2").style.display = "";
+				document.getElementById("prptyRate3").style.display = "none";
+
+				document.getElementById("f_b1").innerHTML = "라";
+				document.getElementById("f_b2").innerHTML = "마";
+				document.getElementById("f_b3").innerHTML = "바";
+				document.getElementById("f_b4").innerHTML = "사";
+				document.getElementById("f_b5").innerHTML = "= 나  + 다  + 마 + 바";
+				document.getElementById("f_b6").innerHTML = "= 라 x d";
+				document.getElementById("f_b7").innerHTML = "= a x b";
+
+				//과세대상구분 초기화
+				document.getElementById("mul1").value = "0";
+
+			} else if(taxName == '3'){  // 토지분
+				taxDaeSangText = '70';
+				//시가표준액 text 표시
+				document.getElementById("moneyTxt1").style.display = "none";
+				document.getElementById("moneyTxt2").style.display = "none";
+				document.getElementById("moneyTxt3").style.display = "";
+
+				//공정시장가액비율 text 표시
+				document.getElementById("pstTxt1").style.display = "none";
+				document.getElementById("pstTxt2").style.display = "none";
+				document.getElementById("pstTxt3").style.display = "";
+
+				//지역자원시설세 시가표준액
+				document.getElementById("locHidden0").style.display = "none";
+
+				//지역자원시설세 3가지 항목 가리기 위한
+				document.getElementById("locHidden1").style.display = "none";
+				document.getElementById("locHidden2").style.display = "none";
+				document.getElementById("locHidden3").style.display = "none";
+
+				//과세대상구분을 가리기 위한
+				document.getElementById("mulShow1").style.display = "none";
+				document.getElementById("mulShow2").style.display = "";
+
+				//재산세율을 가리기 위한
+				document.getElementById("prptyRate1").style.display = "none";
+				document.getElementById("prptyRate2").style.display = "none";
+				document.getElementById("prptyRate3").style.display = "";
+
+				document.getElementById("f_b1").innerHTML = "";
+				document.getElementById("f_b2").innerHTML = "";
+				document.getElementById("f_b3").innerHTML = "라";
+				document.getElementById("f_b4").innerHTML = "마";
+				document.getElementById("f_b5").innerHTML = "= 나  + 다 + 라";
+
+				//과세대상구분 초기화
+				document.getElementById("mul2").value = "0";
+
+
+			}
+
+			document.getElementById("gong_pst").value = taxDaeSangText;
+
+		}
+
+
+		function numberWithCommas(str) {
+			var number = str.toString();
+			var point = number.split('.');
+			if(point.length > 1){
+				return point[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") +"."+point[1];
+			} else {
+				return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			}
+
+		}
+
+		function unComma(str) {
+			return str.toString().replace(/[^\d]+/g,'');
+		}
+
+		function inputNumberAutoComma(obj){
+			obj.value = numberWithCommas(unComma(obj.value));
+			document.getElementById("money").value = obj.value;
+		}
+
+
+		function check_num(bExtra, txtObject) {
+			var int_value = txtObject.value;
+			var extra_value = "";
+			if (!chkPosNum(int_value)) {
+				alert("숫자를 입력해 주십시오.");
+				txtObject.focus();
+				return false;
+			}else {
+				int_value = parseInt(delZero(unMarking(int_value)));
+				if (bExtra) {
+					if (chkENum(txtObject.value, 5, 0)) txtObject.value="0";
+					if (unMarking(txtObject.value)=="" || parseFloat(unMarking(txtObject.value))==0) {
+						txtObject.value = "0"; return false;
+					} else {
+						extra_value = parseInt(unMarking(txtObject.value)*100) % 100;
+						txtObject.value = maskNum(int_value) + ( (extra_value <10 ) ? ("." + "0"+extra_value) : ("." + extra_value) );
+					}
+				} else {
+					if (maskNum(int_value)=="") txtObject.value =  "0";
+					else txtObject.value = maskNum(int_value);
+				}
+			}
+			return true;
+		}
+
+		// 과세대상구분 선택시 바로 재산세율에 내용 표시
+		// 건축물
+		function mul1Select(){
+
+			document.getElementById("summary").innerHTML = "";
+			document.getElementById("resultRateTxt1").innerHTML = "";
+			document.getElementById("resultRateTxt2").innerHTML = "";
+			document.getElementById("resultRateTxt3").innerHTML = "";
+			document.getElementById("resultValue").innerHTML = "";
+			document.getElementById("resultCityLocValue").innerHTML = "";
+			document.getElementById("locSummary").innerHTML = "";
+			document.getElementById("locRateTxt").innerHTML = "";
+			document.getElementById("locValue").innerHTML = "";
+			document.getElementById("resultDistrictValue").innerHTML = "";
+			document.getElementById("totResultValue").innerHTML = "";
+
+			var mul1DaeSang = document.getElementById("mul1");
+			var mul1Name = mul1DaeSang.options[mul1DaeSang.selectedIndex].value;
+			var mul1DaeSangText;
+
+			if(mul1Name == 0){
+				mul1DaeSangText = "";
+			}else if(mul1Name == 1){
+				mul1DaeSangText = "골프장,고급오락장";
+			}else if(mul1Name == 2){
+				mul1DaeSangText = "주거지역 및 지정지역 내 공장용 건축물";
+			}else if(mul1Name == 3){
+				mul1DaeSangText = "기타건축물";
+			}
+
+			document.getElementById("resultRateTxt2").innerHTML = mul1DaeSangText;
+
+		}
+		// 토지
+		function mul2Select(){
+
+			document.getElementById("summary").innerHTML = "";
+			document.getElementById("resultRateTxt1").innerHTML = "";
+			document.getElementById("resultRateTxt2").innerHTML = "";
+			document.getElementById("resultRateTxt3").innerHTML = "";
+			document.getElementById("resultValue").innerHTML = "";
+			document.getElementById("resultCityLocValue").innerHTML = "";
+			document.getElementById("locSummary").innerHTML = "";
+			document.getElementById("locRateTxt").innerHTML = "";
+			document.getElementById("locValue").innerHTML = "";
+			document.getElementById("resultDistrictValue").innerHTML = "";
+			document.getElementById("totResultValue").innerHTML = "";
+			document.getElementById("resultRateSubTxt").innerHTML = "";
+
+			var mul2DaeSang = document.getElementById("mul2");
+			var mul2Name = mul2DaeSang.options[mul2DaeSang.selectedIndex].value;
+			var mul2DaeSangText;
+
+			if(mul2Name == 0){
+				mul2DaeSangText = "";
+			}else if(mul2Name == 1){
+				mul2DaeSangText = "나대지 등<br>(종합합산과세)";
+			}else if(mul2Name == 2){
+				mul2DaeSangText = "사업용토지<br>(별도합산과세)";
+			}else if(mul2Name == 3){
+				mul2DaeSangText = "전·답·과수원·목장용지 및 임야<br>(분리과세)";
+			}else if(mul2Name == 4){
+				mul2DaeSangText = "골프장 및 고급오락장용 토지<br>(분리과세)";
+			}else if(mul2Name == 5){
+				mul2DaeSangText = "그 외의 토지<br>(분리과세)";
+			}
+
+			document.getElementById("resultRateTxt3").innerHTML = mul2DaeSangText;
+
+		}
+
+
+		// 계산하기 클릭시 계산
+		function calculation(){
+			var taxDaeSang = document.getElementById("tax_sel");
+			var taxName = taxDaeSang.options[taxDaeSang.selectedIndex].value;
+
+			if(taxName == "0"){
+				alert("과세대상을 선택하세요.");
+				document.getElementById("tax_sel").focus();
+				return false;
+			} else if(taxName == "1"){
+
+			} else if(taxName == "2"){
+				var mul1DaeSang = document.getElementById("mul1");
+				var mul1Name = mul1DaeSang.options[mul1DaeSang.selectedIndex].value;
+				if(mul1Name == 0){
+					alert("과세대상구분을 선택하세요.");
+					document.getElementById("mul1").focus();
+					return false;
+				}
+
+			} else if(taxName == "3"){
+				var mul2DaeSang = document.getElementById("mul2");
+				var mul2Name = mul2DaeSang.options[mul2DaeSang.selectedIndex].value;
+				if(mul2Name == 0){
+					alert("과세대상구분을 선택하세요.");
+					document.getElementById("mul2").focus();
+					return false;
+				}
+			}
+
+
+			var villaRate = 0.04;
+			//----- 주택분 선택시 재산세율 비율
+			var houseRate1 = 0.001;	 //6천만원 이하
+			var houseRate2 = 0.0015; //1억 5천만원 이하
+			var houseRate3 = 0.0025; //3억원 이하
+			var houseRate4 = 0.004;	 //3억원 초과
+
+			var houseProgressive2 = 60000;
+			var houseProgressive3 = 195000;
+			var houseProgressive4 = 570000;
+
+			//----- 건축물 선택시 재산세율 비율
+			var buildRate1 = 0.04;  // 골프장,고급오락장
+			var buildRate2 = 0.005;  // 주거지역 및 지정지역 내 공장용 건축물
+			var buildRate3 = 0.0025;  // 기타건축물
+
+			//----- 토지분 선택시 재산세율 비율
+			var tojiRate1 = 0.002; //5천만원 이하
+			var tojiRate2 = 0.003;//1억원 이하
+			var tojiRate3 = 0.005;//1억원 초과
+			var tojiRate4 = 0.002;//2억원 이하
+			var tojiRate5 = 0.003;//10억원 이하
+			var tojiRate6 = 0.004;//10억원 초과
+			var tojiRate7 = 0.0007;//전·답·과수원·목장용지 및 임야
+			var tojiRate8 = 0.04;//골프장 및 고급오락장용 토지
+			var tojiRate9 = 0.002;//그 외의 토지
+
+			var tojiProgressive1 = 100000;
+			var tojiProgressive2 = 250000;
+			var tojiProgressive3 = 400000;
+			var tojiProgressive4 = 2800000;
+
+			//----- 지역자원시설세 세율
+			var locRate1 = 0.0004;	//6백만원 이하
+			var locRate2 = 0.0005;	//1천3백만원 이하
+			var locRate3 = 0.0006;	//2천6백만원 이하
+			var locRate4 = 0.0008;	//3천9백만원 이하
+			var locRate5 = 0.001;	//6천4백만원 이하
+			var locRate6 = 0.0012;	//6천4백만원 초과
+
+			var locProgressive2 = 2400;
+			var locProgressive3 = 5900;
+			var locProgressive4 = 13700;
+			var locProgressive5 = 24100;
+			var locProgressive6 = 49100;
+
+			//----- 기입내역
+			var taxSel  = document.getElementById("tax_sel").value;  //과세대상
+			var money    = document.getElementById("money").value;    //시가표준액
+			//var mulRate  = document.getElementById("mul_pst").value;  //건축물비율
+			var gongRate = document.getElementById("gong_pst").value; //공장시장가액비율
+			var locMoney = document.getElementById("locMoney").value;  // 지역자원시설세 시가표준액
+
+			//콤마 변경
+			money = money.replace(/,/gi, "");
+			gongRate = gongRate.replace(/,/gi, "");
+			locMoney = locMoney.replace(/,/gi,"");
+
+			// 금액 미입력시 alert창 알림
+			if(money == "" || money == "0"){
+				alert("시가표준액을 입력하세요.");
+				document.getElementById("money").focus();
+				return ;
+			}  else if(gongRate == "0"){
+				alert("공정시정가액비율을 입력하세요.");
+				document.getElementById("gong_pst").focus();
+				return false;
+			}
+
+			//숫자 검색
+			if(isNaN(money) == true) {
+				alert("숫자만 입력 가능합니다.");
+				return false;
+			} else if(isNaN(gongRate) == true){
+				alert("숫자만 입력 가능합니다.");
+				return false;
+			}
+
+			//----- 기입 후 미리계산
+			var summary = money*(gongRate/100); //과세표준
+			var resultRateTxt;   //  재산세율
+			var resultValue;  // 재산세
+
+			var resultCityLocValue; //도시지역분
+
+			if(taxName == 1){
+				var locSummary = locMoney*(gongRate/100);   // 지역자원시설세 과세표준	(주택분)
+			} else if(taxName == 2){
+				var locSummary = money*(gongRate/100);   // 지역자원시설세 과세표준 (토지)
+			}
+
+
+			var locRateTxt;      // 지역자원시설세 세율
+			var locValue;     // 지역자원시설세
+
+			var resultDistrictValue; // 지방교육세
+
+
+			var totResultValue;        // total
+
+
+			if(taxName == 1){
+				// 주택분의 경우 재산세 계산
+				if(summary<=60000000){
+					resultValue = (summary*houseRate1);
+					resultRateTxt = "6천만원 이하";
+				}else if(summary>60000000 && summary<=150000000){
+					resultValue = houseProgressive2+(summary-60000000)*houseRate2;
+					resultRateTxt = "1억5천만원 이하";
+				}else if(summary>150000000 && summary<=300000000){
+					resultValue = houseProgressive3+(summary-150000000)*houseRate3;
+					resultRateTxt = "3억원 이하";
+				}else if(summary>300000000){
+					resultValue = houseProgressive4+(summary-300000000)*houseRate4;
+					resultRateTxt = "3억원 초과";
+				}
+			}else if(taxName == 2){
+				// 건축분의 경우 재산세 계산
+				if(mul1Name == 1){
+					resultValue = (summary*buildRate1);
+					resultRateTxt = "골프장,고급오락장";
+				}else if(mul1Name == 2){
+					resultValue = (summary*buildRate2);
+					resultRateTxt = "주거지역 및 지정지역 내 공장용 건축물";
+				}else if(mul1Name == 3){
+					resultValue = (summary*buildRate3);
+					resultRateTxt = "기타건축물";
+				}
+			} else if (taxName == 3) {
+			    // 토지분의 경우 재산세 계산
+			    if (mul2Name == 1) {
+			        if (summary <= 50000000) {
+			            resultValue = (summary * tojiRate1);
+						            resultRateTxt = "5천만원 이하";
+			        } else if (summary > 50000000 && summary <= 100000000) {
+			            resultValue = tojiProgressive1 + (summary - 50000000) * tojiRate2;
+			            resultRateTxt = "1억원 이하";
+			        } else if (summary > 100000000) {
+			            resultValue = tojiProgressive2 + (summary - 100000000) * tojiRate3;
+						            resultRateTxt = "1억원 초과";
+			        }
+			    } else if (mul2Name == 2) {
+			        if (summary <= 200000000) {
+			            resultValue = (summary * tojiRate4);
+			            resultRateTxt = "2억원 이하";
+			        } else if (summary > 200000000 && summary <= 1000000000) {
+			            resultValue = tojiProgressive3 + (summary - 200000000) * tojiRate5;
+			            resultRateTxt = "10억원 이하";ㅁ
+			        } else if (summary > 1000000000) {
+			            resultValue = tojiProgressive4 + (summary - 1000000000) * tojiRate6;
+			            resultRateTxt = "10억원 초과";
+			        }
+			    } else if (mul2Name == 3) {
+			        resultValue = (summary * tojiRate7);
+			        resultRateTxt = "전·답·과수원·목장용지 및 임야";
+			    } else if (mul2Name == 4) {
+			        resultValue = (summary * tojiRate8);
+			        resultRateTxt = "골프장 및 고급오락장용 토지";
+			    } else if (mul2Name == 5) {
+			        resultValue = (summary * tojiRate9);
+			        resultRateTxt = "그 외의 토지";
+			    }
+			}
+
+			// 지역자원시설세 계산
+			if(locSummary<=6000000){
+				locValue = (locSummary*locRate1);
+				locRateTxt = "6백만원 이하";
+			}else if(locSummary>6000000 && locSummary<=13000000){
+				locValue = 2400+(locSummary-6000000)*locRate2;
+				locRateTxt = "1천3백만원 이하";
+			}else if(locSummary>13000000 && locSummary<=26000000){
+				locValue = 5900+(locSummary-13000000)*locRate3;
+				locRateTxt = "2천6백만원 이하";
+			}else if(locSummary>26000000 && locSummary<=39000000){
+				locValue = 13700+(locSummary-26000000)*locRate4;
+				locRateTxt = "3천9백만원 이하";
+			}else if(locSummary>39000000 && locSummary<=64000000){
+				locValue = 24100+(locSummary-39000000)*locRate5;
+				locRateTxt = "6천4백만원 이하";
+			}else if(locSummary>64000000){
+				locValue = 49100+(locSummary-64000000)*locRate6;
+				locRateTxt = "6천4백만원 초과";
+			}
+
+			resultDistrictValue = (resultValue*0.2);  // 지방교육세
+			resultCityLocValue = summary*0.0014; // 도시지역분
+
+			//1원단위 버림
+			summary     =  Math.floor(summary) // 과세표준 -> 1원단위 살림
+			resultValue =  Math.floor(resultValue/10)*10// 재산세
+			resultCityLocValue  = Math.floor(resultCityLocValue/10)*10// 도시지역분
+			locSummary  =  Math.floor(locSummary)// 지역자원시설세 과세표준 -> 1원단위 살림
+			locValue 	=  Math.floor(locValue/10)*10// 지역자원시설세
+			resultDistrictValue = Math.floor(resultDistrictValue/10)*10		// 지방교육세
+
+
+			if(taxName == 3){
+				totResultValue = (resultValue+resultDistrictValue+resultCityLocValue);  // 합계 계산(재산세+지방교육세+도시지역분)
+			}else{
+				totResultValue = (resultValue+locValue+resultDistrictValue+resultCityLocValue);  // 합계 계산(재산세+지역자원시설세+지방교육세+도시지역분)
+			}
+
+			money = numberWithCommas(money);
+			summary = numberWithCommas(summary);
+			resultValue = numberWithCommas(resultValue);
+
+			locSummary = numberWithCommas(locSummary);
+			locValue = numberWithCommas(locValue);
+			resultDistrictValue =numberWithCommas(resultDistrictValue);
+			resultCityLocValue = numberWithCommas(resultCityLocValue);
+
+			totResultValue = numberWithCommas(totResultValue);
+
+			var summaryTable		  	 = summary
+			var resultRateTxtTable	 	 = resultRateTxt
+			var resultValueTable 	 	 = resultValue
+			var locSummaryTable	     	 = locSummary
+			var locRateTxtTable     	 = locRateTxt
+			var locValueTable        	 = locValue
+			var resultDistrictValueTable = resultDistrictValue
+			var resultCityLocValueTable  = resultCityLocValue
+
+			var totResultValueTable      = totResultValue
+
+			document.getElementById("summary").innerHTML = summaryTable;
+
+			if(taxName == 1){
+				document.getElementById("resultRateTxt1").innerHTML = resultRateTxtTable;
+			} else if(taxName == 2){
+				document.getElementById("resultRateTxt2").innerHTML = resultRateTxtTable;
+			} else if(taxName == 3){
+				document.getElementById("resultRateSubTxt").innerHTML = resultRateTxtTable;
+			}
+
+			document.getElementById("resultValue").innerHTML = resultValueTable;
+			document.getElementById("locSummary").innerHTML = locSummaryTable;
+			document.getElementById("locRateTxt").innerHTML = locRateTxtTable;
+			document.getElementById("locValue").innerHTML = locValueTable;
+			document.getElementById("resultDistrictValue").innerHTML = resultDistrictValueTable;
+			document.getElementById("resultCityLocValue").innerHTML = resultCityLocValueTable;
+			document.getElementById("totResultValue").innerHTML = totResultValueTable;
+
+		}
+	</script>
+
+</body>
+</html>
+
+
+
