@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가축분뇨량 및 퇴구비 추정 계산기</title>
+    <style>
+        /* 공통 스타일 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 1500px;
+            margin: 20px auto;
+            display: flex; /* Flex Container 설정 */
+            justify-content: space-between; /* 요소들을 좌우 정렬 */
+        }
+
+        /* 계산기 1 스타일 */
+        #animalContainer {
+            width: 70%; /* 좌측 80% 배치 */
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #tableContainer {
+            width: 100%;
+            display: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        tfoot td {
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #totalManureSum, #totalUrineSum, #totalManureUrineSum {
+            font-weight: bold;
+        }
+
+        /* 계산기 2 스타일 */
+        .estimate-container {
+            width: 23%; /* 우측 20% 배치 */
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+	    font-size: 35px;
+            text-align: center;
+            color: #333;
+            cursor: pointer;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            padding: 1px;
+            color: #555;
+        }
+        input[type="number"] {
+            width: 100px;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            text-align: center; 
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #estimateResult {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h2>가축분뇨량 및 퇴구비 추정계산기</h2>
+<div class="container">
+    <div id="animalContainer">
+        <h1>가축분뇨량 계산기</h1>
+        <label for="animal">축종:
+            <select id="animal">
+                <option value="none">선택하세요</option>
+                <option value="cow">젖소</option>
+                <option value="beef_beonsik">한우번식우</option>
+                <option value="beef_biyook">한우비육우</option>
+                <option value="pig">돼지</option>
+                <option value="poultry">산란계</option>
+                <option value="chicken">육계</option>
+            </select>
+        </label>
+
+        <div id="tableContainer" style="display: none;">
+            <table id="data-table">
+                <thead>
+                <tr>
+                    <th>세부축종</th>
+                    <th>평균체중<br>(kg)</th>
+                    <th>배설량(분)<br>(kg/두/일)</th>
+                    <th>배설량(뇨)<br>(kg/두/일)</th>
+                    <th>배설량(분뇨)<br>(kg/두/일)</th>
+                    <th>마릿수<br>(마리)</th>
+                    <th>총배출량(분)<br>(kg/일)</th>
+                    <th>총배출량(뇨)<br>(kg/일)</th>
+                    <th>총배출량(분뇨)<br>(kg/일)</th>
+                </tr>
+                </thead>
+                <tbody id="data-body">
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="6" align="center">합계</td>
+                    <td id="totalManureSum"></td>
+                    <td id="totalUrineSum"></td>
+                    <td id="totalManureUrineSum"></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="estimate-container">
+        <h1>퇴구비 추정 계산기</h1>
+        <form>
+            <label for="dailyExcretion">농장 1일 평균 총 배설량(kg):
+                <input type="number" id="dailyExcretion" name="dailyExcretion" min="0" required>
+            </label>
+
+            <label for="days">퇴구비 축적일수(일):
+                <input type="number" id="days" name="days" min="0" required>
+            </label>
+
+            <label for="conversionRate">건조 후 함수율(%):
+                <input type="number" id="conversionRate" name="conversionRate" min="0" required>
+            </label>
+
+            <label for="beddingAmount">깔짚·왕겨·톱밥 투입량(kg):
+                <input type="number" id="beddingAmount" name="beddingAmount" min="0" required>
+            </label>
+
+<label for="weightLossRate">부숙 후 무게감소율(%):
+    <input type="number" id="weightLossRate" name="weightLossRate" min="0" required>
+</label>
+
+            <button type="button" onclick="calculateEstimate()">계산하기</button>
+        </form>
+
+        <div id="estimateResult"></div>
+    </div>
+</div>
+
+<script>
+    const animalData = {
+        cow: {
+            "육성우": { 평균체중: 377.6, 분배설량: 14.9, 뇨배설량: 6.3, 분뇨배설량: 21.2},
+            "착유우": { 평균체중: 575.2, 분배설량: 41.6, 뇨배설량: 17.6, 분뇨배설량: 59.2},
+            "건유우": { 평균체중: 612.6, 분배설량: 28.2, 뇨배설량: 11.5, 분뇨배설량: 39.7}
+        },
+        beef_beonsik: {
+            "송아지": { 평균체중: 203, 분배설량: 8.9, 뇨배설량: 2.3, 분뇨배설량: 11.2 },
+            "육성우": { 평균체중: 335, 분배설량: 10.8, 뇨배설량: 3.3, 분뇨배설량: 14.1 },
+            "종빈우": { 평균체중: 487, 분배설량: 15.5, 뇨배설량: 4.6, 분뇨배설량: 20.1 }
+        },
+        beef_biyook: {
+            "송아지": { 평균체중: 191, 분배설량: 8.9, 뇨배설량: 2.7, 분뇨배설량: 11.6 },
+            "육성우": { 평균체중: 342, 분배설량: 10.4, 뇨배설량: 4.0, 분뇨배설량: 14.4 },
+            "비육전기": { 평균체중: 466, 분배설량: 13.0, 뇨배설량: 7.3, 분뇨배설량: 20.3 },
+            "비육후기": { 평균체중: 542, 분배설량: 10.6, 뇨배설량: 6.3, 분뇨배설량: 16.9 }
+        },
+        pig: {
+            "자돈": { 평균체중: 26.4, 분배설량: 0.5, 뇨배설량: 0.8, 분뇨배설량: 1.3 },
+            "육성돈": { 평균체중: 59.4, 분배설량: 1.7, 뇨배설량: 2.4, 분뇨배설량: 4.1 },
+            "비육돈": { 평균체중: 100.6, 분배설량: 2.1, 뇨배설량: 3.2, 분뇨배설량: 5.3 },
+            "임신돈": { 평균체중: 164.5, 분배설량: 1.7, 뇨배설량: 3.6, 분뇨배설량: 5.3 },
+            "분만돈": { 평균체중: 229.6, 분배설량: 3.3, 뇨배설량: 4.2, 분뇨배설량: 7.5 }
+        },
+        poultry: {
+            "육성기": { 평균체중: 1.3, 분배설량: 0.094, 뇨배설량: 0, 분뇨배설량: 0.094 },
+            "산란초기": { 평균체중: 1.8, 분배설량: 0.145, 뇨배설량: 0, 분뇨배설량: 0.145 },
+            "산란말기": { 평균체중: 2, 분배설량: 0.143, 뇨배설량: 0, 분뇨배설량: 0.143 }
+        },
+        chicken: {
+            "육계": { 평균체중: 1.3, 분배설량: 0.091, 뇨배설량: 0, 분뇨배설량: 0.091 }
+        }
+    };
+
+    const animalSelect = document.getElementById("animal");
+    const tableContainer = document.getElementById("tableContainer");
+    const dataBody = document.getElementById("data-body");
+    const totalManureSumCell = document.getElementById("totalManureSum");
+    const totalUrineSumCell = document.getElementById("totalUrineSum");
+    const totalManureUrineSumCell = document.getElementById("totalManureUrineSum");
+
+    function resetCalculator() {
+        document.getElementById("dailyExcretion").value = "";
+        document.getElementById("days").value = "";
+        document.getElementById("conversionRate").value = "";
+        document.getElementById("beddingAmount").value = "";
+        animalSelect.selectedIndex = 0;
+        tableContainer.style.display = "none";
+        dataBody.innerHTML = "";
+        totalManureSumCell.textContent = "";
+        totalUrineSumCell.textContent = "";
+        totalManureUrineSumCell.textContent = "";
+    }
+
+    animalSelect.addEventListener("change", function() {
+        const animal = this.value;
+        if (animal === "none") {
+            tableContainer.style.display = "none";
+            return;
+        }
+        tableContainer.style.display = "block";
+        populateTable(animal);
+    });
+
+    function populateTable(animal) {
+        dataBody.innerHTML = "";
+
+        for (const subtype in animalData[animal]) {
+            const row = document.createElement("tr");
+
+            const subtypeCell = document.createElement("td");
+            subtypeCell.textContent = subtype;
+            row.appendChild(subtypeCell);
+
+            const data = animalData[animal][subtype];
+            for (const key in data) {
+                const cell = document.createElement("td");
+                cell.textContent = data[key];
+                row.appendChild(cell);
+            }
+
+            const inputCell = document.createElement("td");
+            const input = document.createElement("input");
+            input.type = "number";
+            input.min = "0";
+            input.addEventListener("input", function() {
+                updateTotal();
+            });
+            inputCell.appendChild(input);
+            row.appendChild(inputCell);
+
+            const resultCell = document.createElement("td");
+            row.appendChild(resultCell);
+
+            const urineOutputCell = document.createElement("td");
+            row.appendChild(urineOutputCell);
+
+            const manureOutputCell = document.createElement("td");
+            row.appendChild(manureOutputCell);
+
+            dataBody.appendChild(row);
+        }
+
+        updateTotal();
+    }
+
+    function updateTotal() {
+        let total = 0;
+        let totalUrine = 0;
+        let totalManure = 0;
+
+        const rows = dataBody.querySelectorAll("tr");
+        rows.forEach(function(row) {
+            const numberInput = row.querySelector("input");
+            const resultCell = row.querySelector("td:nth-child(7)");
+            const urineOutputCell = row.querySelector("td:nth-child(8)");
+            const manureOutputCell = row.querySelector("td:nth-child(9)");
+            const subtype = row.querySelector("td:nth-child(1)").textContent;
+            const animal = animalSelect.value;
+
+            if (numberInput.value) {
+                const number = parseFloat(numberInput.value);
+                const manureOutput = animalData[animal][subtype].분배설량 * number;
+                const urineOutput = animalData[animal][subtype].뇨배설량 * number;
+                const dailyOutput = animalData[animal][subtype].분뇨배설량 * number;
+                resultCell.textContent = dailyOutput.toFixed(2) + " kg/일";
+                urineOutputCell.textContent = urineOutput.toFixed(2) + " kg/일";
+                manureOutputCell.textContent = manureOutput.toFixed(2) + " kg/일";
+                total += dailyOutput;
+                totalUrine += urineOutput;
+                totalManure += manureOutput;
+            } else {
+                resultCell.textContent = "";
+                urineOutputCell.textContent = "";
+                manureOutputCell.textContent = "";
+            }
+        });
+		totalManureSumCell.textContent = totalManure.toFixed(2) + " kg/일";
+		totalUrineSumCell.textContent = totalUrine.toFixed(2) + " kg/일";
+		totalManureUrineSumCell.textContent = (totalManure + totalUrine).toFixed(2) + " kg/일";
+    }
+
+    function calculateEstimate() {
+    var dailyExcretion = parseFloat(document.getElementById("dailyExcretion").value);
+    var days = parseInt(document.getElementById("days").value);
+    var conversionRate = parseFloat(document.getElementById("conversionRate").value/100);
+    var beddingAmount = parseFloat(document.getElementById("beddingAmount").value);
+    var weightLossRate = parseFloat(document.getElementById("weightLossRate").value/100); // 추가된 부분
+
+    if (dailyExcretion < 0 || days < 0 || conversionRate < 0 || beddingAmount < 0 || weightLossRate < 0) {
+        alert("입력값은 0 이상이어야 합니다.");
+        return;
+    }
+
+    var estimate = ((dailyExcretion * days * conversionRate) + beddingAmount) * (1-weightLossRate); // 수정된 부분
+
+    document.getElementById("estimateResult").innerHTML = "해당 농장의 퇴구비 배출량 추정치는 <br>" + estimate.toFixed(2) + "kg입니다.";
+}
+
+</script>
+</body>
+</html>

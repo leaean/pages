@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동력 선택</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        #container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"],
+        select {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h2>동력 선택</h2>
+        <label for="powerType">동력 유형:</label>
+        <select id="powerType" onchange="showSelectedPower()">
+            <option value="유류">유류</option>
+            <option value="전기">전기</option>
+        </select>
+        <p id="selectedPower"></p>
+
+        <h2 id="calculator1Title">계산기 1: 유류 소모량 계산</h2>
+        <label id="distanceLabel" for="distance">주행 거리(㎞):</label>
+        <input type="number" id="distance" placeholder="주행 거리(㎞)">
+        <label id="mileageLabel" for="mileage">연비(㎞/ℓ):</label>
+        <input type="number" id="mileage" placeholder="연비(㎞/ℓ)">
+        <button onclick="calculateConsumption()">계산</button>
+        <p id="result1"></p>
+        <script>
+            function calculateConsumption() {
+                var distance = parseFloat(document.getElementById('distance').value);
+                var mileage = parseFloat(document.getElementById('mileage').value);
+                
+                if (isNaN(distance) || isNaN(mileage) || distance < 0 || mileage <= 0) {
+                    alert("입력값은 0 이상의 숫자이어야 합니다.");
+                    return;
+                }
+                
+                var result = distance / mileage;
+                document.getElementById('result1').innerHTML = "소모량: " + result.toFixed(2) + " " + getUnit();
+            }
+        </script>
+
+        <h2 id="calculator2Title">계산기 2: 시간당 소모량 계산</h2>
+        <label id="fuelRateLabel" for="fuelRate">시간당 소모량(ℓ/h):</label>
+        <input type="number" id="fuelRate" placeholder="시간당 소모량(ℓ/h)">
+        <label id="timeLabel" for="time">사용 시간(h):</label>
+        <input type="number" id="time" placeholder="사용 시간(h)">
+        <button onclick="calculateHourlyConsumption()">계산</button>
+        <p id="result2"></p>
+        <script>
+            function calculateHourlyConsumption() {
+                var fuelRate = parseFloat(document.getElementById('fuelRate').value);
+                var time = parseFloat(document.getElementById('time').value);
+                
+                if (isNaN(fuelRate) || isNaN(time) || fuelRate <= 0 || time < 0) {
+                    alert("입력값은 0 이상의 숫자이어야 합니다.");
+                    return;
+                }
+                
+                var result = fuelRate * time;
+                document.getElementById('result2').innerHTML = "소모량: " + result.toFixed(2) + " " + getUnit() + "/h";
+            }
+        </script>
+
+        <h2 id="calculator3Title">계산기 3: 유류 소모량 계산</h2>
+        <label id="fuelConsumptionLabel" for="fuelConsumption">유류 소모량(ℓ):</label>
+        <input type="number" id="fuelConsumption" placeholder="유류 소모량(ℓ)">
+        <label id="unitPriceLabel" for="unitPrice">유류 단가(원/ℓ):</label>
+        <input type="number" id="unitPrice" placeholder="유류 단가(원/ℓ)">
+        <button onclick="calculateFuelCost()">계산</button>
+        <p id="result3"></p>
+        <script>
+            function calculateFuelCost() {
+                var fuelConsumption = parseFloat(document.getElementById('fuelConsumption').value);
+                var unitPrice = parseFloat(document.getElementById('unitPrice').value);
+                
+                if (isNaN(fuelConsumption) || isNaN(unitPrice) || fuelConsumption <= 0 || unitPrice <= 0) {
+alert("입력값은 0 이상의 숫자이어야 합니다.");
+return;
+}
+
+            var result = fuelConsumption * unitPrice;
+            document.getElementById('result3').innerHTML = "비용: " + result.toFixed(2) + " 원";
+        }
+    </script>
+
+    <script>
+        function showSelectedPower() {
+            var selectBox = document.getElementById("powerType");
+            var selectedValue = selectBox.value;
+
+            if (selectedValue === "전기") {
+                document.getElementById('calculator1Title').innerText = "계산기 1: 전력소모량 계산";
+                document.getElementById('calculator2Title').innerText = "계산기 2: 시간당 전력소모량(kWh/h) 계산";
+                document.getElementById('calculator3Title').innerText = "계산기 3: 전력량 비용 계산";
+                document.getElementById('mileageLabel').innerText = "전비(km/kWh):";
+                document.getElementById('fuelRateLabel').innerText = "시간당 전력소모량(kWh/h):";
+                document.getElementById('fuelConsumptionLabel').innerText = "전력소모량(kWh):";
+                document.getElementById('unitPriceLabel').innerText = "전력량 단가(원/kWh):";
+                    document.getElementById('mileage').placeholder = "전비(㎞/kWh)";
+                    document.getElementById('fuelRate').placeholder = "시간당 소모량(kWh/h)";
+                    document.getElementById('fuelConsumption').placeholder = "전력 소모량(kWh)";
+                    document.getElementById('unitPrice').placeholder = "전력량 단가(원/kWh)";	
+
+            } else {
+                document.getElementById('calculator1Title').innerText = "계산기 1: 유류 소모량 계산";
+                document.getElementById('calculator2Title').innerText = "계산기 2: 시간당 유류 소모량 계산";
+                document.getElementById('calculator3Title').innerText = "계산기 3: 유류 비용 계산";
+                document.getElementById('mileageLabel').innerText = "연비(㎞/ℓ):";
+                document.getElementById('fuelRateLabel').innerText = "시간당 소모량(ℓ/h):";
+                document.getElementById('fuelConsumptionLabel').innerText = "유류 소모량(ℓ):";
+                document.getElementById('unitPriceLabel').innerText = "유류 단가(원/ℓ):";
+                    document.getElementById('mileage').placeholder = "연비(㎞/ℓ)";
+                    document.getElementById('fuelRate').placeholder = "시간당 소모량(ℓ/h)";
+                    document.getElementById('fuelConsumption').placeholder = "유류 소모량(ℓ)";
+                    document.getElementById('unitPrice').placeholder = "유류 단가(원/ℓ)";
+            }
+        }
+
+        function getUnit() {
+            var selectBox = document.getElementById("powerType");
+            return selectBox.value === "전기" ? "kWh" : "ℓ";
+        }
+    </script>
+</div>
+</body>
+</html>
+

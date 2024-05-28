@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>재배면적 계산기</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f5f5f5;
+    }
+
+        .container {
+            width: 500px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin: 0 auto; /* 가운데 정렬 */
+        }
+        h2 {
+            text-align: center;
+            cursor: pointer;
+        }
+	p1 {
+	    font-size: 15pt; /* 텍스트 크기 */
+	    font-weight: bold; /* 텍스트 굵기 */
+	    text-align: center; /* 텍스트 정렬 */
+	}
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px; /* 버튼 아래 여백 추가 */
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 onclick="resetCalculator()">재배면적 계산기</h2>
+        <label for="rowSpacing">줄 간격(m):</label>
+        <input type="number" id="rowSpacing" min="0" step="any">
+
+        <label for="hillSpacing">포기 간격(m):</label>
+        <input type="number" id="hillSpacing" min="0" step="any">
+
+        <label for="hillCount">포기(주) 수:</label>
+        <input type="number" id="hillCount" min="0">
+
+        <label for="ratio">고랑면적 비중(전체 재배면적 대비 비율)(%):</label>
+        <input type="number" id="ratio" min="0" max="100" step="any">
+
+        <!-- "참고: 이랑 = 두둑 + 고랑" 주석 추가 -->
+        <p style="font-size: 15px; text-align: right; color: #666; margin-top: 0%">*참고: 이랑 = 두둑 + 고랑</p>
+        
+        <button onclick="calculate()">계산</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function resetCalculator() {
+            document.getElementById('rowSpacing').value = "";
+            document.getElementById('hillSpacing').value = "";
+            document.getElementById('hillCount').value = "";
+            document.getElementById('ratio').value = "";
+            document.getElementById('result').innerHTML = "";
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Enter") {
+                calculate();
+            }
+        });
+
+        function calculate() {
+            const rowSpacing = parseFloat(document.getElementById('rowSpacing').value);
+            const hillSpacing = parseFloat(document.getElementById('hillSpacing').value);
+            const hillCount = parseFloat(document.getElementById('hillCount').value);
+            const ratio = parseFloat(document.getElementById('ratio').value) / 100;
+
+            // 입력값 유효성 검사
+            if (!rowSpacing) {
+                alert("줄간격을 입력하세요.");
+                return;
+            }
+            if (!hillSpacing) {
+                alert("포기 간격을 입력하세요.");
+                return;
+            }
+            if (!hillCount) {
+                alert("포기(주) 수를 입력하세요.");
+                return;
+            }
+            if (!ratio) {
+                alert("고랑면적 비중을 입력하세요.");
+                return;
+            }
+
+            const dudukArea = rowSpacing * hillSpacing * hillCount;
+            const golangRatio = 1 - ratio; // 고랑면적 비율을 계산
+            const golangArea = dudukArea / golangRatio * ratio; // 고랑면적 계산
+            const jaebeArea = dudukArea + golangArea;
+
+            const dudukAreaRounded = numberWithCommas(Math.round(dudukArea * 100) / 100);
+            const golangAreaRounded = numberWithCommas(Math.round(golangArea * 100) / 100);
+            const jaebeAreaRounded = numberWithCommas(Math.round(jaebeArea * 100) / 100);
+
+            const result = `<p1>재배면적은 약 ${jaebeAreaRounded}㎡로 추정됩니다.</p1>
+    <p>(두둑면적은 약 ${dudukAreaRounded}㎡, 고랑면적은 약 ${golangAreaRounded}㎡로 추정됩니다.)</p>`;
+            document.getElementById('result').innerHTML = result;
+        }
+
+        // 숫자를 천 단위로 컴마 찍는 함수
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    </script>
+</body>
+</html>
