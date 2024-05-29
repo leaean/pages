@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>작물 생산량 및 재배면적 계산기</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  p {
+    text-align: center;
+    color: #333;
+  }
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  select, input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 5%;
+  }
+  button:hover {
+        opacity: 0.8;
+  }
+  #result {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+    h2 {
+        cursor: pointer;
+    }
+
+</style>
+</head>
+<body>
+<h2 onclick="resetForm()">작물 생산량 및 재배면적 계산</h2>
+<P>※ 기준치: 최근 7년치 농작물생산량조사, 농촌진흥청 통계치 평균</p>
+<form id="calculatorForm">
+  <label for="crop">작물:</label>
+  <select id="crop" required onchange="updateUnit()">
+    <option value="" disabled selected>작물을 선택하세요</option>
+    <option value="논벼">논벼</option>
+    <option value="고추">고추</option>
+    <option value="콩">콩</option>
+    <option value="마늘">마늘</option>
+    <option value="양파">양파</option>
+  </select>
+  <label for="inputType">입력 유형:</label>
+  <select id="inputType" onchange="toggleInput()" required>
+    <option value="area">재배면적</option>
+    <option value="seedingAmount">생산량</option>
+  </select>
+  <div id="areaInput" style="display: block;">
+    <label for="area">재배면적:</label>
+    <input type="number" id="area" min="0" placeholder="재배면적을 입력하세요" required>
+    <select id="unit">
+      <option value="m2">m²</option>
+      <option value="평">평</option>
+      <option value="마지기">마지기</option>
+      <option value="a">a</option>
+    </select>
+  </div>
+<div id="seedingAmountInput" style="display: none;">
+    <label for="seedingAmount">생산량:</label>
+    <input type="number" id="seedingAmount" min="0" placeholder="생산량을 입력하세요" required>
+    <span id="seedUnit">kg</span>
+</div>
+  <button type="button" onclick="calculate()">계산하기</button>
+</form>
+<p id="result"></p>
+<script>
+function toggleInput() {
+  var inputType = document.getElementById("inputType").value;
+  var areaInput = document.getElementById("areaInput");
+  var seedingAmountInput = document.getElementById("seedingAmountInput");
+  if (inputType === "area") {
+    areaInput.style.display = "block";
+    seedingAmountInput.style.display = "none";
+  } else {
+    areaInput.style.display = "none";
+    seedingAmountInput.style.display = "block";
+  }
+}
+
+function updateUnit() {
+  var seedUnit = document.getElementById("seedUnit");
+  seedUnit.textContent = "kg"; // 항상 "kg"로 설정
+}
+
+function calculate() {
+  var crop = document.getElementById("crop").value;
+  var inputType = document.getElementById("inputType").value;
+  var result = document.getElementById("result");
+
+  var conversionRates = {
+    "평": 3.3,
+    "마지기": 660,
+    "a": 100,
+    "m2": 1
+  };
+
+  var seedingRates = {
+        "논벼": 0,
+        "고추": 1,
+        "콩": 2,
+        "마늘": 3,
+        "양파": 4
+  };
+
+  if (!crop) {
+    result.textContent = "작물을 선택하세요.";
+    return;
+  }
+
+  var unit = document.getElementById("seedUnit").textContent;
+
+  if (inputType === "area") {
+    var area = parseFloat(document.getElementById("area").value);
+    var unit = document.getElementById("unit").value;
+    if (isNaN(area) || area <= 0) {
+      result.textContent = "유효한 재배면적을 입력하세요.";
+      return;
+    }
+
+    area *= conversionRates[unit];
+    var seedingAmount = seedingRates[crop] * area / 1000;
+    var seedingAmountMin = seedingAmount * 0.7;
+    var seedingAmountMax = seedingAmount * 1.3;
+
+    var unitLabel = "kg"; // 항상 kg로 표시
+    result.innerHTML = `예상 량: 약 ${seedingAmount.toFixed(2)}${unitLabel}<br>(±30% 오차범위: ${seedingAmountMin.toFixed(2)}${unitLabel} - ${seedingAmountMax.toFixed(2)}${unitLabel})`;
+  } else {
+    var seedingAmount = parseFloat(document.getElementById("seedingAmount").value);
+    if (isNaN(seedingAmount) || seedingAmount <= 0) {
+      result.textContent = "유효한 생산 입력하세요.";
+      return;
+    }
+
+    var area = seedingAmount / (seedingRates[crop] / 1000);
+    var areaMin = area * 0.7;
+    var areaMax = area * 1.3;
+
+    result.innerHTML = `예상 재배면적: 약 ${area.toFixed(2)}m²<br>(±30% 오차범위: ${areaMin.toFixed(2)}m² - ${areaMax.toFixed(2)}m²)`;
+  }
+}
+</script>
+</body>
+</html>
+
