@@ -5,60 +5,74 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>파종량/재배면적 검토</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-    }
-    .container {
-        max-width: 400px;
-        margin: 0 auto;
-        text-align: center;
-    }
-    input[type="number"], select {
-        width: 100%;
-        padding: 10px;
-        margin: 5px 0;
-        box-sizing: border-box;
-    }
-    button {
-        background-color: #007bff;
-        color: white;
-        padding: 10px 20px;
-        margin: 8px 0;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-    }
-    button:hover {
-        opacity: 0.8;
-    }
-    h2 {
-        cursor: pointer;
-    }
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  .container {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  input[type="number"], select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+  }
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  button:hover {
+    opacity: 0.8;
+  }
+  h2 {
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
 <div class="container">
     <h2 onclick="resetForm()">파종량/재배면적 검토</h2>
-    <strong><label for="crop">작물 선택</label></strong>
-    <select id="crop" onchange="updateUnit()">
-        <option value="논벼">논벼</option>
-        <option value="고추">고추</option>
-        <option value="콩">콩</option>
-        <option value="마늘">마늘</option>
-        <option value="양파">양파</option>
-    </select>
-    <strong><label for="area">재배면적</label></strong>
-    <input type="number" id="area" placeholder="재배면적을 입력하세요">
-    <select id="unit">
-        <option value="m2">m²</option>
-        <option value="평">평</option>
-        <option value="마지기">마지기</option>
-        <option value="a">a</option>
-    </select>
-    <strong><label for="seeds">파종량</label></strong>
-    <input type="number" id="seeds" placeholder="파종량을 입력하세요">
-    <span id="seedUnit">kg</span>
-    <button onclick="calculate()">검토</button>
+    <p>※ 기준치: 2017~2023 농산물생산비조사 평균</p>
+    <form id="seedingForm">
+        <strong><label for="crop">작물 선택</label></strong>
+        <select id="crop" onchange="updateUnit()">
+            <option value="논벼">논벼</option>
+            <option value="고추">고추</option>
+            <option value="콩">콩</option>
+            <option value="마늘">마늘</option>
+            <option value="양파">양파</option>
+        </select>
+        <strong><label for="area">재배면적</label></strong>
+        <input type="number" id="area" placeholder="재배면적을 입력하세요">
+        <select id="unit">
+            <option value="m2">m²</option>
+            <option value="평">평</option>
+            <option value="마지기">마지기</option>
+            <option value="a">a</option>
+        </select>
+        <strong><label for="seeds">파종량</label></strong>
+        <input type="number" id="seeds" placeholder="파종량을 입력하세요">
+        <span id="seedUnit">kg</span>
+        <button type="button" onclick="calculate()">검토</button>
+    </form>
     <p id="result"></p>
 </div>
 
@@ -75,9 +89,9 @@ function updateUnit() {
 }
 
 function calculate() {
-    var area = document.getElementById("area").value;
+    var area = parseFloat(document.getElementById("area").value);
     var selectedUnit = document.getElementById("unit").value;
-    var seeds = document.getElementById("seeds").value;
+    var seeds = parseFloat(document.getElementById("seeds").value);
     var selectedCrop = document.getElementById("crop").value;
 
     // Convert area to square meters based on selected unit
@@ -97,112 +111,99 @@ function calculate() {
     }
 
     // Validation for area input
-    if (area === "" || area <= 0) {
+    if (isNaN(area) || area <= 0) {
         alert("유효한 재배면적을 입력하세요.");
         return;
     }
 
     // Validation for seeds input
-    if (seeds === "" || seeds <= 0) {
+    if (isNaN(seeds) || seeds <= 0) {
         alert("유효한 파종량을 입력하세요.");
         return;
     }
 
-    // Convert seeds to the appropriate unit
+    // Convert seeds to kilograms if necessary
     var seedUnit = document.getElementById("seedUnit").textContent;
     if (seedUnit === "g") {
-        seeds = parseFloat(seeds) / 1000;  // Convert grams to kilograms
-    } else {
-        seeds = parseFloat(seeds);
+        seeds = seeds / 1000;  // Convert grams to kilograms
     }
+
+    // Expected seeding rate per 10a (1000 m²)
+    var expectedSeedingRates = {
+        "논벼": 6.75,
+        "고추": 24.71 / 1000,
+        "콩": 6.11,
+        "마늘": 182.73,
+        "양파": 210.1 / 1000
+    };
+    var expectedSeedingRatePer10a = expectedSeedingRates[selectedCrop];
 
     // Calculate seeding rate per square meter
     var seedingRatePerMeter = seeds / area * 1000;
 
-    // Expected seeding rate for selected crop
-    var expectedSeedingRates = {
-        "논벼": 6.75,
-        "고추": 24.71,
-        "콩": 6.11,
-        "마늘": 182.73,
-        "양파": 210.1
-    };
-    var expectedSeedingRate = expectedSeedingRates[selectedCrop];
-
     // Calculate the percentage difference
-    var percentageDifference = ((seedingRatePerMeter - expectedSeedingRate) / expectedSeedingRate) * 100;
+    var percentageDifference = ((seedingRatePerMeter - expectedSeedingRatePer10a) / expectedSeedingRatePer10a) * 100;
 
     // Determine the message and color based on the percentage difference
     var message = "";
     var color = "";
-    if (percentageDifference >= 20) {
+    if (percentageDifference >= 30) {
         message = "<strong>작물재배면적 대비 파종량이 너무 많습니다.</strong>";
         color = "red";
-    } else if (percentageDifference >= 15) {
+    } else if (percentageDifference >= 20) {
         message = "<strong>작물재배면적 대비 파종량이 다소 많습니다.</strong>";
         color = "orange";
-    } else if (percentageDifference >= -15 && percentageDifference <= 15) {
+    } else if (percentageDifference > -20 && percentageDifference <= 20) {
         message = "<strong>작물재배면적 대비 파종량이 적정 범위에 있습니다.</strong>";
         color = "blue";
-    } else if (percentageDifference <= -20) {
+    } else if (percentageDifference <= -30) {
         message = "<strong>작물재배면적 대비 파종량이 너무 적습니다.</strong>";
         color = "red";
-    } else if (percentageDifference <= -15) {
+    } else if (percentageDifference <= -20) {
         message = "<strong>작물재배면적 대비 파종량이 다소 적습니다.</strong>";
         color = "orange";
+    }
+
+    // Additional messages
+    var inputSeedingRatePer10a = seeds / area * 1000;
+    var errorPercentage = Math.abs(percentageDifference);
+
+    // Determine the unit for additional messages
+    var unit = (selectedCrop === "고추" || selectedCrop === "양파") ? "g" : "kg";
+    var conversionFactor = (unit === "g") ? 1000 : 1;
+
+    var additionalMessages = `
+        <span style="color: black;">입력한 값의 10a당 파종량은 <span style="color: ${color};">${(inputSeedingRatePer10a * conversionFactor).toFixed(2)}${unit}</span>입니다.</span><br>
+        <span style="color: black;">입력값의 오차가 <span style="color: ${color};">${errorPercentage.toFixed(2)}%</span>입니다.</span><br>
+        <strong><span style="color: black;">대상작물의 적정 10a당 파종량: <span style="color: blue;">${(expectedSeedingRatePer10a * conversionFactor).toFixed(2)}${unit}</span></strong><br>
+    `;
+
+    // Calculate seeding amount for the entered area
+    var seedingAmount = expectedSeedingRatePer10a / 1000 * area;
+    var errorRange2 = seedingAmount * 0.3;
+
+    additionalMessages += `
+        <strong><span style="color: black;">입력한 재배면적에 대한 적정 파종량: <span style="color: blue;">${(seedingAmount * conversionFactor).toFixed(2)}${unit}</span></span><br>
+        <strong><span style="color: black;">(±30% 오차범위: </span><span style="color: blue;">${((seedingAmount - errorRange2) * conversionFactor).toFixed(2)}${unit} ~ ${((seedingAmount + errorRange2) * conversionFactor).toFixed(2)}${unit}</span><strong><span style="color: black;">)</span></strong><br>
+    `;
+
+    // Display the result
+    var resultElement = document.getElementById("result");
+    resultElement.style.color = color;
+    resultElement.innerHTML = message + "<br>" + additionalMessages;
 }
 
-// Additional messages
-var inputSeedingRatePer10a = seeds * 10 / area;
-var expectedSeedingRatePer10a = expectedSeedingRate;
-var errorPercentage = Math.abs(percentageDifference);
-
-var additionalMessages = `
-    <span style="color: black;">입력한 값의 10a당 파종량은 <span style="color: ${color};">${(inputSeedingRatePer10a * 100).toFixed(2)}kg</span>입니다.</span><br>
-    <span style="color: black;">입력값의 오차가 <span style="color: ${color};">${errorPercentage.toFixed(2)}%</span>입니다.</span><br>
-    <strong><span style="color: black;">대상작물의 적정 10a당 파종량: <span style="color: blue;">${expectedSeedingRatePer10a}kg</span> <br>
-`;
-
-// Calculate seeding amount for the entered area based on unit
-var seedingAmount;
-switch(selectedUnit) {
-    case "m2":
-        seedingAmount = (expectedSeedingRatePer10a / 1000) * area;
-        break;
-    case "평":
-        seedingAmount = (expectedSeedingRatePer10a / 1000) * (area * 3.3);
-        break;
-    case "a":
-        seedingAmount = (expectedSeedingRatePer10a / 1000) * (area * 100);
-        break;
-    case "마지기":
-        seedingAmount = (expectedSeedingRatePer10a / 1000) * (area * 660);
-        break;
-}
-
-var errorRange2 = seedingAmount * 0.2;
-
-additionalMessages += `
-    <strong><span style="color: black;">입력한 재배면적에 대한 적정 파종량: <span style="color: blue;">${seedingAmount.toFixed(2)}kg</span></span><br>
-    (±20% 오차범위: <span style="color: blue;">${(seedingAmount - errorRange2).toFixed(2)}kg ~ ${(seedingAmount + errorRange2).toFixed(2)}kg)</span></strong><br>
-
-`;
-
-// Display the result
-var resultElement = document.getElementById("result");
-resultElement.style.color = color;
-resultElement.innerHTML = message + "<br>" + additionalMessages;
-
-// Reset the form fields
-document.getElementById("area").value = "";
-document.getElementById("seeds").value = "";
+function resetForm() {
+    document.getElementById("area").value = "";
+    document.getElementById("seeds").value = "";
+    document.getElementById("result").innerHTML = "";
+    updateUnit();
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-updateUnit();
+    updateUnit();
 });
 </script>
 
 </body>
 </html>
-
