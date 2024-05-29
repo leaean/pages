@@ -110,6 +110,17 @@
             margin-top: 20px;
             font-weight: bold;
         }
+
+        /* 미디어 쿼리: 페이지 너비가 768px보다 작은 경우 */
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column; /* 요소들을 위아래로 배치 */
+            }
+            #animalContainer, .estimate-container {
+                width: 100%; /* 전체 너비를 차지하도록 변경 */
+                margin-bottom: 20px; /* 위아래 여백 추가 */
+            }
+        }
     </style>
 </head>
 <body>
