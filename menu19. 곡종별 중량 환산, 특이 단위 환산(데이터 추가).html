@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>무게 변환 및 환산 계산기</title>
+<style>
+    /* 스타일 시트 */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+
+    .calculator-container {
+        display: flex;
+        flex-direction: column; /* 수직으로 배열 */
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .calculator {
+        padding: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 20px; /* 각 계산기 사이의 간격 */
+    }
+
+    .calculator h2 {
+        margin-top: 0;
+        font-size: 20px;
+        color: #333;
+        cursor: pointer; /* 클릭 이벤트를 위해 커서를 포인터로 변경 */
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    select, input[type="number"] {
+        width: calc(100% - 22px);
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .result {
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+@media (max-width: 600px) {
+    /* 모바일 화면에서는 한 줄에 하나씩 표시 */
+    .calculator-container {
+        padding: 10px;
+    }
+
+    .calculator {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+}
+</style>
+
+</head>
+<body>
+    <h1 style="text-align: center; cursor: pointer;" onclick="resetCalculators()">무게 변환 및 환산 계산기</h1>
+    <div class="calculator-container">
+        <div class="calculator">
+            <h2 onclick="resetUnitConverter()">단위 변환 계산기</h2>
+            <label for="region">지역:</label>
+            <select id="region">
+                <option value="" disabled selected>선택</option>
+                <option value="region1">남부지방</option>
+                <option value="region2">중부지방</option>
+            </select>
+
+            <label for="crop">작물:</label>
+<select id="crop">
+    <option value="" disabled selected>선택</option>
+<option value="참깨">참깨</option>
+<option value="들깨">들깨</option>
+<option value="흑임자">흑임자</option>
+<option value="대두/검정콩">대두/검정콩</option>
+<option value="팥">팥</option>
+<option value="소두">소두</option>
+<option value="녹두">녹두</option>
+<option value="완두">완두</option>
+<option value="채두">채두</option>
+<option value="땅콩(조곡)">땅콩(조곡)</option>
+<option value="땅콩(정곡)">땅콩(정곡)</option>
+<option value="유채">유채</option>
+<option value="율무">율무</option>
+<option value="정조">정조</option>
+<option value="현미">현미</option>
+<option value="백미">백미</option>
+<option value="외미">외미</option>
+<option value="대맥">대맥</option>
+<option value="과맥">과맥</option>
+<option value="소맥">소맥</option>
+<option value="대과맥(정곡)">대과맥(정곡)</option>
+<option value="맥주맥">맥주맥</option>
+<option value="호맥">호맥</option>
+<option value="소맥(정곡)">소맥(정곡)</option>
+<option value="소맥분">소맥분</option>
+<option value="호맥분">호맥분</option>
+<option value="연맥(조곡)">연맥(조곡)</option>
+<option value="연맥(귀리)(정곡)">연맥(귀리)(정곡)</option>
+<option value="압맥">압맥</option>
+<option value="교맥(정곡)">교맥(정곡)</option>
+<option value="교맥(메밀)(조곡)">교맥(메밀)(조곡)</option>
+<option value="조(조곡)">조(조곡)</option>
+<option value="조(정곡)">조(정곡)</option>
+<option value="피(조곡)">피(조곡)</option>
+<option value="피(정곡)">피(정곡)</option>
+<option value="기장(조곡)">기장(조곡)</option>
+<option value="기장(정곡)">기장(정곡)</option>
+<option value="수수(조곡)">수수(조곡)</option>
+<option value="수수(정곡)">수수(정곡)</option>
+<option value="옥수수">옥수수</option>
+<option value="보미">보미</option>
+<option value="백세미">백세미</option></select>
+
+            <label for="value">수량:</label>
+            <input type="number" id="value">
+
+            <label for="unit">단위:</label>
+            <select id="unit">
+                <option value="" disabled selected>선택</option>
+                <option value="hop">홉</option>
+                <option value="doen">되</option>
+                <option value="mal">말</option>
+                <option value="seom">섬</option>
+            </select>
+
+            <button onclick="convertUnit()">변환</button>
+
+            <p id="resultUnit" class="result"></p>
+        </div>
+
+        <div class="calculator">
+            <h2 onclick="resetWeightConverter()">무게 환산 계산기</h2>
+            <label for="item">품목:</label>
+            <select id="item" onchange="updateUnitOptions()">
+                <option value="" disabled selected>선택</option>
+                <option value="sesameOil">참기름→참깨</option>
+                <option value="perillaOil">들기름→들깨</option>
+                <option value="meju">메주→메주콩</option>
+                <option value="driedPepper">건고추</option>
+                <option value="waterCelery">미나리</option>
+                <option value="spinach">시금치</option>
+                <option value="ginseng">인삼</option>
+            </select>
+            <br><br>
+            <label for="valueWeight">수량:</label>
+            <input type="number" id="valueWeight">
+            <br><br>
+            <label for="unitWeight">단위 선택:</label>
+            <select id="unitWeight">
+                <option value="" disabled selected>선택</option>
+                <!-- 단위 옵션은 JavaScript로 업데이트됩니다. -->
+            </select>
+            <br>
+            <button onclick="convertWeight()">변환</button>
+            <div id="resultWeight" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript 코드
+function convertUnit() {
+    var region = document.getElementById("region").value;
+    var crop = document.getElementById("crop").value;
+    var value = parseFloat(document.getElementById("value").value);
+    var unit = document.getElementById("unit").value;
+    var result;
+
+    var unitConversion = {
+        "region1": {
+            "hop": 1,   
+            "doen": 10, 
+            "mal": 100, 
+            "seom": 1000
+        },
+        "region2": {
+            "hop": 1,   
+            "doen": 5, 
+            "mal": 50, 
+            "seom": 500
+        }
+    };
+
+var hopWeight = {
+    "참깨": 0.11,
+    "들깨": 0.08,
+    "흑임자": 0.09,
+    "대두/검정콩": 0.13,
+    "팥": 0.15,
+    "소두": 0.15,
+    "녹두": 0.15,
+    "완두": 0.14,
+    "채두": 0.14,
+    "땅콩(조곡)": 0.07,
+    "땅콩(정곡)": 0.13,
+    "유채": 0.11,
+    "율무": 0.14,
+    "정조": 0.1,
+    "현미": 0.15,
+    "백미": 0.14,
+    "외미": 0.1,
+    "대맥": 0.1,
+    "과맥": 0.14,
+    "소맥": 0.14,
+    "대과맥(정곡)": 0.14,
+    "맥주맥": 0.12,
+    "호맥": 0.12,
+    "소맥(정곡)": 0.15,
+    "소맥분": 0.1,
+    "호맥분": 0.1,
+    "연맥(조곡)": 0.08,
+    "연맥(귀리)(정곡)": 0.14,
+    "압맥": 0.13,
+    "교맥(정곡)": 0.12,
+    "교맥(메밀)(조곡)": 0.1,
+    "조(조곡)": 0.11,
+    "조(정곡)": 0.14,
+    "피(조곡)": 0.07,
+    "피(정곡)": 0.14,
+    "기장(조곡)": 0.11,
+    "기장(정곡)": 0.14,
+    "수수(조곡)": 0.13,
+    "수수(정곡)": 0.14,
+    "옥수수": 0.13,
+    "보미": 0.11,
+    "백세미": 0.12
+};
+
+    if (unit === "hop") {
+        result = value * hopWeight[crop];
+    } else {
+        var hopPerUnit = unitConversion[region][unit]; 
+        result = value * hopPerUnit * hopWeight[crop]; 
+    }
+
+    // Add ±10% margin of error
+    var minResult = result * 0.9;
+    var maxResult = result * 1.1;
+
+    // Display result with ±10% margin of error
+    document.getElementById("resultUnit").innerHTML = "환산 결과 " + "<br>" + result.toFixed(2) + "kg" + " ( ±10% 오차범위: " + minResult.toFixed(2) + "kg ~ " + maxResult.toFixed(2) + "kg )";
+}
+
+// 두 번째 계산기의 JavaScript 코드
+function updateUnitOptions() {
+    var item = document.getElementById("item").value;
+    var unitSelect = document.getElementById("unitWeight");
+    unitSelect.innerHTML = ""; 
+    
+    var units = {
+        "sesameOil": ["병(350ml)"],
+        "perillaOil": ["병(350ml)"],
+        "meju": ["말"],
+        "driedPepper": ["근"],
+        "waterCelery": ["근"],
+        "spinach": ["근"],
+        "ginseng": ["채"]
+    };
+
+    units[item].forEach(function(unit) {
+        var option = document.createElement("option");
+        option.value = unit;
+        option.textContent = unit;
+        unitSelect.appendChild(option);
+    });
+}
+
+function convertWeight() {
+    var item = document.getElementById("item").value;
+    var value = parseFloat(document.getElementById("valueWeight").value);
+    var unit = document.getElementById("unitWeight").value;
+
+    var conversionTable = {
+        "sesameOil": { "병(350ml)": 0.75 },
+        "perillaOil": { "병(350ml)": 0.91 },
+        "meju": { "말": 7.2 },
+        "driedPepper": { "근": 0.6 },
+        "waterCelery": { "근": 0.2 },
+        "spinach": { "근": 0.15 },
+        "ginseng": { "채": 0.75 }
+    };
+
+    var result = value * conversionTable[item][unit];
+
+
+    // Add ±10% margin of error
+    var minResult = result * 0.9;
+    var maxResult = result * 1.1;
+    
+    // Display result with ±10% margin of error
+    document.getElementById("resultWeight").innerHTML = "환산결과 " + "<br>" + result.toFixed(2) + "kg" + " ( ±10% 오차범위: " + minResult.toFixed(2) + "kg ~ " + maxResult.toFixed(2) + "kg )";
+}
+
+        // 초기화 함수
+        function resetCalculators() {
+            // 첫 번째 계산기 초기화
+            document.getElementById("region").selectedIndex = 0;
+            document.getElementById("crop").selectedIndex = 0;
+            document.getElementById("value").value = "";
+            document.getElementById("unit").selectedIndex = 0;
+            document.getElementById("resultUnit").innerText = "";
+
+            // 두 번째 계산기 초기화
+            document.getElementById("item").selectedIndex = 0;
+            document.getElementById("valueWeight").value = "";
+            document.getElementById("unitWeight").selectedIndex = 0;
+            document.getElementById("resultWeight").innerText = "";
+        }
+
+        // 각 계산기의 초기화 함수
+        function resetUnitConverter() {
+            document.getElementById("region").selectedIndex = 0;
+            document.getElementById("crop").selectedIndex = 0;
+            document.getElementById("value").value = "";
+            document.getElementById("unit").selectedIndex = 0;
+            document.getElementById("resultUnit").innerText = "";
+        }
+
+        function resetWeightConverter() {
+            document.getElementById("item").selectedIndex = 0;
+            document.getElementById("valueWeight").value = "";
+            document.getElementById("unitWeight").selectedIndex = 0;
+            document.getElementById("resultWeight").innerText = "";
+        }
+    </script>
+</body>
+</html>
