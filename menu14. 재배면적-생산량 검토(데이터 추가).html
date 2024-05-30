@@ -223,9 +223,14 @@
 function updateUnit() {
     var crop = document.getElementById("crop").value;
     var seedUnit = document.getElementById("seedUnit");
-    seedUnit.textContent = "kg"; // 항상 "kg"로 설정
-}
+    if (crop === "국화" || crop === "장미") {
+        seedUnit.textContent = "본";
+    } else if (crop === "노지풋옥수수") {
+        seedUnit.textContent = "개";
+    }
+//    seedUnit.textContent = "kg"; // 항상 "kg"로 설정
 
+  
 function calculate() {
     var area = parseFloat(document.getElementById("area").value);
     var selectedUnit = document.getElementById("unit").value;
@@ -260,11 +265,6 @@ function calculate() {
         return;
     }
 
-    // Convert seeds to kilograms if necessary
-    var seedUnit = document.getElementById("seedUnit").textContent;
-    if (seedUnit === "g") {
-        seeds = seeds / 1000;  // Convert grams to kilograms
-    }
 
     // Expected seeding rate per 10a (1000 m²)
     var expectedSeedingRates = {
