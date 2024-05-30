@@ -5,21 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>작물 간격표</title>
     <style>
-        table, th, td {
-            border: 1px solid black;
+        table {
             border-collapse: collapse;
+            width: 100%;
         }
         th, td {
-            padding: 8px;
+            border: 1px solid #dddddd;
             text-align: center;
+            padding: 10px;
         }
+        th {
+            background-color: #f2f2f2;
+        }
+        p {
+            text-align: left;
+        }
+
     </style>
 </head>
 <body>
 
 <h2>재배면적 계산식</h2>
 <table>
-    <th>가경면적: 한 필지에서 경작 가능한 면적<br>작물면적: 가경면적 중 작물이 재배되는 면적<br>(= 주수*포기간격*줄간격)<br>고랑면적: 가경면적 중 고랑이 차지하는 면적<br>(= 가경면적*고랑 비중(%))<br>재배면적: 작물면적+고랑면적</th>
+    <th><p>가경면적: 한 필지에서 경작 가능한 면적<br>작물면적: 가경면적 중 작물이 재배되는 면적<br>(= 주수*포기간격*줄간격)<br>고랑면적: 가경면적 중 고랑이 차지하는 면적<br>(= 가경면적*고랑 비중(%))<br>재배면적: 작물면적+고랑면적<p></th>
 </table><br>
 
     <h2>작물 간격표</h2>
@@ -34,47 +42,47 @@
         </tr>
     </thead>
     <tbody>
-        <tr><td>가지</td><td>90</td><td>90</td><td>60</td></tr>
-        <tr><td>감자</td><td>70</td><td>50</td><td>20</td></tr>
-        <tr><td>갓</td><td>120</td><td>30</td><td>10</td></tr>
-        <tr><td>고구마</td><td>75</td><td>75</td><td>25</td></tr>
-        <tr><td>고추</td><td>75</td><td>75</td><td>40</td></tr>
-        <tr><td>과수</td><td>-</td><td>300</td><td>300</td></tr>
-        <tr><td>근대</td><td>120</td><td>30</td><td>30</td></tr>
-        <tr><td>당근</td><td>120</td><td>60</td><td>13</td></tr>
-        <tr><td>대파</td><td>75</td><td>75</td><td>9</td></tr>
-        <tr><td>도라지</td><td>75</td><td>75</td><td>10</td></tr>
-        <tr><td>들깨</td><td>120</td><td>10</td><td>10</td></tr>
-        <tr><td>딸기</td><td>80</td><td>40</td><td>30</td></tr>
-        <tr><td>무</td><td>75</td><td>75*30</td><td></td></tr>
-        <tr><td>박하</td><td>120</td><td>30</td><td>30</td></tr>
-        <tr><td>배추</td><td>75</td><td>75</td><td>45</td></tr>
-        <tr><td>부추</td><td>120</td><td>60</td><td>30</td></tr>
-        <tr><td>브로콜리</td><td>120</td><td>60</td><td>35</td></tr>
-        <tr><td>상추</td><td>120</td><td>20</td><td>20</td></tr>
-        <tr><td>수박</td><td>180</td><td>180</td><td>120</td></tr>
-        <tr><td>쑥갓</td><td>120</td><td>30</td><td>20</td></tr>
-        <tr><td>시금치</td><td>120</td><td>20</td><td>5</td></tr>
-        <tr><td>아욱</td><td>120</td><td>30</td><td>20</td></tr>
-        <tr><td>알타리무</td><td>120</td><td>15</td><td>15</td></tr>
-        <tr><td>양배추</td><td>140</td><td>70</td><td>60</td></tr>
-        <tr><td>양파</td><td>120</td><td>20</td><td>15</td></tr>
-        <tr><td>양상추</td><td>120</td><td>30</td><td>30</td></tr>
-        <tr><td>엇갈이배추</td><td>120</td><td>40</td><td>30</td></tr>
-        <tr><td>열무</td><td>120</td><td>15</td><td>15</td></tr>
-        <tr><td>엔다이브</td><td>120</td><td>25</td><td>25</td></tr>
-        <tr><td>오이</td><td>120</td><td>90</td><td>45</td></tr>
-        <tr><td>옥수수</td><td>120</td><td>60</td><td>25</td></tr>
-        <tr><td>쥬키니호박</td><td>120</td><td>120</td><td>60</td></tr>
-        <tr><td>쪽파</td><td>120</td><td>15</td><td>15</td></tr>
-        <tr><td>참외</td><td>180</td><td>180</td><td>60</td></tr>
-        <tr><td>취나물</td><td>120</td><td>30</td><td>20</td></tr>
-        <tr><td>케일</td><td>80</td><td>50</td><td>10</td></tr>
-        <tr><td>콩</td><td>120</td><td>60</td><td>20</td></tr>
-        <tr><td>토마토</td><td>90</td><td>90</td><td>45</td></tr>
-        <tr><td>토란</td><td>120</td><td>120</td><td>60</td></tr>
-        <tr><td>호박</td><td>150</td><td>150</td><td>120</td></tr>
-        <tr><td>해바라기</td><td>120</td><td>60</td><td>30</td></tr>
+<tr><td>가지</td><td>0.9</td><td>0.9</td><td>0.6</td></tr>
+<tr><td>감자</td><td>0.7</td><td>0.5</td><td>0.2</td></tr>
+<tr><td>갓</td><td>1.2</td><td>0.3</td><td>0.1</td></tr>
+<tr><td>고구마</td><td>0.75</td><td>0.75</td><td>0.25</td></tr>
+<tr><td>고추</td><td>0.75</td><td>0.75</td><td>0.4</td></tr>
+<tr><td>과수</td><td>-</td><td>3</td><td>3</td></tr>
+<tr><td>근대</td><td>1.2</td><td>0.3</td><td>0.3</td></tr>
+<tr><td>당근</td><td>1.2</td><td>0.6</td><td>0.13</td></tr>
+<tr><td>대파</td><td>0.75</td><td>0.75</td><td>0.09</td></tr>
+<tr><td>도라지</td><td>0.75</td><td>0.75</td><td>0.1</td></tr>
+<tr><td>들깨</td><td>1.2</td><td>0.1</td><td>0.1</td></tr>
+<tr><td>딸기</td><td>0.8</td><td>0.4</td><td>0.3</td></tr>
+<tr><td>무</td><td>0.75</td><td>0.75</td><td>0.3</td></tr>
+<tr><td>박하</td><td>1.2</td><td>0.3</td><td>0.3</td></tr>
+<tr><td>배추</td><td>0.75</td><td>0.75</td><td>0.45</td></tr>
+<tr><td>부추</td><td>1.2</td><td>0.6</td><td>0.3</td></tr>
+<tr><td>브로콜리</td><td>1.2</td><td>0.6</td><td>0.35</td></tr>
+<tr><td>상추</td><td>1.2</td><td>0.2</td><td>0.2</td></tr>
+<tr><td>수박</td><td>1.8</td><td>1.8</td><td>1.2</td></tr>
+<tr><td>쑥갓</td><td>1.2</td><td>0.3</td><td>0.2</td></tr>
+<tr><td>시금치</td><td>1.2</td><td>0.2</td><td>0.05</td></tr>
+<tr><td>아욱</td><td>1.2</td><td>0.3</td><td>0.2</td></tr>
+<tr><td>알타리무</td><td>1.2</td><td>0.15</td><td>0.15</td></tr>
+<tr><td>양배추</td><td>1.4</td><td>0.7</td><td>0.6</td></tr>
+<tr><td>양파</td><td>1.2</td><td>0.2</td><td>0.15</td></tr>
+<tr><td>양상추</td><td>1.2</td><td>0.3</td><td>0.3</td></tr>
+<tr><td>엇갈이배추</td><td>1.2</td><td>0.4</td><td>0.3</td></tr>
+<tr><td>열무</td><td>1.2</td><td>0.15</td><td>0.15</td></tr>
+<tr><td>엔다이브</td><td>1.2</td><td>0.25</td><td>0.25</td></tr>
+<tr><td>오이</td><td>1.2</td><td>0.9</td><td>0.45</td></tr>
+<tr><td>옥수수</td><td>1.2</td><td>0.6</td><td>0.25</td></tr>
+<tr><td>쥬키니호박</td><td>1.2</td><td>1.2</td><td>0.6</td></tr>
+<tr><td>쪽파</td><td>1.2</td><td>0.15</td><td>0.15</td></tr>
+<tr><td>참외</td><td>1.8</td><td>1.8</td><td>0.6</td></tr>
+<tr><td>취나물</td><td>1.2</td><td>0.3</td><td>0.2</td></tr>
+<tr><td>케일</td><td>0.8</td><td>0.5</td><td>0.1</td></tr>
+<tr><td>콩</td><td>1.2</td><td>0.6</td><td>0.2</td></tr>
+<tr><td>토마토</td><td>0.9</td><td>0.9</td><td>0.45</td></tr>
+<tr><td>토란</td><td>1.2</td><td>1.2</td><td>0.6</td></tr>
+<tr><td>호박</td><td>1.5</td><td>1.5</td><td>1.2</td></tr>
+<tr><td>해바라기</td><td>1.2</td><td>0.6</td><td>0.3</td></tr>
     </tbody>
 </table>
 </body>
