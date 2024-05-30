@@ -148,20 +148,20 @@ function calculate() {
     var message = "";
     var color = "";
     if (percentageDifference >= 30) {
-        message = "<strong>작물재배면적 대비 파종량이 너무 많습니다.</strong>";
+        message = "<strong>작물재배면적 대비 파종량이 너무 많습니다. 재검토 또는 사유 준비 바랍니다.</strong>";
         color = "red";
-    } else if (percentageDifference >= 20) {
-        message = "<strong>작물재배면적 대비 파종량이 다소 많습니다.</strong>";
+    } else if (percentageDifference >= 15) {
+        message = "<strong>작물재배면적 대비 파종량이 다소 많습니다. 재배면적 또는 파종량을 다시 한번 확인 바랍니다.</strong>";
         color = "orange";
-    } else if (percentageDifference > -20 && percentageDifference <= 20) {
+    } else if (percentageDifference > -15 && percentageDifference < 15) {
         message = "<strong>작물재배면적 대비 파종량이 적정 범위에 있습니다.</strong>";
         color = "blue";
-    } else if (percentageDifference <= -30) {
-        message = "<strong>작물재배면적 대비 파종량이 너무 적습니다.</strong>";
-        color = "red";
-    } else if (percentageDifference <= -20) {
-        message = "<strong>작물재배면적 대비 파종량이 다소 적습니다.</strong>";
+    } else if (percentageDifference <= -15) {
+        message = "<strong>작물재배면적 대비 파종량이 다소 적습니다. 재배면적 또는 파종량을 다시 한번 확인 바랍니다.</strong>";
         color = "orange";
+    } else if (percentageDifference <= -30) {
+        message = "<strong>작물재배면적 대비 파종량이 너무 적습니다. 재검토 또는 사유 준비 바랍니다.</strong>";
+        color = "red";
     }
 
     // Additional messages
@@ -173,18 +173,18 @@ function calculate() {
     var conversionFactor = (unit === "g") ? 1000 : 1;
 
     var additionalMessages = `
-        <span style="color: black;">입력한 값의 10a당 파종량은 <span style="color: ${color};">${(inputSeedingRatePer10a * conversionFactor).toFixed(2)}${unit}</span>입니다.</span><br>
-        <span style="color: black;">입력값의 오차가 <span style="color: ${color};">${errorPercentage.toFixed(2)}%</span>입니다.</span><br>
         <strong><span style="color: black;">대상작물의 과거 평균 10a당 파종량: <span style="color: blue;">${(expectedSeedingRatePer10a * conversionFactor).toFixed(2)}${unit}</span></strong><br>
+        <span style="color: black;">입력값의 10a당 파종량은 <span style="color: ${color};">${(inputSeedingRatePer10a * conversionFactor).toFixed(2)}${unit}</span>입니다.</span><br>
+        <span style="color: black;">입력값의 과거 평균치 대비 오차가 <span style="color: ${color};">${errorPercentage.toFixed(2)}%</span>입니다.</span><br>
     `;
 
     // Calculate seeding amount for the entered area
     var seedingAmount = expectedSeedingRatePer10a / 1000 * area;
-    var errorRange2 = seedingAmount * 0.3;
+    var errorRange2 = seedingAmount * 0.2;
 
     additionalMessages += `
         <strong><span style="color: black;">입력한 재배면적에 대한 예측 파종량: <span style="color: blue;">${(seedingAmount * conversionFactor).toFixed(2)}${unit}</span></span><br>
-        <strong><span style="color: black;">(±30% 오차범위: </span><span style="color: blue;">${((seedingAmount - errorRange2) * conversionFactor).toFixed(2)}${unit} ~ ${((seedingAmount + errorRange2) * conversionFactor).toFixed(2)}${unit}</span><strong><span style="color: black;">)</span></strong><br>
+        <strong><span style="color: black;">(±20% 오차범위: </span><span style="color: blue;">${((seedingAmount - errorRange2) * conversionFactor).toFixed(2)}${unit} ~ ${((seedingAmount + errorRange2) * conversionFactor).toFixed(2)}${unit}</span><strong><span style="color: black;">)</span></strong><br>
     `;
 
     // Display the result
