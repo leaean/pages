@@ -257,7 +257,12 @@ function calculate() {
     }
 
     // Validation for area input
-    if (isNaN(area) || area <= 0) {
+  if (!crop) {
+        alert("작물을 선택하세요.");
+        return;
+    }
+
+  if (isNaN(area) || area <= 0) {
         alert("유효한 재배면적을 입력하세요.");
         return;
     }
