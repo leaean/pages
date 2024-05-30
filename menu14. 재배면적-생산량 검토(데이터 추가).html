@@ -50,11 +50,12 @@
 </head>
 <body>
 <div class="container">
-    <h2 onclick="resetForm()">생산량/재배면적 검토</h2>
+<h2 onclick="window.location.reload();">생산량/재배면적 검토</h2>
     <p>※ 기준치: 농작물생산량조사, 농촌진흥청 통계치 평균(최근 7년)</p>
     <form id="seedingForm">
         <strong><label for="crop">작물 선택</label></strong>
         <select id="crop" onchange="updateUnit()">
+            <option value="" selected disabled>작물을 선택하세요</option>
     <option value="쌀(조곡)(농촌진흥청)('16~'22)">쌀(조곡)(농촌진흥청)('16~'22)</option>
     <option value="논벼(통계청)('16~'22)">논벼(통계청)('16~'22)</option>
     <option value="밭벼(통계청)('16~'22)">밭벼(통계청)('16~'22)</option>
@@ -201,7 +202,7 @@
     <option value="호맥(비공식)">호맥(비공식)</option>
 <option value="국화(시설국화)(본)(농촌진흥청)('16~'18)">국화(시설국화)(단위:본)(농촌진흥청)('16~'18)</option>
 <option value="장미(시설장미)(본)(농촌진흥청)('16~'22)">장미(시설장미)(단위:본)(농촌진흥청)('16~'22)</option>
-<option value="옥수수(노지풋옥수수)(개)(농촌진흥청)('16~'22)">노지풋옥수수(단위:개)(농촌진흥청)('16~'22)</option>
+<option value="옥수수(노지풋옥수수)(개)(농촌진흥청)('16~'22)">옥수수(노지풋옥수수)(단위:개)(농촌진흥청)('16~'22)</option>
         </select>
         <strong><label for="area">재배면적</label></strong>
         <input type="number" id="area" placeholder="재배면적을 입력하세요">
@@ -220,6 +221,7 @@
 </div>
 
 <script>
+
 function updateUnit() {
     var crop = document.getElementById("crop").value;
     var seedUnit = document.getElementById("seedUnit");
@@ -227,10 +229,11 @@ function updateUnit() {
         seedUnit.textContent = "본";
     } else if (crop === "옥수수(노지풋옥수수)(개)(농촌진흥청)('16~'22)") {
         seedUnit.textContent = "개";
+    } else {
+        seedUnit.textContent = "kg"; // 항상 "kg"로 설정
     }
-//    seedUnit.textContent = "kg"; // 항상 "kg"로 설정
+}
 
-  
 function calculate() {
     var area = parseFloat(document.getElementById("area").value);
     var selectedUnit = document.getElementById("unit").value;
@@ -264,7 +267,6 @@ function calculate() {
         alert("유효한 생산량을 입력하세요.");
         return;
     }
-
 
     // Expected seeding rate per 10a (1000 m²)
     var expectedSeedingRates = {
@@ -411,7 +413,7 @@ function calculate() {
         "이탈리안라이그라스(비공식)": 1500,
         "헤어리베치(비공식)": 1750,
         "자운영(비공식)": 1300,
-        "호맥(비공식)": 2000
+        "호맥(비공식)": 2000,
         "국화(시설국화)(본)(농촌진흥청)('16~'18)": 35474,
         "장미(시설장미)(본)(농촌진흥청)('16~'22)": 80201,
         "옥수수(노지풋옥수수)(개)(농촌진흥청)('16~'22)": 2886,
