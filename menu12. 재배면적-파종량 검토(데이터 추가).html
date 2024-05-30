@@ -175,7 +175,7 @@ function calculate() {
     var additionalMessages = `
         <span style="color: black;">입력한 값의 10a당 파종량은 <span style="color: ${color};">${(inputSeedingRatePer10a * conversionFactor).toFixed(2)}${unit}</span>입니다.</span><br>
         <span style="color: black;">입력값의 오차가 <span style="color: ${color};">${errorPercentage.toFixed(2)}%</span>입니다.</span><br>
-        <strong><span style="color: black;">대상작물의 적정 10a당 파종량: <span style="color: blue;">${(expectedSeedingRatePer10a * conversionFactor).toFixed(2)}${unit}</span></strong><br>
+        <strong><span style="color: black;">대상작물의 과거 평균 10a당 파종량: <span style="color: blue;">${(expectedSeedingRatePer10a * conversionFactor).toFixed(2)}${unit}</span></strong><br>
     `;
 
     // Calculate seeding amount for the entered area
@@ -183,7 +183,7 @@ function calculate() {
     var errorRange2 = seedingAmount * 0.3;
 
     additionalMessages += `
-        <strong><span style="color: black;">입력한 재배면적에 대한 적정 파종량: <span style="color: blue;">${(seedingAmount * conversionFactor).toFixed(2)}${unit}</span></span><br>
+        <strong><span style="color: black;">입력한 재배면적에 대한 예측 파종량: <span style="color: blue;">${(seedingAmount * conversionFactor).toFixed(2)}${unit}</span></span><br>
         <strong><span style="color: black;">(±30% 오차범위: </span><span style="color: blue;">${((seedingAmount - errorRange2) * conversionFactor).toFixed(2)}${unit} ~ ${((seedingAmount + errorRange2) * conversionFactor).toFixed(2)}${unit}</span><strong><span style="color: black;">)</span></strong><br>
     `;
 
