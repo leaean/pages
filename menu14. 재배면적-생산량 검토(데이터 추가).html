@@ -455,7 +455,7 @@ var conversionFactor = 1; // kg를 기본 단위로 설정
     var additionalMessages = `
         <span style="color: black;">입력한 값의 10a당 생산량은 <span style="color: ${color};">${(inputSeedingRatePer10a * conversionFactor).toFixed(2)}${unit}</span>입니다.</span><br>
         <span style="color: black;">입력값의 오차가 <span style="color: ${color};">${errorPercentage.toFixed(2)}%</span>입니다.</span><br>
-        <strong><span style="color: black;">대상작물의 적정 10a당 생산량: <span style="color: blue;">${(expectedSeedingRatePer10a * conversionFactor).toFixed(2)}${unit}</span></strong><br>
+        <strong><span style="color: black;">대상작물의 과거 평균 10a당 생산량: <span style="color: blue;">${(expectedSeedingRatePer10a * conversionFactor).toFixed(2)}${unit}</span></strong><br>
     `;
 
     // Calculate seeding amount for the entered area
