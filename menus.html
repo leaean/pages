@@ -94,6 +94,7 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
+            margin-top: 10;
             margin-bottom: 0px;
             font-size: 15px;
             color: #575757; /* 정부회색 */
@@ -101,19 +102,34 @@
             text-align: center;
         }
 
-        /* 창의 너비가 768px 이하일 때 */
-        @media screen and (max-width: 768px) {
-            .menu-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+/* 모바일 장치 (작은 화면) */
+@media (max-width: 320px) {
+    .menu-container {
+        grid-template-columns: 1fr;
+    }
+}
 
-        /* 창의 너비가 768px보다 크거나 같을 때 */
-        @media screen and (min-width: 768px) {
-            .menu-container {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
+/* 작은 모바일 장치 및 일반 스마트폰 */
+@media (max-width: 414px) {
+    .menu-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 태블릿 장치 및 작은 노트북 */
+@media (max-width: 768px) {
+    .menu-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 데스크탑 장치 */
+@media (min-width: 769px) {
+    .menu-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
 
     </style>
 </head>
