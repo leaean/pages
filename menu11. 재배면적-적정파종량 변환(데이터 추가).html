@@ -167,7 +167,7 @@ function calculate() {
     var seedingAmountMax = seedingAmount * 1.3;
 
     var unitLabel = (crop === "논벼" || crop === "콩" || crop === "마늘") ? "kg" : "g";
-    result.innerHTML = `예상 파종량: 약 ${seedingAmount.toFixed(2)}${unitLabel}<br>(±30% 오차범위: ${seedingAmountMin.toFixed(2)}${unitLabel} - ${seedingAmountMax.toFixed(2)}${unitLabel})`;
+    result.innerHTML = `예측 파종량: 약 ${seedingAmount.toFixed(2)}${unitLabel}<br>(±30% 오차범위: ${seedingAmountMin.toFixed(2)}${unitLabel} - ${seedingAmountMax.toFixed(2)}${unitLabel})`;
   } else {
     var seedingAmount = parseFloat(document.getElementById("seedingAmount").value);
     if (isNaN(seedingAmount) || seedingAmount <= 0) {
@@ -179,7 +179,7 @@ function calculate() {
     var areaMin = area * 0.7;
     var areaMax = area * 1.3;
 
-    result.innerHTML = `예상 재배면적: 약 ${area.toFixed(2)}m²<br>(±30% 오차범위: ${areaMin.toFixed(2)}m² - ${areaMax.toFixed(2)}m²)`;
+    result.innerHTML = `예측 재배면적: 약 ${area.toFixed(2)}m²<br>(±30% 오차범위: ${areaMin.toFixed(2)}m² - ${areaMax.toFixed(2)}m²)`;
   }
 }
 </script>
