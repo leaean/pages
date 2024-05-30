@@ -215,9 +215,9 @@
     <option value="헤어리베치(비공식)">헤어리베치(비공식)</option>
     <option value="자운영(비공식)">자운영(비공식)</option>
     <option value="호맥(비공식)">호맥(비공식)</option>
-<option value="국화(시설국화)(본)(농촌진흥청)('16~'18)">국화(시설국화)(단위:본)(농촌진흥청)('16~'18)</option>
-<<option value="장미(시설장미)(본)(농촌진흥청)('16~'22)">장미(시설장미)(단위:본)(농촌진흥청)('16~'22)</option>
-<<option value="옥수수(노지풋옥수수)(개)(농촌진흥청)('16~'22)">노지풋옥수수(단위:개)(농촌진흥청)('16~'22)</option>
+    <option value="국화(시설국화)(본)(농촌진흥청)('16~'18)">국화(시설국화)(단위:본)(농촌진흥청)('16~'18)</option>
+    <<option value="장미(시설장미)(본)(농촌진흥청)('16~'22)">장미(시설장미)(단위:본)(농촌진흥청)('16~'22)</option>
+    <<option value="옥수수(노지풋옥수수)(개)(농촌진흥청)('16~'22)">노지풋옥수수(단위:개)(농촌진흥청)('16~'22)</option>
   </select>
   <label for="inputType">입력 유형:</label>
   <select id="inputType" onchange="toggleInput()" required>
@@ -242,6 +242,8 @@
   <button type="button" onclick="calculate()">계산하기</button>
 </form>
 <p id="result"></p>
+
+
 <script>
 function toggleInput() {
   var inputType = document.getElementById("inputType").value;
@@ -256,20 +258,17 @@ function toggleInput() {
   }
 }
 
-  function updateUnit() {
-    var crop = document.getElementById("crop").value;
-    var seedUnit = document.getElementById("seedUnit");
-    if (crop === "국화(시설국화)(본)(농촌진흥청)('16~'18)" || crop === "장미(시설장미)(본)(농촌진흥청)('16~'22)") {
-        seedUnit.textContent = "본";
-    } else if (crop === "옥수수(노지풋옥수수)(개)(농촌진흥청)('16~'22)") {
-        seedUnit.textContent = "개";
-    } else {
-        seedUnitElement.textContent = "kg"; // 기본값 설정
-    }
-
-    }
+function updateUnit() {
+  var crop = document.getElementById("crop").value;
+  var seedUnit = document.getElementById("seedUnit");
+  if (crop === "국화(시설국화)(본)(농촌진흥청)('16~'18)" || crop === "장미(시설장미)(본)(농촌진흥청)('16~'22)") {
+    seedUnit.textContent = "본";
+  } else if (crop === "옥수수(노지풋옥수수)(개)(농촌진흥청)('16~'22)") {
+    seedUnit.textContent = "개";
+  } else {
+    seedUnit.textContent = "kg"; // 기본값 설정
+  }
 }
-
 
 function calculate() {
   var crop = document.getElementById("crop").value;
@@ -282,6 +281,7 @@ function calculate() {
     "a": 100,
     "m2": 1
   };
+
 
   var seedingRates = {
         "쌀(조곡)(농촌진흥청)('16~'22)": 637,
@@ -442,30 +442,18 @@ function calculate() {
 
   if (inputType === "area") {
     var area = parseFloat(document.getElementById("area").value);
-    var unit = document.getElementById("unit").value;
+    var unitLabel = document.getElementById("unit").value;
     if (isNaN(area) || area <= 0) {
       result.textContent = "유효한 재배면적을 입력하세요.";
       return;
     }
 
-    area *= conversionRates[unit];
+    area *= conversionRates[unitLabel];
     var seedingAmount = seedingRates[crop] * area / 1000;
     var seedingAmountMin = seedingAmount * 0.8;
     var seedingAmountMax = seedingAmount * 1.2;
 
-//    var unitLabel = "kg"; // 항상 kg로 표시
-function updateSeedUnit(crop) {
-    var seedUnitElement = document.getElementById("seedUnit");
-    if (crop.includes("국화(시설국화)(본)(농촌진흥청)('16~'18)") || crop.includes("장미(시설장미)(본)(농촌진흥청)('16~'22)")) {
-        seedUnitElement.textContent = "본";
-    } else if (crop.includes("옥수수(노지풋옥수수)(개)(농촌진흥청)('16~'22)")) {
-        seedUnitElement.textContent = "개";
-    } else {
-        seedUnitElement.textContent = "kg"; // 기본값 설정
-    }
-}
-
-    result.innerHTML = `예측 생산량: 약 ${seedingAmount.toFixed(2)}${unitLabel}<br>(±20% 오차범위: ${seedingAmountMin.toFixed(2)}${unitLabel} - ${seedingAmountMax.toFixed(2)}${unitLabel})`;
+    result.innerHTML = `예측 생산량: 약 ${seedingAmount.toFixed(2)}${unit}<br>(±20% 오차범위: ${seedingAmountMin.toFixed(2)}${unit} - ${seedingAmountMax.toFixed(2)}${unit})`;
   } else {
     var seedingAmount = parseFloat(document.getElementById("seedingAmount").value);
     if (isNaN(seedingAmount) || seedingAmount <= 0) {
@@ -483,4 +471,3 @@ function updateSeedUnit(crop) {
 </script>
 </body>
 </html>
-
