@@ -260,6 +260,14 @@ function updateUnit() {
   var seedUnit = document.getElementById("seedUnit");
   seedUnit.textContent = "kg"; // 항상 "kg"로 설정
 }
+  function updateUnit() {
+  var crop = document.getElementById("crop").value;
+  var seedUnit = document.getElementById("seedUnit");
+  if (crop === "국화(시설국화)(본)(농촌진흥청)('16~'18)" || crop === "장미(시설장미)(본)(농촌진흥청)('16~'22)") {
+    seedUnit.textContent = "본";
+  } else if (crop === "옥수수(노지풋옥수수)(개)(농촌진흥청)('16~'22)") {
+    seedUnit.textContent = "개";
+  }
 
 function calculate() {
   var crop = document.getElementById("crop").value;
@@ -443,7 +451,18 @@ function calculate() {
     var seedingAmountMin = seedingAmount * 0.8;
     var seedingAmountMax = seedingAmount * 1.2;
 
-    var unitLabel = "kg"; // 항상 kg로 표시
+//    var unitLabel = "kg"; // 항상 kg로 표시
+function updateSeedUnit(crop) {
+    var seedUnitElement = document.getElementById("seedUnit");
+    if (crop.includes("국화(시설국화)(본)(농촌진흥청)('16~'18)") || crop.includes("장미(시설장미)(본)(농촌진흥청)('16~'22)")) {
+        seedUnitElement.textContent = "본";
+    } else if (crop.includes("옥수수(노지풋옥수수)(개)(농촌진흥청)('16~'22)")) {
+        seedUnitElement.textContent = "개";
+    } else {
+        seedUnitElement.textContent = "kg"; // 기본값 설정
+    }
+}
+
     result.innerHTML = `예측 생산량: 약 ${seedingAmount.toFixed(2)}${unitLabel}<br>(±20% 오차범위: ${seedingAmountMin.toFixed(2)}${unitLabel} - ${seedingAmountMax.toFixed(2)}${unitLabel})`;
   } else {
     var seedingAmount = parseFloat(document.getElementById("seedingAmount").value);
