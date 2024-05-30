@@ -10,6 +10,7 @@
             position: relative;
             min-height: 100vh;
             display: flex;
+            flex-direction: column; /* 수직 방향으로 요소 배치 */
             justify-content: center;
             align-items: center;
         }
@@ -26,6 +27,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 그림자 설정 */
             cursor: pointer;
             margin-left: 10px; /* 이미지와 타이틀 간격 */
+            margin-bottom: 20px; /* 타이틀과 폼 간격 추가 */
         }
         .title img {
             width: 50px;
@@ -43,11 +45,11 @@
         
         .menu-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2개의 열로 구성 */
+            grid-template-columns: repeat(4, 5fr); /* 2개의 열로 구성 */
             gap: 10px;
             background: ;
             justify-content: center; /* 메뉴 가운데 정렬 추가 */
-            margin-bottom: 20px; /* 아래 여백 추가 */
+            margin-bottom: 50px; /* 아래 여백 추가 */
         }
         .menu {
             padding: 30px;
@@ -100,7 +102,7 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            margin-bottom: 10px;
+            margin-bottom: 0px;
             font-size: 15px;
             color: #575757; /* 정부회색 */
             width: 100%;
@@ -111,11 +113,10 @@
 </head>
 <body>
     <div class="title-container">
-        <h1 class="title" onclick="resetContent()"></h1>
-    <img src="https://leaean.github.io/pages/%EB%8B%AC%EB%A6%AC%EB%8A%94%EB%B3%B4%ED%86%B5.gif" alt="%EB%8B%AC%EB%A6%AC%EB%8A%94%EB%B3%B4%ED%86%B5.gif">
+        <h1 class="title" onclick="resetContent()">Agri Stat Tools</h1>
     </div>
     <form>
-        <div class="description"><h1 class="title" onclick="resetContent()">Agri Stat Tools</h1></div>
+        <div class="description"><h1 class="title" onclick="resetContent()">Tool</h1></div>
         <div class="menu-container">
     <div class="menu" onclick="window.location.href='https://leaean.github.io/pages/menu11.%20%EC%9E%AC%EB%B0%B0%EB%A9%B4%EC%A0%81-%EC%A0%81%EC%A0%95%ED%8C%8C%EC%A2%85%EB%9F%89%20%EB%B3%80%ED%99%98(%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%B6%94%EA%B0%80)'">재배면적 <br>&<br>종자량</div>
     <div class="menu" onclick="window.location.href='https://leaean.github.io/pages/menu12.%20%EC%9E%AC%EB%B0%B0%EB%A9%B4%EC%A0%81-%ED%8C%8C%EC%A2%85%EB%9F%89%20%EA%B2%80%ED%86%A0(%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%B6%94%EA%B0%80)'">종자량/<br>재배면적<br>검토</div>
@@ -130,4 +131,4 @@
         &copy; 2024 Honam Regional Statistics Office, Statistics Korea. All rights reserved.
     </div>
 </body>
-</html
+</html>
