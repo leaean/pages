@@ -449,7 +449,10 @@ function calculate() {
     var errorPercentage = Math.abs(percentageDifference);
 
     // Determine the unit for additional messages
-    var unit = "kg"; // 모든 경우에 kg로 설정
+    var unit = (selectedCrop === "옥수수(노지풋옥수수)(개)(농촌진흥청)('16~'22)") ? "개" :
+           (selectedCrop === "국화(시설국화)(본)(농촌진흥청)('16~'18)" || selectedCrop === "장미(시설장미)(본)(농촌진흥청)('16~'22)") ? "본" :
+           "kg";
+
     var conversionFactor = 1; // kg를 기본 단위로 설정
 
     var additionalMessages = `
