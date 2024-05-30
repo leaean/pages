@@ -27,7 +27,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 그림자 설정 */
             cursor: pointer;
             margin-left: 10px; /* 이미지와 타이틀 간격 */
-	    margin-top: -50px; /* 메뉴를 위로 이동 */
+            margin-top: 20px; /* 메뉴를 위로 이동 */
             margin-bottom: 40px; /* 타이틀과 폼 간격 추가 */
         }
         .title img {
@@ -35,24 +35,14 @@
             height: auto;
             margin-right: 10px;
         }
-        /*form {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 0 100px rgba(0,0,0,0.5);
-        }*/
-        
-.menu-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 2개의 열로 구성 */
-    gap: 10px;
-    background: ;
-    justify-content: center; /* 메뉴 가운데 정렬 추가 */
-    margin-bottom: 00px; /* 아래 여백 추가 */
-    margin-top: 00px; /* 메뉴를 위로 이동 */
-}
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 2개의 열로 구성 */
+            gap: 10px;
+            justify-content: center; /* 메뉴 가운데 정렬 추가 */
+            margin-bottom: 20px; /* 아래 여백 추가 */
+            margin-top: 20px; /* 메뉴를 위로 이동 */
+        }
         .menu {
             padding: 30px;
             background-color: #0057A1; /* 정부청색 */
@@ -61,7 +51,7 @@
             text-align: center;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 95%; /* 원형 모양 설정 */
+            border-radius: 50%; /* 원형 모양 설정 */
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), /* 그림자 설정 */
                         0 -4px 16px rgba(255, 255, 255, 0.5) inset; /* 반사 효과 설정 */
             width: 120px; /* 원의 지름 설정 */
@@ -110,28 +100,28 @@
             width: 100%;
             text-align: center;
         }
-/* 창의 너비가 768px 이하일 때 */
-@media screen and (max-width: 768px) {
-  .menu-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 
-/* 창의 너비가 768px보다 크거나 같을 때 */
-@media screen and (min-width: 768px) {
-  .menu-container {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
+        /* 창의 너비가 768px 이하일 때 */
+        @media screen and (max-width: 768px) {
+            .menu-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* 창의 너비가 768px보다 크거나 같을 때 */
+        @media screen and (min-width: 768px) {
+            .menu-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
 
     </style>
 </head>
 <body>
     <div class="title-container">
-        <h1 class="title" onclick="resetContent()"></h1>
+        <h1 class="title" onclick="resetContent()">Agri Stat Tools</h1>
     </div>
     <form>
-        <div class="title"><h1 class="title" onclick="resetContent()">Agri Stat Tools</h1></div>
         <div class="menu-container">
     <div class="menu" onclick="window.location.href='https://leaean.github.io/pages/menu11.%20%EC%9E%AC%EB%B0%B0%EB%A9%B4%EC%A0%81-%EC%A0%81%EC%A0%95%ED%8C%8C%EC%A2%85%EB%9F%89%20%EB%B3%80%ED%99%98(%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%B6%94%EA%B0%80)'">재배면적 <br>&<br>종자량</div>
     <div class="menu" onclick="window.location.href='https://leaean.github.io/pages/menu12.%20%EC%9E%AC%EB%B0%B0%EB%A9%B4%EC%A0%81-%ED%8C%8C%EC%A2%85%EB%9F%89%20%EA%B2%80%ED%86%A0(%EB%8D%B0%EC%9D%B4%ED%84%B0%20%EC%B6%94%EA%B0%80)'">종자량/<br>재배면적<br>검토</div>
