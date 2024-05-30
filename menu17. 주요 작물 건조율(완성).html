@@ -2,70 +2,84 @@
 <html>
 <head>
     <title>건조율 계산기</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-        h2 {
-            color: #333;
-            border-bottom: 2px solid #ccc;
-            padding-bottom: 10px;
-        }
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+        text-align: center; /* Center align the text */
+    }
+    h2 {
+        color: #333;
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 10px;
+        margin-top: 0; /* Remove default margin */
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 20px; /* Add margin-top to space it from the title */
+    }
+    th, td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: center;
+    }
+    form {
+        margin-bottom: 20px;
+    }
+    label {
+        display: inline-block;
+        width: 150px;
+        text-align: right;
+        margin-right: 10px;
+    }
+    select, input[type="number"], input[type="text"] {
+        width: 200px;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+    input[type="button"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    input[type="button"]:hover {
+        background-color: #0056b3;
+    }
+    /* Add this CSS for mobile layout */
+    @media screen and (max-width: 600px) {
         table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #fff;
-            border-radius: 8px;
-            overflow: hidden;
+            display: block;
         }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: center;
-        }
-        form {
+        td {
+            display: block;
             margin-bottom: 20px;
         }
-        label {
-            display: inline-block;
-            width: 150px;
-            text-align: right;
-            margin-right: 10px;
-        }
-        select, input[type="number"], input[type="text"] {
-            width: 200px;
-            padding: 5px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-        }
-        input[type="button"] {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        input[type="button"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
 
-<h2>건조율 계산기</h2>
+<h2 style="text-align: center; cursor: pointer;" onclick="resetcalcForm1()">건조율 계산기</h2>
 
 <table>
     <tr>
         <td>
-            <h3>마른 것 계산기</h3>
+            <h3>생 것 → 마른 것</h3>
             <form id="calcForm1">
 
                 <label for="cropType1">작물 선택:</label>
                 <select id="cropType1" onchange="updateDryRate(1)">
+                    <option value="">선택</option>
                     <option value="고추">고추</option>
                     <option value="마늘">마늘</option>
                     <option value="양파">양파</option>
@@ -86,10 +100,11 @@
             </form>
         </td>
         <td>
-            <h3>생 것 계산기</h3>
+            <h3>마른 것 → 생 것</h3>
             <form id="calcForm2">
                 <label for="cropType2">작물 선택:</label>
                 <select id="cropType2" onchange="updateDryRate(2)">
+                    <option value="">선택</option>
                     <option value="고추">고추</option>
                     <option value="마늘">마늘</option>
                     <option value="양파">양파</option>
