@@ -105,11 +105,12 @@ function updateUnit() {
             // Assume area is already in square meters
             break;
     }
-    // Validation for area input
-    if (!crop) {
+// Validation for crop selection
+var selectedCrop = document.getElementById("crop").value;
+if (selectedCrop === "") {
     alert("작물을 선택하세요.");
     return;
-  }
+}
 
     if (isNaN(area) || area <= 0) {
         alert("유효한 재배면적을 입력하세요.");
