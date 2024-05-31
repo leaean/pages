@@ -1,174 +1,197 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>건조율 계산기</title>
-<style>
+    <style>
     body {
         font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        padding: 20px;
-        text-align: center; /* Center align the text */
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
     }
-    h2 {
-        color: #333;
-        border-bottom: 2px solid #ccc;
-        padding-bottom: 10px;
-        margin-top: 0; /* Remove default margin */
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background-color: #fff;
-        border-radius: 8px;
-        overflow: hidden;
-        margin-top: 20px; /* Add margin-top to space it from the title */
-    }
-    th, td {
-        padding: 10px;
-        border: 1px solid #ccc;
-        text-align: center;
-    }
-    form {
-        margin-bottom: 20px;
-    }
-    label {
-        display: inline-block;
-        width: 150px;
-        text-align: right;
-        margin-right: 10px;
-    }
-    select, input[type="number"], input[type="text"] {
-        width: 200px;
-        padding: 5px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        margin-bottom: 10px;
-    }
-    input[type="button"] {
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    input[type="button"]:hover {
-        background-color: #0056b3;
-    }
-    /* Add this CSS for mobile layout */
-    @media screen and (max-width: 600px) {
-        table {
-            display: block;
+        .container {
         }
-        td {
-            display: block;
+
+        h1 {
+            font-size: 36px;
             margin-bottom: 20px;
+            cursor: pointer;
+            text-align: center;
         }
-    }
-</style>
+
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin: 0 auto;
+        }
+
+        .calculator {
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .calculator h3 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        select, input[type="number"], input[type="text"], button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .calculator-container {
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <h1 onclick="resetcalcForm1()">건조율 계산기</h1>
+        <div class="calculator-container">
+            <div class="calculator">
+                <h3>생 것 → 마른 것</h3>
+                <form id="calcForm1">
+                    <label for="cropType1">작물 선택:</label>
+                    <select id="cropType1" onchange="updateDryRate(1)">
+                        <option value="">선택</option>
+                        <option value="고추">고추</option>
+                        <option value="마늘">마늘</option>
+                        <option value="양파">양파</option>
+                        <option value="볏짚">볏짚</option>
+                    </select>
 
-<h2 style="text-align: center; cursor: pointer;" onclick="resetcalcForm1()">건조율 계산기</h2>
+                    <label for="dryRate1">건조율(%):</label>
+                    <input type="number" id="dryRate1" name="dryRate1" readonly>
 
-<table>
-    <tr>
-        <td>
-            <h3>생 것 → 마른 것</h3>
-            <form id="calcForm1">
+                    <label for="freshWeight1">생것(kg):</label>
+                    <input type="number" id="freshWeight1" name="freshWeight1" min="0" step="0.01" oninput="calculateDryWeight(1)" required>
 
-                <label for="cropType1">작물 선택:</label>
-                <select id="cropType1" onchange="updateDryRate(1)">
-                    <option value="">선택</option>
-                    <option value="고추">고추</option>
-                    <option value="마늘">마늘</option>
-                    <option value="양파">양파</option>
-                    <option value="볏짚">볏짚</option>
-                </select><br><br>
+                    <button type="button" onclick="calculateDryWeight(1)">계산하기</button>
 
-                <label for="dryRate1">건조율(%):</label>
-                <input type="number" id="dryRate1" name="dryRate1" readonly><br><br>
+                    <label for="dryWeight1">마른것 중량(kg):</label>
+                    <input type="text" id="dryWeight1" name="dryWeight1" readonly>
+                </form>
+            </div>
 
-                <label for="freshWeight1">생것(kg):</label>
-                <input type="number" id="freshWeight1" name="freshWeight1" min="0" step="0.01" oninput="calculateDryWeight(1)" required><br><br>
+            <div class="calculator">
+                <h3>마른 것 → 생 것</h3>
+                <form id="calcForm2">
+                    <label for="cropType2">작물 선택:</label>
+                    <select id="cropType2" onchange="updateDryRate(2)">
+                        <option value="">선택</option>
+                        <option value="고추">고추</option>
+                        <option value="마늘">마늘</option>
+                        <option value="양파">양파</option>
+                        <option value="볏짚">볏짚</option>
+                    </select>
 
-                <input type="button" value="계산하기" onclick="calculateDryWeight(1)"><br><br>
+                    <label for="dryRate2">건조율(%):</label>
+                    <input type="number" id="dryRate2" name="dryRate2" readonly>
 
-                <label for="dryWeight1">마른것 중량(kg):</label>
-                <input type="text" id="dryWeight1" name="dryWeight1" readonly><br><br>
+                    <label for="dryWeight2">마른것(kg):</label>
+                    <input type="number" id="dryWeight2" name="dryWeight2" min="0" step="0.01" oninput="calculateFreshWeight(2)" required>
 
-            </form>
-        </td>
-        <td>
-            <h3>마른 것 → 생 것</h3>
-            <form id="calcForm2">
-                <label for="cropType2">작물 선택:</label>
-                <select id="cropType2" onchange="updateDryRate(2)">
-                    <option value="">선택</option>
-                    <option value="고추">고추</option>
-                    <option value="마늘">마늘</option>
-                    <option value="양파">양파</option>
-                    <option value="볏짚">볏짚</option>
-                </select><br><br>
+                    <button type="button" onclick="calculateFreshWeight(2)">계산하기</button>
 
-                <label for="dryRate2">건조율(%):</label>
-                <input type="number" id="dryRate2" name="dryRate2" readonly><br><br>
+                    <label for="freshWeight2">생것 중량(kg):</label>
+                    <input type="text" id="freshWeight2" name="freshWeight2" readonly>
+                </form>
+            </div>
+        </div>
+    </div>
 
-                <label for="dryWeight2">마른것(kg):</label>
-                <input type="number" id="dryWeight2" name="dryWeight2" min="0" step="0.01" oninput="calculateFreshWeight(2)" required><br><br>
+    <script>
+        const dryRates = {
+            '고추': 18.99,
+            '마늘': 67.61,
+            '양파': 94.1,
+            '볏짚': 35.07
+        };
 
-                <input type="button" value="계산하기" onclick="calculateFreshWeight(2)"><br><br>
+        function updateDryRate(formNumber) {
+            const cropType = document.getElementById(`cropType${formNumber}`).value;
+            document.getElementById(`dryRate${formNumber}`).value = dryRates[cropType] || "";
+        }
 
-                <label for="freshWeight2">생것 중량(kg):</label>
-                <input type="text" id="freshWeight2" name="freshWeight2" readonly><br><br>
+        function calculateFreshWeight(formNumber) {
+            const dryWeight = parseFloat(document.getElementById(`dryWeight${formNumber}`).value);
+            const dryRate = parseFloat(document.getElementById(`dryRate${formNumber}`).value);
 
-            </form>
-        </td>
-    </tr>
-</table>
+            if (isNaN(dryWeight) || isNaN(dryRate)) {
+                alert('올바른 값을 입력해주세요.');
+                return;
+            }
 
-<script>
-const dryRates = {
-    '고추': 18.99,
-    '마늘': 67.61,
-    '양파': 94.1,
-    '볏짚': 35.07
-};
+            const freshWeight = dryWeight / (dryRate / 100);
+            document.getElementById(`freshWeight${formNumber}`).value = freshWeight.toFixed(2);
+        }
 
-function updateDryRate(formNumber) {
-    const cropType = document.getElementById(`cropType${formNumber}`).value;
-    document.getElementById(`dryRate${formNumber}`).value = dryRates[cropType];
-}
+        function calculateDryWeight(formNumber) {
+            const freshWeight = parseFloat(document.getElementById(`freshWeight${formNumber}`).value);
+            const dryRate = parseFloat(document.getElementById(`dryRate${formNumber}`).value);
 
-function calculateFreshWeight(formNumber) {
-    const dryWeight = parseFloat(document.getElementById(`dryWeight${formNumber}`).value);
-    const dryRate = parseFloat(document.getElementById(`dryRate${formNumber}`).value);
+            if (isNaN(freshWeight) || isNaN(dryRate)) {
+                alert('올바른 값을 입력해주세요.');
+                return;
+            }
 
-    if (isNaN(dryWeight) || isNaN(dryRate)) {
-        alert('올바른 값을 입력해주세요.');
-        return;
-    }
+            const dryWeight = freshWeight * (dryRate / 100);
+            document.getElementById(`dryWeight${formNumber}`).value = dryWeight.toFixed(2);
+        }
 
-    const freshWeight = dryWeight / (dryRate / 100);
-    document.getElementById(`freshWeight${formNumber}`).value = freshWeight.toFixed(2);
-}
+        function resetcalcForm1() {
+            document.getElementById("calcForm1").reset();
+            document.getElementById("calcForm2").reset();
+            document.getElementById("dryRate1").value = "";
+            document.getElementById("dryRate2").value = "";
+            document.getElementById("freshWeight1").value = "";
+            document.getElementById("freshWeight2").value = "";
+            document.getElementById("dryWeight1").value = "";
+            document.getElementById("dryWeight2").value = "";
+        }
 
-function calculateDryWeight(formNumber) {
-    const freshWeight = parseFloat(document.getElementById(`freshWeight${formNumber}`).value);
-    const dryRate = parseFloat(document.getElementById(`dryRate${formNumber}`).value);
-
-    if (isNaN(freshWeight) || isNaN(dryRate)) {
-        alert('올바른 값을 입력해주세요.');
-        return;
-    }
-
-    const dryWeight = freshWeight * (dryRate / 100);
-    document.getElementById(`dryWeight${formNumber}`).value = dryWeight.toFixed(2);
-}
-
-updateDryRate(1);
-updateDryRate(2);
-</script>
-
+        updateDryRate(1);
+        updateDryRate(2);
+    </script>
 </body>
 </html>
