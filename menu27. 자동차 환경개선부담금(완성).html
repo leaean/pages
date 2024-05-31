@@ -154,11 +154,11 @@
 
             // 결과 출력
             if (paymentType === "annual") {
-                document.getElementById("resultContainer").innerHTML = "환경개선부담금(연납): " + numberWithCommas(total.toFixed(0)) + "원";
-                document.getElementById("resultContainer").innerHTML += "<br>할인금액: " + numberWithCommas(discount.toFixed(0)) + "원";
+                document.getElementById("resultContainer").innerHTML = "환경개선부담금(연납) 실납입액: " + numberWithCommas(total.toFixed(2)) + "원";
+                document.getElementById("resultContainer").innerHTML += "<br>할인받은 금액: " + numberWithCommas(discount.toFixed(2)) + "원";
             } else {
-                document.getElementById("resultContainer").innerHTML = "환경개선부담금(1기, 3월): " + numberWithCommas(resultMarch.toFixed(0)) + "원<br>";
-                document.getElementById("resultContainer").innerHTML += "환경개선부담금(2기, 9월): " + numberWithCommas(resultSeptember.toFixed(0)) + "원";
+                document.getElementById("resultContainer").innerHTML = "환경개선부담금(1기, 3월): " + numberWithCommas(resultMarch.toFixed(2)) + "원<br>";
+                document.getElementById("resultContainer").innerHTML += "환경개선부담금(2기, 9월): " + numberWithCommas(resultSeptember.toFixed(2)) + "원";
             }
         }
 
