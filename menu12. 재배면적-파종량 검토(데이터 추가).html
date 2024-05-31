@@ -160,7 +160,7 @@ if (selectedCrop === "") {
     }
     // Additional messages
     var inputSeedingRatePer10a = seeds / area * 1000;
-    var errorPercentage = Math.abs(percentageDifference);
+    var errorPercentage = percentageDifference;
     // Determine the unit for additional messages
     var unit = (selectedCrop === "고추" || selectedCrop === "양파") ? "g" : "kg";
     var conversionFactor = (unit === "g") ? 1000 : 1;
