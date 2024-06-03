@@ -442,7 +442,7 @@ if (selectedCrop === "") {
         message = "<strong>작물재배면적 대비 생산량이 다소 많습니다.<br>재배면적 또는 생산량을 다시 한번 확인 바랍니다.</strong>";
         color = "orange";
     } else if (percentageDifference > -20 && percentageDifference < 20) {
-        message = "<strong>작물재배면적 대비 파종량이 ±20% 오차 범위 내에 있습니다.</strong>";
+        message = "<strong>작물재배면적 대비 생산량이 ±20% 오차 범위 내에 있습니다.</strong>";
         color = "blue";
     } else if (percentageDifference <= -30) {
         message = "<strong>작물재배면적 대비 생산량이 너무 적습니다.<br>재검토 또는 사유 준비 바랍니다.</strong>";
