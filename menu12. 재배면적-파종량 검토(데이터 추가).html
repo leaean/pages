@@ -165,8 +165,8 @@ if (selectedCrop === "") {
     var unit = (selectedCrop === "고추" || selectedCrop === "양파") ? "g" : "kg";
     var conversionFactor = (unit === "g") ? 1000 : 1;
     var additionalMessages = `
-        <strong><span style="color: black;">대상작물의 과거 평균 10a당 종자량: <span style="color: blue;">${(expectedSeedingRatePer10a * conversionFactor).toFixed(2)}${unit}</span></strong><br>
         <span style="color: black;">입력값의 10a당 종자량은 <span style="color: ${color};">${(inputSeedingRatePer10a * conversionFactor).toFixed(2)}${unit}</span>입니다.</span><br>
+        <strong><span style="color: black;">대상작물의 과거 평균 10a당 종자량: <span style="color: blue;">${(expectedSeedingRatePer10a * conversionFactor).toFixed(2)}${unit}</span></strong><br>
         <span style="color: black;">입력값의 과거 평균치 대비 오차가 <span style="color: ${color};">${errorPercentage.toFixed(2)}%</span>입니다.</span><br>
     `;
     // Calculate seeding amount for the entered area
