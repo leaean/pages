@@ -5,7 +5,7 @@
     <link rel="shortcut icon" href="https://leaean.github.io/pages/running_Botong(2).png">
     <link rel="apple-touch-icon" href="https://leaean.github.io/pages/running_Botong(1).png">
     <title>Agri Stat Tools</title>
-<style>
+    <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #F0F0F0; /* 옅은 회색 배경색상 */
@@ -39,7 +39,6 @@
         }
         .menu-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 2개의 열로 구성 */
             gap: 10px;
             justify-content: center; /* 메뉴 가운데 정렬 추가 */
             margin-bottom: 20px; /* 아래 여백 추가 */
@@ -103,38 +102,29 @@
             width: 100%;
             text-align: center;
         }
-        /* 모바일 장치 (작은 화면) */
-        @media (max-width: 320px) {
-            .title {
-                font-size: 24px; /* 폰트 크기 조정 */
-            }
-            .menu-container {
-                grid-template-columns: 1fr;
-            }
-        }
 
-        /* 작은 모바일 장치 및 일반 스마트폰 */
+        /* 세로 모드 (아이폰 7 플러스 기준) */
         @media (max-width: 414px) {
             .title {
                 font-size: 32px; /* 폰트 크기 조정 */
             }
             .menu-container {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr); /* 2열 */
             }
         }
 
-        /* 태블릿 장치 및 작은 노트북 */
-        @media (max-width: 800px) {
+        /* 가로 모드 (아이폰 7 플러스 기준) */
+        @media (min-width: 415px) and (max-width: 736px) {
             .title {
                 font-size: 40px; /* 폰트 크기 조정 */
             }
             .menu-container {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: repeat(4, 1fr); /* 4열 */
             }
         }
 
         /* 데스크탑 장치 */
-        @media (min-width: 801px) {
+        @media (min-width: 737px) {
             .title {
                 font-size: 70px; /* 폰트 크기 조정 */
             }
@@ -142,10 +132,9 @@
                 grid-template-columns: repeat(4, 1fr);
             }
         }
-
-
     </style>
 </head>
+
 <body>
     <div class="title-container">
         <h1 class="title" onclick="window.location.reload();">
