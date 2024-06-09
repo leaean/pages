@@ -103,35 +103,16 @@
             text-align: center;
         }
 
-        /* 세로 모드 (아이폰 7 플러스 기준) */
-        @media (max-width: 414px) {
-            .title {
-                font-size: 32px; /* 폰트 크기 조정 */
-            }
-            .menu-container {
-                grid-template-columns: repeat(2, 1fr); /* 2열 */
-            }
+        /* 2열 레이아웃 */
+        .two-columns {
+            grid-template-columns: repeat(2, 1fr);
         }
 
-        /* 가로 모드 (아이폰 7 플러스 기준) */
-        @media (min-width: 415px) and (max-width: 736px) {
-            .title {
-                font-size: 40px; /* 폰트 크기 조정 */
-            }
-            .menu-container {
-                grid-template-columns: repeat(4, 1fr); /* 4열 */
-            }
+        /* 4열 레이아웃 */
+        .four-columns {
+            grid-template-columns: repeat(4, 1fr);
         }
 
-        /* 데스크탑 장치 */
-        @media (min-width: 737px) {
-            .title {
-                font-size: 70px; /* 폰트 크기 조정 */
-            }
-            .menu-container {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
     </style>
 </head>
 
