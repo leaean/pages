@@ -89,7 +89,7 @@
         <h1 onclick="resetcalcForm1()">건조율 계산기</h1>
         <div class="calculator-container">
             <div class="calculator">
-                <h3>생 것 → 마른 것</h3>
+                <h3>생중량 → 건중량</h3>
                 <form id="calcForm1">
                     <label for="cropType1">작물 선택:</label>
                     <select id="cropType1" onchange="updateDryRate(1)">
@@ -103,18 +103,18 @@
                     <label for="dryRate1">건조율(%):</label>
                     <input type="number" id="dryRate1" name="dryRate1" readonly>
 
-                    <label for="freshWeight1">생것(kg):</label>
+                    <label for="freshWeight1">생중량(kg):</label>
                     <input type="number" id="freshWeight1" name="freshWeight1" min="0" step="0.01" oninput="calculateDryWeight(1)" required>
 
                     <button type="button" onclick="calculateDryWeight(1)">계산하기</button>
 
-                    <label for="dryWeight1">마른것 중량(kg):</label>
+                    <label for="dryWeight1">건중량(kg):</label>
                     <input type="text" id="dryWeight1" name="dryWeight1" readonly>
                 </form>
             </div>
 
             <div class="calculator">
-                <h3>마른 것 → 생 것</h3>
+                <h3>건중량 → 생중량</h3>
                 <form id="calcForm2">
                     <label for="cropType2">작물 선택:</label>
                     <select id="cropType2" onchange="updateDryRate(2)">
@@ -128,12 +128,12 @@
                     <label for="dryRate2">건조율(%):</label>
                     <input type="number" id="dryRate2" name="dryRate2" readonly>
 
-                    <label for="dryWeight2">마른것(kg):</label>
+                    <label for="dryWeight2">건중량(kg):</label>
                     <input type="number" id="dryWeight2" name="dryWeight2" min="0" step="0.01" oninput="calculateFreshWeight(2)" required>
 
                     <button type="button" onclick="calculateFreshWeight(2)">계산하기</button>
 
-                    <label for="freshWeight2">생것 중량(kg):</label>
+                    <label for="freshWeight2">생중량(kg):</label>
                     <input type="text" id="freshWeight2" name="freshWeight2" readonly>
                 </form>
             </div>
