@@ -248,7 +248,7 @@
                 <td><input type="number" class="animal-count" data-breed="${breed}" min="0"></td>
                 <td class="manure-sum">0</td>
                 <td class="urine-sum">0</td>
-                <td class="manure-urine-sum" style="color: blue;">0</td>
+                <td class="manure-urine-sum">0</td>
             `;
             dataBody.appendChild(row);
         }
@@ -279,6 +279,7 @@
             row.querySelector(".manure-sum").textContent = manureSum.toFixed(2);
             row.querySelector(".urine-sum").textContent = urineSum.toFixed(2);
             row.querySelector(".manure-urine-sum").textContent = manureUrineSum.toFixed(2);
+            row.querySelector(".manure-urine-sum").style.color = 'blue';
 
             totalManureSum += manureSum;
             totalUrineSum += urineSum;
