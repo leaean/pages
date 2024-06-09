@@ -83,12 +83,13 @@
 </head>
 <body>
 <div class="container">
-    <h2>투자손익 계산기</h2>
+    <h2 onclick="window.location.reload();>투자손익 계산기</h2>
     <form id="calculator">
         <label for="investmentAmount">투자액(원):</label>
         <input type="text" id="investmentAmount" name="investmentAmount" required><br>
         <label for="profitRate">투자(매매)손익률(%):</label>
         <input type="number" id="profitRate" name="profitRate" step="0.00001" required><br>
+        <p>*수익률의 경우 공시된 연수익률(예. 한달적금 금리)이 아닌 실제 수익률을 입력</p><br>
         <label for="incomeTaxRate">세율(%):</label>
         <input type="number" id="incomeTaxRate" name="incomeTaxRate" step="0.00001" required>
         <p>*이자소득세, 배당소득세, 증권거래세, 양도소득세 등</p><br>
@@ -124,13 +125,13 @@
         var result = "";
 
 if (profit > 0) {
-    result += "<p>자본수입은 투자수익 " + capitalIncome.toLocaleString() + "원입니다.</p>";
-    result += "<p>자본지출은 " + capitalExpense.toLocaleString() + "원 (거래수수료: " + commission.toLocaleString() + "원 + 세금: " + incomeTax.toLocaleString() + "원)입니다.</p>";
-    result += "<p>투자자산 잔액은 " + (investmentAmountValue + capitalIncome - capitalExpense).toLocaleString() + "원입니다.</p>";
+    result += "<p>자본수입은 약 " + capitalIncome.toLocaleString() + "원입니다.</p>";
+    result += "<p>자본지출은 약 " + capitalExpense.toLocaleString() + "원 (거래수수료: " + commission.toLocaleString() + "원 + 세금: " + incomeTax.toLocaleString() + "원)입니다.</p>";
+    result += "<p>투자자산 잔액은 약 " + (investmentAmountValue + capitalIncome - capitalExpense).toLocaleString() + "원입니다.</p>";
 } else {
     result += "<p>자본수익은 0원입니다.</p>";
-result += "<p>자본지출은 " + ( -profit + commission).toLocaleString() + "원 (투자손실: " + (-profit).toLocaleString() + "원 + 거래수수료: " + commission.toLocaleString() + "원)입니다.</p>";
-result += "<p>투자자산 잔액은 " + (investmentAmountValue - ( -profit + commission)).toLocaleString() + "원입니다.</p>";
+result += "<p>자본지출은 약 " + ( -profit + commission).toLocaleString() + "원 (투자손실: " + (-profit).toLocaleString() + "원 + 거래수수료: " + commission.toLocaleString() + "원)입니다.</p>";
+result += "<p>투자자산 잔액은 약 " + (investmentAmountValue - ( -profit + commission)).toLocaleString() + "원입니다.</p>";
 }
 
         document.getElementById('result').innerHTML = result;
