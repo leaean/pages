@@ -105,16 +105,13 @@
                 flex-direction: column; /* 요소들을 위아래로 배치 */
             }
             input[type="number"], select {
-                width: 100%; /* 전체 너비를 차지하도록 변경 */
-            }
-            h2 {
-                font-size: 20px; /* 모바일에서 폰트 크기 조정 */
+                width: 80%; /* 전체 너비를 차지하도록 변경 */
             }
         }
     </style>
 </head>
 <body>
-<h2 onclick="location.reload()" style="cursor: pointer;">가축분뇨발생량 및 퇴구비 생산량 추정 계산기</h2>
+<h2 onclick="location.reload()" style="cursor: pointer;">가축분뇨 발생량 및 퇴구비 생산량 추정 계산기</h2>
 <div class="container">
     <div id="animalContainer">
         <h1>가축분뇨 발생량 추정</h1>
@@ -161,7 +158,7 @@
 
     <div class="estimate-container">
         <h1>퇴구비 생산량 추정</h1>
-        <h2>추정 퇴구비 생산량(kg) = (농장 1일 평균 총배설량 * 퇴구비 축적일수 * 건조후 함수율 깔짚·왕겨·톱밥 투입량) * (100 - 부숙 후 무게감소율)/100 </h2>
+        <p>추정 퇴구비 생산량(kg) = (농장 1일 평균 총배설량 * 퇴구비 축적일수 * 건조후 함수율 깔짚·왕겨·톱밥 투입량) * (100 - 부숙 후 무게감소율)/100 </p>
         <form>
             <label for="dailyExcretion">농장 1일 평균 총 배설량(kg):
                 <input type="number" id="dailyExcretion" name="dailyExcretion" min="0" required>
