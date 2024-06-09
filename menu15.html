@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>가축분뇨량 및 퇴구비 추정 계산기</title>
+    <title>가축분뇨발생량 및 퇴구비 생산량 추정 계산기</title>
     <style>
         /* 공통 스타일 */
         body {
@@ -114,10 +114,10 @@
     </style>
 </head>
 <body>
-<h2 onclick="location.reload()" style="cursor: pointer;">가축분뇨량 및 퇴구비 추정계산기</h2>
+<h2 onclick="location.reload()" style="cursor: pointer;">가축분뇨발생량 및 퇴구비 생산량 추정 계산기</h2>
 <div class="container">
     <div id="animalContainer">
-        <h1>가축분뇨량 계산기</h1>
+        <h1>가축분뇨 발생량 추정</h1>
         <label for="animal">축종:
             <select id="animal">
                 <option value="none">선택하세요</option>
@@ -160,7 +160,7 @@
     </div>
 
     <div class="estimate-container">
-        <h1>퇴구비 추정 계산기</h1>
+        <h1>퇴구비 생산산량 추정</h1>
         <form>
             <label for="dailyExcretion">농장 1일 평균 총 배설량(kg):
                 <input type="number" id="dailyExcretion" name="dailyExcretion" min="0" required>
@@ -302,7 +302,7 @@
         const dryMatter = totalExcretion * (conversionRate / 100);
         const compostAmount = (dryMatter + beddingAmount) * ((100 - weightLossRate) / 100);
 
-        document.getElementById("estimateResult").textContent = `퇴구비 발생량: ${compostAmount.toFixed(2)} kg`;
+        document.getElementById("estimateResult").textContent = `퇴구비 생산산량: ${compostAmount.toFixed(2)} kg`;
     }
 </script>
 </body>
