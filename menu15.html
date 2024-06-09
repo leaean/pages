@@ -139,7 +139,7 @@
                     <th>기간평균<br>마릿수<br>(마리)</th>
                     <th>총배출량(분)<br>(kg/일)</th>
                     <th>총배출량(뇨)<br>(kg/일)</th>
-                    <th>총배출량(분뇨)<br>(kg/일)</th>
+                    <th><strong>총배출량(분뇨)<br>(kg/일)</strong></th>
                 </tr>
                 </thead>
                 <tbody id="data-body">
@@ -159,7 +159,7 @@
     <div class="estimate-container">
         <h1>퇴구비 생산량 추정</h1>
         <form>
-            <label for="dailyExcretion">농장 1일 평균 총 배설량(kg):
+            <label for="dailyExcretion">농장 1일 평균 총 배출량(kg):
                 <input type="number" id="dailyExcretion" name="dailyExcretion" min="0" required>
             </label>
 
@@ -178,7 +178,8 @@
             <label for="weightLossRate">부숙 후 무게감소율(%):
                 <input type="number" id="weightLossRate" name="weightLossRate" min="0" required>
             </label>
-        <p text-align: right; font-size: 8px;>추정 퇴구비 생산량(kg) = (농장 1일 평균 총배설량 * 퇴구비 축적일수 * 건조후 함수율 깔짚·왕겨·톱밥 투입량) * (100 - 부숙 후 무게감소율)/100 </p>
+        <p>* 퇴구비 추정 생산량(kg) = ((농장 1일 평균 총배설량 × 퇴구비 축적일수 × 건조후 함수율) + 깔짚·왕겨·톱밥 투입량) × (100 - 부숙 후 무게감소율)/100 </p>
+        <p>** 주의! 농가의 대략적인 퇴구비 생산량을 추정하기 위한 산식으로 실제와 차이가 있을 수 있습니다. </p>
 
             <button type="button" onclick="calculateEstimate()">계산하기</button>
         </form>
