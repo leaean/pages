@@ -93,10 +93,10 @@
             color: #333;
         }
         h2 {
-            font-size: 30px;
+            font-size: 25px;
         }
         h1 {
-            font-size: 25px;
+            font-size: 15px;
         }
 
         /* 미디어 쿼리: 페이지 너비가 768px보다 작은 경우 */
@@ -248,7 +248,7 @@
                 <td><input type="number" class="animal-count" data-breed="${breed}" min="0"></td>
                 <td class="manure-sum">0</td>
                 <td class="urine-sum">0</td>
-                <td class="manure-urine-sum">0</td>
+                <td class="manure-urine-sum" style="color: blue;">0</td>
             `;
             dataBody.appendChild(row);
         }
@@ -301,7 +301,7 @@
         const dryMatter = totalExcretion * (conversionRate / 100);
         const compostAmount = (dryMatter + beddingAmount) * ((100 - weightLossRate) / 100);
 
-        document.getElementById("estimateResult").textContent = `퇴구비 생산산량: ${compostAmount.toFixed(2)} kg`;
+        document.getElementById("estimateResult").textContent = `퇴구비 생산량: ${compostAmount.toFixed(2)} kg`;
     }
 </script>
 </body>
