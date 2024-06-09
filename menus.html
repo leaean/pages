@@ -16,28 +16,31 @@
             flex-direction: column; /* 수직 방향으로 요소 배치 */
             justify-content: center;
             align-items: center;
-            margin: 0;
         }
         .title:hover {
             color: #00437A; /* 정부청색 - 조금 더 어두운 톤 */
+            text-decoration: bold; /* Underline on hover */
         }
         .title {
-            font-size: 5vw; /* 반응형 폰트 크기 */
+            font-size: 70px;
             text-align: center;
             font-weight: bold;
             color: #0057A1; /* 정부청색 */
             font-family: 'Noto Sans KR', sans-serif;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 그림자 설정 */
             cursor: pointer;
-            margin: 20px; /* 메뉴를 위로 이동 */
+            margin-left: 10px; /* 이미지와 타이틀 간격 */
+            margin-top: 20px; /* 메뉴를 위로 이동 */
+            margin-bottom: 40px; /* 타이틀과 폼 간격 추가 */
         }
         .title img {
-            width: 5vw;
+            width: 50px;
             height: auto;
             margin-right: 10px;
         }
         .menu-container {
             display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 2개의 열로 구성 */
             gap: 10px;
             justify-content: center; /* 메뉴 가운데 정렬 추가 */
             margin-bottom: 20px; /* 아래 여백 추가 */
@@ -47,15 +50,15 @@
             padding: 30px;
             background-color: #0057A1; /* 정부청색 */
             color: white;
-            font-size: 2vw; /* 반응형 폰트 크기 */
+            font-size: 16pt;
             text-align: center;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
             border-radius: 50%; /* 원형 모양 설정 */
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), /* 그림자 설정 */
                         0 -4px 16px rgba(255, 255, 255, 0.5) inset; /* 반사 효과 설정 */
-            width: 15vw; /* 반응형 크기 설정 */
-            height: 15vw; /* 반응형 크기 설정 */
+            width: 120px; /* 원의 지름 설정 */
+            height: 120px; /* 원의 지름 설정 */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -73,6 +76,22 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
+        .content {
+            display: none;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            background-color: #FFFFFF; /* 백색 배경색상 */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .description {
+            margin-bottom: 20px;
+            color: #575757; /* 정부회색 */
+            text-align: center; /* 가운데 정렬 추가 */
+        }
+        
         .copyright {
             position: absolute;
             bottom: 0;
@@ -85,43 +104,46 @@
             width: 100%;
             text-align: center;
         }
-
-        /* 2열 레이아웃 */
-        .two-columns {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        /* 4열 레이아웃 */
-        .four-columns {
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        /* 세로 화면에서 제목과 메뉴를 꽉 차게 표시 */
-        @media (orientation: portrait) {
-            .title-container, .menu-container {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                text-align: center;
-            }
+        /* 모바일 장치 (작은 화면) */
+        @media (max-width: 320px) {
             .title {
-                font-size: 8vw; /* 더 큰 반응형 폰트 크기 */
+                font-size: 24px; /* 폰트 크기 조정 */
+            }
+            .menu-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 작은 모바일 장치 및 일반 스마트폰 */
+        @media (max-width: 414px) {
+            .title {
+                font-size: 32px; /* 폰트 크기 조정 */
+            }
+            .menu-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 태블릿 장치 및 작은 노트북 */
+        @media (max-width: 1100px) {
+            .title {
+                font-size: 40px; /* 폰트 크기 조정 */
             }
             .menu-container {
                 grid-template-columns: repeat(2, 1fr);
-                width: 100%;
             }
         }
 
-        /* 가로 화면에서 4열로 표시 */
-        @media (orientation: landscape) {
+        /* 데스크탑 장치 */
+        @media (min-width: 1101px) {
+            .title {
+                font-size: 70px; /* 폰트 크기 조정 */
+            }
             .menu-container {
                 grid-template-columns: repeat(4, 1fr);
             }
         }
+
 
 
     </style>
