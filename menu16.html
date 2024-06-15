@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>작물 단위(개)당 중량</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
         table {
             border-collapse: collapse;
             width: 100%;
@@ -19,6 +22,37 @@
         }
         p {
             text-align: left;
+        }
+        @media (max-width: 600px) {
+            th, td {
+                padding: 5px;
+                font-size: 12px;
+            }
+            table, th, td {
+                display: block;
+                width: 100%;
+            }
+            thead {
+                display: none;
+            }
+            tr {
+                margin-bottom: 10px;
+                display: block;
+            }
+            td {
+                display: flex;
+                justify-content: space-between;
+                text-align: right;
+                position: relative;
+                padding-left: 50%;
+            }
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                text-align: left;
+                font-weight: bold;
+            }
         }
 
     </style>
