@@ -65,19 +65,35 @@
 </head>
 <body>
 <h2 onclick="window.location.reload();">종자량 및 재배면적 계산</h2>
-<P>※ 기준치: 2017~2023 농산물생산비조사 평균<br>(참고: 참깨('03~'09), 쌀보리('03~'09), 겉보리('01~'07))</p>
+<P>※ 기준치: 2017~2023 농산물생산비조사 평균<br>(농비 이외 작물 '농사로'>'농작업일정' 참고)</p>
 <form id="calculatorForm">
   <label for="crop">작물:</label>
   <select id="crop" required onchange="updateUnit()">
     <option value="" disabled selected>작물을 선택하세요</option>
-    <option value="논벼">논벼</option>
-    <option value="고추">고추</option>
-    <option value="콩">콩</option>
-    <option value="마늘">마늘</option>
-    <option value="양파">양파</option>
-    <option value="참깨">참깨(현재 미조사)</option>
-    <option value="쌀보리">쌀보리(현재 미조사)</option>
-    <option value="겉보리">겉보리(현재 미조사)</option>
+    <option value="쌀보리(광산파)">쌀보리(광산파)</option>
+    <option value="쌀보리(줄뿌림)">쌀보리(줄뿌림)</option>
+    <option value="겉보리(광산파)">겉보리(광산파)</option>
+    <option value="겉보리(줄뿌림)">겉보리(줄뿌림)</option>
+    <option value="맥주보리(광산파)">맥주보리(광산파)</option>
+    <option value="맥주보리(줄뿌림)">맥주보리(줄뿌림)</option>
+    <option value="밀(광산파)">밀(광산파)</option>
+    <option value="밀(기계)">밀(기계)</option>
+    <option value="팥">팥</option>
+    <option value="수수">수수</option>
+    <option value="녹두">녹두</option>
+    <option value="메밀(조파)">메밀(조파)</option>
+    <option value="메밀(춘파)">메밀(춘파)</option>
+    <option value="메밀(비닐피)">메밀(비닐피)</option>
+    <option value="옥수수(곡실용)">옥수수(곡실용)</option>
+    <option value="옥수수(식용풋)">옥수수(식용풋)</option>
+    <option value="유채">유채</option>
+    <option value="감자">감자</option>
+    <option value="이탈리안라이그라스">이탈리안라이그라스</option>
+    <option value="사료용옥수수">사료용옥수수</option>
+    <option value="사료용호맥">사료용호맥</option>
+    <option value="사료용연맥(조파)">사료용연맥(조파)</option>
+    <option value="사료용유채(봄재배)">사료용유채(봄재배)</option>
+    <option value="사료용유채(가을재배)">사료용유채(가을재배)</option>
   </select>
   <label for="inputType">입력 유형:</label>
   <select id="inputType" onchange="toggleInput()" required>
@@ -117,10 +133,10 @@ function toggleInput() {
 }function updateUnit() {
   var crop = document.getElementById("crop").value;
   var seedUnit = document.getElementById("seedUnit");
-  if (crop === "논벼" || crop === "콩" || crop === "마늘" || crop === "참깨" || crop === "쌀보리" || crop === "겉보리") {
-    seedUnit.textContent = "kg";
-  } else if (crop === "고추" || crop === "양파") {
+  if (crop === "고추" || crop === "양파") {
     seedUnit.textContent = "g";
+  } else {
+    seedUnit.textContent = "kg";
   }
 }function calculate() {
   var crop = document.getElementById("crop").value;
@@ -139,8 +155,31 @@ function toggleInput() {
     "마늘": 182.73,
     "양파": 210.1,
     "참깨": 0.86,
-    "쌀보리": 21.5,
-    "겉보리": 20.7
+    "들깨": 0.3,
+    "쌀보리(광산파)": 15,
+    "쌀보리(줄뿌림)": 12,
+    "겉보리(광산파)": 15,
+    "겉보리(줄뿌림)": 13,
+    "맥주보리(광산파)": 15,
+    "맥주보리(줄뿌림)": 12,
+    "밀(광산파)": 15,
+    "밀(기계)": 14,
+    "팥": 5.5,
+    "수수": 2.5,
+    "녹두": 1.5,
+    "메밀(조파)": 4,
+    "메밀(춘파)": 6,
+    "메밀(비닐피)": 10,
+    "옥수수(곡실용)": 2.35,
+    "옥수수(식용풋)": 1.75,
+    "유채": 1.25,
+    "감자": 150,
+    "이탈리안라이그라스": 4,
+    "사료용옥수수": 35,
+    "사료용호맥": 20,
+    "사료용연맥(조파)": 17.5,
+    "사료용유채(봄재배)": 1.5,
+    "사료용유채(가을재배)": 2.5
   };
   if (!crop) {
     result.textContent = "작물을 선택하세요.";
@@ -158,7 +197,7 @@ function toggleInput() {
     var seedingAmount = seedingRates[crop] * area / 1000;
     var seedingAmountMin = seedingAmount * 0.8;
     var seedingAmountMax = seedingAmount * 1.2;
-    var unitLabel = (crop === "논벼" || crop === "콩" || crop === "마늘" || crop === "참깨" || crop === "쌀보리" || crop === "겉보리") ? "kg" : "g";
+    var unitLabel = (crop === "고추" || crop === "양파") ? "g" : "kg";
     result.innerHTML = `예측 종자량: 약 ${seedingAmount.toFixed(2)}${unitLabel}<br>(±20% 오차범위: ${seedingAmountMin.toFixed(2)}${unitLabel} - ${seedingAmountMax.toFixed(2)}${unitLabel})`;
   } else {
     var seedingAmount = parseFloat(document.getElementById("seedingAmount").value);
