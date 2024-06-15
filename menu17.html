@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>축종별 사양관리 프로그램</title>
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .item {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: center;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        .item img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+        .item th {
+            margin-bottom: 10px;
+            font-weight: normal;
+            font-size: 18px; /* 폰트 크기 조정 */
+            font-family: 'Arial', sans-serif; /* 폰트 설정 */
+            color: #333; /* 폰트 색상 설정 */
+        }
+        @media (min-width: 601px) {
+            .item {
+                flex: 1 1 calc(50% - 20px); /* 두 개의 열로 표시, 각 열 사이에 20px 간격 */
+            }
+        }
+        @media (max-width: 600px) {
+            .item {
+                flex: 1 1 100%; /* 한 개의 열로 표시 */
+            }
+        }
+        /* 모달 스타일링 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+        .modal-content img {
+            width: 100%;
+            height: auto;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>축종별 사양관리 프로그램</h1>
+    <div class="container">
+        <div class="item">
+            <th>한우번식우(1)</th>
+            <img src="https://example.com/image01.jpg" alt="Image 01" onclick="openModal('https://example.com/image01.jpg')">
+        </div>
+        <div class="item">
+            <th>한우비육우(1)</th>
+            <img src="https://example.com/image02.jpg" alt="Image 02" onclick="openModal('https://example.com/image02.jpg')">
+        </div>
+    </div>
+
+    <!-- 모달 요소 -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img id="modal-image" src="">
+        </div>
+    </div>
+
+    <script>
+        function openModal(src) {
+            document.getElementById('modal-image').src = src;
+            document.getElementById('myModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
+    </script>
+</body>
+</html>
