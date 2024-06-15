@@ -50,7 +50,7 @@
 <body>
 <div class="container">
   <h2 onclick="window.location.reload();">종자량/재배면적 검토</h2>  
-    <p>※ 기준치: 2017~2023 농산물생산비조사 평균</p>
+    <p>※ 기준치: 2017~2023 농산물생산비조사 평균<br>(참고: 참깨('03~'09), 쌀보리('03~'09), 겉보리('01~'07))</p>
     <form id="seedingForm">
         <strong><label for="crop">작물 선택</label></strong>
         <select id="crop" onchange="updateUnit()">
@@ -60,6 +60,10 @@
             <option value="콩">콩</option>
             <option value="마늘">마늘</option>
             <option value="양파">양파</option>
+            <option value="참깨">참깨(현재 미조사)</option>
+            <option value="쌀보리">쌀보리(현재 미조사)</option>
+            <option value="겉보리">겉보리(현재 미조사)</option>
+          
         </select>
         <strong><label for="area">재배면적</label></strong>
         <input type="number" id="area" placeholder="재배면적을 입력하세요">
@@ -80,7 +84,7 @@
 function updateUnit() {
     var crop = document.getElementById("crop").value;
     var seedUnit = document.getElementById("seedUnit");
-    if (crop === "논벼" || crop === "콩" || crop === "마늘") {
+    if (crop === "논벼" || crop === "콩" || crop === "마늘" || crop === "참깨" || crop === "쌀보리" || crop === "겉보리") {
         seedUnit.textContent = "kg";
     } else if (crop === "고추" || crop === "양파") {
         seedUnit.textContent = "g";
@@ -132,7 +136,10 @@ if (selectedCrop === "") {
         "고추": 24.71 / 1000,
         "콩": 6.11,
         "마늘": 182.73,
-        "양파": 210.1 / 1000
+        "양파": 210.1 / 1000,
+        "참깨": 0.86,
+        "쌀보리": 21.5,
+        "겉보리": 20.7
     };
     var expectedSeedingRatePer10a = expectedSeedingRates[selectedCrop];
     // Calculate seeding rate per square meter
