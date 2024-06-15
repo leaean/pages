@@ -65,16 +65,17 @@
 </head>
 <body>
 <h2 onclick="window.location.reload();">종자량 및 재배면적 계산</h2>
-<P>※ 기준치: 2017~2023 농산물생산비조사 평균</p>
+<P>※ 기준치: 2017~2023 농산물생산비조사 평균<br>(참고: 참깨('03~'09), 쌀보리(), 겉보리())</p>
 <form id="calculatorForm">
   <label for="crop">작물:</label>
   <select id="crop" required onchange="updateUnit()">
     <option value="" disabled selected>작물을 선택하세요</option>
-    <option value="논벼">논벼(종자단위: kg)</option>
-    <option value="고추">고추(종자단위: g)</option>
-    <option value="콩">콩(종자단위: kg)</option>
-    <option value="마늘">마늘(종자단위: kg)</option>
-    <option value="양파">양파(종자단위: g)</option>
+    <option value="논벼">논벼</option>
+    <option value="고추">고추</option>
+    <option value="콩">콩</option>
+    <option value="마늘">마늘</option>
+    <option value="양파">양파</option>
+    <option value="참깨">참깨(현재 미조사)</option>
   </select>
   <label for="inputType">입력 유형:</label>
   <select id="inputType" onchange="toggleInput()" required>
@@ -114,7 +115,7 @@ function toggleInput() {
 }function updateUnit() {
   var crop = document.getElementById("crop").value;
   var seedUnit = document.getElementById("seedUnit");
-  if (crop === "논벼" || crop === "콩" || crop === "마늘") {
+  if (crop === "논벼" || crop === "콩" || crop === "마늘" || crop === "참깨") {
     seedUnit.textContent = "kg";
   } else if (crop === "고추" || crop === "양파") {
     seedUnit.textContent = "g";
@@ -134,7 +135,8 @@ function toggleInput() {
     "고추": 24.71,
     "콩": 6.01,
     "마늘": 182.73,
-    "양파": 210.1
+    "양파": 210.1,
+    "참깨": 0.86
   };
   if (!crop) {
     result.textContent = "작물을 선택하세요.";
@@ -152,7 +154,7 @@ function toggleInput() {
     var seedingAmount = seedingRates[crop] * area / 1000;
     var seedingAmountMin = seedingAmount * 0.8;
     var seedingAmountMax = seedingAmount * 1.2;
-    var unitLabel = (crop === "논벼" || crop === "콩" || crop === "마늘") ? "kg" : "g";
+    var unitLabel = (crop === "논벼" || crop === "콩" || crop === "마늘" || crop === "참깨") ? "kg" : "g";
     result.innerHTML = `예측 종자량: 약 ${seedingAmount.toFixed(2)}${unitLabel}<br>(±20% 오차범위: ${seedingAmountMin.toFixed(2)}${unitLabel} - ${seedingAmountMax.toFixed(2)}${unitLabel})`;
   } else {
     var seedingAmount = parseFloat(document.getElementById("seedingAmount").value);
