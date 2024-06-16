@@ -292,6 +292,15 @@
         document.getElementById("totalManureUrineSum").style.color = 'blue';
     }
 
+    function validateWeightLossRate() {
+        var weightLossRate = document.getElementById('weightLossRate').value;
+        if (weightLossRate < 0) {
+           alert("무게감소율은 절댓값을 입력하세요");
+            return false; // Prevent form submission
+            }
+       return true; // Allow form submission
+        }
+    
     function calculateEstimate() {
         const dailyExcretion = parseFloat(document.getElementById("dailyExcretion").value) || 0;
         const days = parseFloat(document.getElementById("days").value) || 0;
@@ -305,6 +314,8 @@
 
         document.getElementById("estimateResult").textContent = `퇴구비 생산량: ${compostAmount.toFixed(2)} kg`;
     }
+
+    
 </script>
 </body>
 </html>
