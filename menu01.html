@@ -205,7 +205,7 @@ function toggleInput() {
     var seedingAmountMin = seedingAmount * 0.8;
     var seedingAmountMax = seedingAmount * 1.2;
     var unitLabel = (crop === "고추" || crop === "양파") ? "g" : "kg";
-    result.innerHTML = `예측 종자량: 약 ${seedingAmount.toFixed(2)}${unitLabel}<br>(±20% 오차범위: ${seedingAmountMin.toFixed(2)}${unitLabel} - ${seedingAmountMax.toFixed(2)}${unitLabel})`;
+    result.innerHTML = `예측 종자량: 약 ${seedingAmount.toFixed(2).toLocaleString()}${unitLabel}<br>(±20% 오차범위: ${seedingAmountMin.toFixed(2).toLocaleString()}${unitLabel} - ${seedingAmountMax.toFixed(2).toLocaleString()}${unitLabel})`;
   } else {
     var seedingAmount = parseFloat(document.getElementById("seedingAmount").value);
     if (isNaN(seedingAmount) || seedingAmount <= 0) {
@@ -215,8 +215,10 @@ function toggleInput() {
     var area = seedingAmount / (seedingRates[crop] / 1000);
     var areaMin = area * 0.8;
     var areaMax = area * 1.2;
-    result.innerHTML = `예측 재배면적: 약 ${area.toFixed(2)}m²<br>(±20% 오차범위: ${areaMin.toFixed(2)}m² - ${areaMax.toFixed(2)}m²)`;
+    result.innerHTML = `예측 재배면적: 약 ${area.toFixed(2).toLocaleString()}m²<br>(±20% 오차범위: ${areaMin.toFixed(2).toLocaleString()}m² - ${areaMax.toFixed(2).toLocaleString()}m²)`;
   }
-}</script>
+}
+
+</script>
 </body>
 </html>
