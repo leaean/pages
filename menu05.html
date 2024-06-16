@@ -127,7 +127,7 @@
                 alert("포기(주) 수를 입력하세요.");
                 return;
             }
-            if (!ratio) {
+            if (ratio === null || ratio === undefined || ratio === '') {
                 alert("고랑면적 비중을 입력하세요.");
                 return;
             }
