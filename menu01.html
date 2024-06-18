@@ -110,7 +110,7 @@
     <option value="사료용유채(봄재배)">사료용유채(봄재배)</option>
     <option value="사료용유채(가을재배)">사료용유채(가을재배)</option>
   </select>
-  <strong><label for="inputType">입력 유형</label></strong>strong>
+  <strong><label for="inputType">입력 유형</label></strong>
   <select id="inputType" onchange="toggleInput()" required>
     <option value="area">재배면적</option>
     <option value="seedingAmount">종자량</option>
@@ -225,9 +225,10 @@ function toggleInput() {
       return;
     }
     var area = seedingAmount / (seedingRates[crop] / 1000);
+    var pyeong = area/3.3
     var areaMin = area * 0.8;
     var areaMax = area * 1.2;
-    result.innerHTML = `예측 재배면적: 약 ${area.toFixed(2)}m²(약 ${area.toFixed(2)}/3.3 평)<br>(±20% 오차범위: ${areaMin.toFixed(2)}m² ~ ${areaMax.toFixed(2)}m²)`;
+    result.innerHTML = `예측 재배면적: 약 ${area.toFixed(2)}m²(약 ${pyeong.toFixed(2)} 평)<br>(±20% 오차범위: ${areaMin.toFixed(2)}m² ~ ${areaMax.toFixed(2)}m²)`;
   }
 }
 
