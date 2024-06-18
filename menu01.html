@@ -228,7 +228,9 @@ function toggleInput() {
     var pyeong = area/3.3
     var areaMin = area * 0.8;
     var areaMax = area * 1.2;
-    result.innerHTML = `예측 재배면적: 약 ${area.toFixed(2)}m²(약 ${pyeong.toFixed(2)} 평)<br>(±20% 오차범위: ${areaMin.toFixed(2)}m² ~ ${areaMax.toFixed(2)}m²)`;
+    var pyeongMin = pyeong * 0.8;
+    var pyeongMax = pyeong * 1.2;
+    result.innerHTML = `예측 재배면적: 약 ${area.toFixed(2)}m²(약 ${pyeong.toFixed(2)} 평)<br>(±20% 오차범위: ${areaMin.toFixed(2)}m² ~ ${areaMax.toFixed(2)}m²)<br>(${pyeongMin.toFixed(2)}평 ~ ${pyeongMax.toFixed(2)}평)`;
   }
 }
 
