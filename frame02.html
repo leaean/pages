@@ -15,6 +15,11 @@
         h1 {
             text-align: center;
         }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+          }
         iframe {
             width: 600px;
             height: 600px;
@@ -24,12 +29,13 @@
         .iframe-container {
             display: inline-block;
         }
-
 </style>
 
 <body>
+  <div class="container">
     <h1 onclick="window.location.reload();">생산량 & 재배면적</h1>
     <iframe src="https://leaean.github.io/pages/menu03" width="700" height="1000" title="Example Site"></iframe>
     <iframe src="https://leaean.github.io/pages/menu04" width="700" height="1000" title="Example Site"></iframe>
+  </div>
 </body>
 </html>
