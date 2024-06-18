@@ -65,11 +65,12 @@
 </style>
 </head>
 <body>
+  <div class="container">
 <h2 onclick="window.location.reload();">생산량 및 재배면적 계산</h2>
 
 <P>※ 기준치: 최근 7년치 농작물생산량조사, 농촌진흥청 통계치 평균</p>
 <form id="calculatorForm">
-  <label for="crop">작물:</label>
+  <strong><label for="crop">작물 선택</label></strong>
   <select id="crop" required onchange="updateUnit()">
     <option value="" disabled selected>작물을 선택하세요</option>
     <option value="쌀(조곡)(농촌진흥청)('16~'22)">쌀(조곡)(농촌진흥청)('16~'22)</option>
@@ -220,13 +221,13 @@
     <<option value="장미(시설장미)(본)(농촌진흥청)('16~'22)">장미(시설장미)(단위:본)(농촌진흥청)('16~'22)</option>
     <<option value="옥수수(노지풋옥수수)(개)(농촌진흥청)('16~'22)">노지풋옥수수(단위:개)(농촌진흥청)('16~'22)</option>
   </select>
-  <label for="inputType">입력 유형:</label>
+  <strong><label for="inputType">입력 유형</label></strong>
   <select id="inputType" onchange="toggleInput()" required>
     <option value="area">재배면적</option>
     <option value="seedingAmount">생산량</option>
   </select>
   <div id="areaInput" style="display: block;">
-    <label for="area">재배면적:</label>
+    <strong><label for="area">재배면적</label></strong>
     <input type="number" id="area" min="0" placeholder="재배면적을 입력하세요" required>
     <select id="unit">
       <option value="m2">m²</option>
@@ -236,13 +237,14 @@
     </select>
   </div>
 <div id="seedingAmountInput" style="display: none;">
-    <label for="seedingAmount">생산량:</label>
+    <strong><label for="seedingAmount">생산량</label></strong>
     <input type="number" id="seedingAmount" min="0" placeholder="생산량을 입력하세요" required>
     <span id="seedUnit">kg</span>
 </div>
   <button type="button" onclick="calculate()">계산하기</button>
 </form>
 <p id="result"></p>
+</div>
 
 
 <script>
@@ -463,10 +465,13 @@ function calculate() {
     }
 
     var area = seedingAmount / (seedingRates[crop] / 1000);
+    var pyeong = area/3.3    
     var areaMin = area * 0.8;
     var areaMax = area * 1.2;
+    var pyeongMin = pyeong * 0.8;
+    var pyeongMax = pyeong * 1.2;
 
-    result.innerHTML = `예측 재배면적: 약 ${area.toFixed(2)}m²<br>(±20% 오차범위: ${areaMin.toFixed(2)}m² ~ ${areaMax.toFixed(2)}m²)`;
+    result.innerHTML = `예측 재배면적: 약 ${area.toFixed(2)}m²(약 ${pyeong.toFixed(2)} 평)<br>(±20% 오차범위: ${areaMin.toFixed(2)}m² ~ ${areaMax.toFixed(2)}m²)<br>(${pyeongMin.toFixed(2)}평 ~ ${pyeongMax.toFixed(2)}평)`;
   }
 }
 </script>
