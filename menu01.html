@@ -219,7 +219,7 @@ function toggleInput() {
     var area = seedingAmount / (seedingRates[crop] / 1000);
     var areaMin = area * 0.8;
     var areaMax = area * 1.2;
-    result.innerHTML = `예측 재배면적: 약 ${area.toFixed(2)}m²<br>(±20% 오차범위: ${areaMin.toFixed(2)}m² - ${areaMax.toFixed(2)}m²)`;
+    result.innerHTML = `예측 재배면적: 약 ${area.toFixed(2)}m²<br>(±20% 오차범위: ${areaMin.toFixed(2)}m² ~ ${areaMax.toFixed(2)}m²)`;
   }
 }
 
