@@ -454,7 +454,7 @@ function calculate() {
     var seedingAmountMin = seedingAmount * 0.8;
     var seedingAmountMax = seedingAmount * 1.2;
 
-    result.innerHTML = `예측 생산량: 약 ${seedingAmount.toFixed(2)}${unit}<br>(±20% 오차범위: ${seedingAmountMin.toFixed(2)}${unit} - ${seedingAmountMax.toFixed(2)}${unit})`;
+    result.innerHTML = `예측 생산량: 약 ${seedingAmount.toFixed(2)}${unit}<br>(±20% 오차범위: ${seedingAmountMin.toFixed(2)}${unit} ~ ${seedingAmountMax.toFixed(2)}${unit})`;
   } else {
     var seedingAmount = parseFloat(document.getElementById("seedingAmount").value);
     if (isNaN(seedingAmount) || seedingAmount <= 0) {
@@ -466,7 +466,7 @@ function calculate() {
     var areaMin = area * 0.8;
     var areaMax = area * 1.2;
 
-    result.innerHTML = `예측 재배면적: 약 ${area.toFixed(2)}m²<br>(±20% 오차범위: ${areaMin.toFixed(2)}m² - ${areaMax.toFixed(2)}m²)`;
+    result.innerHTML = `예측 재배면적: 약 ${area.toFixed(2)}m²<br>(±20% 오차범위: ${areaMin.toFixed(2)}m² ~ ${areaMax.toFixed(2)}m²)`;
   }
 }
 </script>
