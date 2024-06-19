@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>가구의 한달 양곡 소비량 및 종류 계산기</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+    h1 {
+        text-align: center;
+        cursor: pointer;
+    }
+    form {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    label {
+        display: block;
+        margin-bottom: 1px;
+    }
+    input[type="number"], select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        margin-bottom: 10px;
+    }
+    #grain-checkboxes {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    #grain-checkboxes label {
+        flex: 1 1 45%;
+        margin-right: 20px;
+        box-sizing: border-box;
+    }
+    @media (max-width: 600px) {
+        #grain-checkboxes label {
+            flex: 1 1 100%;
+            margin-right: 0;
+        }
+    }
+</style>
+</head>
+<body>
+
+<h1>가구의 한달 양곡 소비량 및 종류 계산기</h1>
+
+<form id="grain-consumption-form">
+    <h2>가구의 한달 식사수</h2>
+    <label for="days">한달의 일수:</label>
+    <select id="days" name="days" required>
+        <option value="28">28일</option>
+        <option value="29">29일</option>
+        <option value="30">30일</option>
+        <option value="31">31일</option>
+    </select>
+
+    <label for="entertainment_times">가구의 한달 접대 횟수:
+    <input type="number" id="entertainment_times" name="entertainment_times" placeholder="가구의 한달 동안의 접대 횟수를 입력하세요" required></label>
+
+    <label for="entertainer_meals">가구의 접대인의 한끼 식사량(kg):
+    <input type="number" id="entertainer_meals" name="entertainer_meals" step="0.01" placeholder="접대인의 한끼 식사량을 입력하세요" required></label>
+
+    <label for="household_size">가구 인원수(최대 8인): 
+    <input type="number" id="household_size" name="household_size" min="1" max="8" placeholder="가구 인원수를 입력하세요" required></label>
+
+    <div id="household-members"></div>
+
+    <!-- 양곡 종류 및 비율 입력란 -->
+    <h2>사용 양곡</h2>
+    <div id="grain-checkboxes"></div>
+
+    <h2>양곡 사용 비율 입력</h2>
+    <div id="grain-ratio-inputs"></div>
+
+    <input type="submit" value="계산하기">
+</form>
+
+<script>
+    document.getElementById("household_size").addEventListener("change", function() {
+        let householdSize = parseInt(this.value);
+        let householdMembersDiv = document.getElementById("household-members");
+
+        // 기존에 생성된 입력란 삭제
+        householdMembersDiv.innerHTML = "";
+
+        // 가구원 수에 맞게 입력란 동적 생성
+        for (let i = 1; i <= householdSize; i++) {
+            let label1 = document.createElement("label");
+            label1.textContent = "가구원" + i + "의 1끼 식사량(kg):";
+            let input1 = document.createElement("input");
+            input1.type = "number";
+            input1.id = "member-meals-" + i;
+            input1.name = "member-meals-" + i;
+            input1.placeholder = "가구원" + i + "의 1끼 식사량을 입력하세요";
+            input1.required = true;
+	    input1.step = "0.01"; // 소수점 2자리까지 입력 가능하도록 설정
+
+            let label2 = document.createElement("label");
+            label2.textContent = "가구원" + i + "의 한달 외식수:";
+            let input2 = document.createElement("input");
+            input2.type = "number";
+            input2.id = "member-eating-out-" + i;
+            input2.name = "member-eating-out-" + i;
+            input2.placeholder = "가구원" + i + "의 한달 동안 외식한 횟수를 입력하세요";
+            input2.required = true;
+
+            let label3 = document.createElement("label");
+            label3.textContent = "가구원" + i + "의 한달 결식수:";
+            let input3 = document.createElement("input");
+            input3.type = "number";
+            input3.id = "member-skipped-meals-" + i;
+            input3.name = "member-skipped-meals-" + i;
+            input3.placeholder = "가구원" + i + "의 한달 동안 결식한 횟수를 입력하세요";
+            input3.required = true;
+
+            householdMembersDiv.appendChild(label1);
+            householdMembersDiv.appendChild(input1);
+            householdMembersDiv.appendChild(label2);
+            householdMembersDiv.appendChild(input2);
+            householdMembersDiv.appendChild(label3);
+            householdMembersDiv.appendChild(input3);
+        }
+    });
+
+    document.getElementById("grain-checkboxes").addEventListener("change", function() {
+        let checkedGrains = document.querySelectorAll("input[name='grain-checkbox']:checked");
+        let grainRatioInputs = document.getElementById("grain-ratio-inputs");
+
+        grainRatioInputs.innerHTML = ""; // 이전 내용 초기화
+
+        // 선택된 양곡에 대해 비율 입력란 생성
+        checkedGrains.forEach(function(grain) {
+            let grainIndex = parseInt(grain.value);
+            let grainLabel = grain.dataset.label;
+
+            let label = document.createElement("label");
+            label.textContent = grainLabel + " 사용비율(%):";
+            let input = document.createElement("input");
+            input.type = "number";
+            input.id = "grain-ratio-" + grainIndex;
+            input.name = "grain-ratio-" + grainIndex;
+            input.placeholder = grainLabel + " 비율을 입력하세요";
+            input.required = true;
+
+            grainRatioInputs.appendChild(label);
+            grainRatioInputs.appendChild(input);
+        });
+    });
+ 
+    document.getElementById("grain-consumption-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        let householdSize = parseInt(document.getElementById("household_size").value);
+        let days = parseInt(document.getElementById("days").value);
+
+        // 가구원 별로 외식횟수와 결식횟수를 합산
+        let totalEatingOut = 0;
+        let totalSkippedMeals = 0;
+        let totalEntertainment = parseInt(document.getElementById("entertainment_times").value);
+        let entertainerMeals = parseInt(document.getElementById("entertainer_meals").value);
+
+        for (let i = 1; i <= householdSize; i++) {
+            totalEatingOut += parseInt(document.getElementById("member-eating-out-" + i).value);
+            totalSkippedMeals += parseInt(document.getElementById("member-skipped-meals-" + i).value);
+        }
+
+        // 한 가구의 총 양곡 소비량 계산
+        let totalGrainConsumption = 0;
+        for (let i = 1; i <= householdSize; i++) {
+            totalGrainConsumption += (parseFloat(document.getElementById("member-meals-" + i).value) * (days * 3));
+        }
+        totalGrainConsumption += (totalEntertainment * entertainerMeals);
+
+        // 선택된 양곡 비율 입력 및 계산
+        let checkedGrains = document.querySelectorAll("input[name='grain-checkbox']:checked");
+        let grainUsage = {};
+        let totalRatio = 0; // 비율의 합 초기화
+
+        checkedGrains.forEach(function(grain) {
+            let grainIndex = parseInt(grain.value);
+            let grainRatio = parseFloat(document.getElementById("grain-ratio-" + grainIndex).value);
+            let grainLabel = grain.dataset.label;
+            grainUsage[grainLabel] = (totalGrainConsumption * grainRatio / 100).toFixed(2);
+            totalRatio += grainRatio; // 비율을 합산
+        });
+
+        // 비율의 합이 100%가 아닌 경우 알림 표시
+        if (totalRatio !== 100) {
+            alert("양곡 비율의 합이 100%가 아닙니다.");
+            return; // 계산 중단
+        }
+
+        // 결과 표시
+        let resultDiv = document.getElementById("result-div");
+        if (!resultDiv) {
+            resultDiv = document.createElement("div");
+            resultDiv.id = "result-div";
+            document.body.appendChild(resultDiv);
+        }
+        resultDiv.innerHTML = "<h2>결과</h2>";
+        resultDiv.innerHTML += "<p>가구 한달 양곡 총 소비량: " + totalGrainConsumption.toFixed(2) + " kg</p>";
+        resultDiv.innerHTML += "<p>각 양곡의 사용량:</p>";
+        for (let grain in grainUsage) {
+            resultDiv.innerHTML += "<p>" + grain + ": " + grainUsage[grain] + " kg</p>";
+        }
+        resultDiv.innerHTML += "<p>가구 한달 외식 횟수: " + totalEatingOut + " 회</p>";
+        resultDiv.innerHTML += "<p>가구 한달 결식 횟수: " + totalSkippedMeals + " 회</p>";
+        resultDiv.innerHTML += "<p>가구 한달 접대 횟수: " + totalEntertainment + " 회</p>";
+    });
+
+    // 초기에 양곡 종류 체크박스 생성
+    let grains = [
+        "멥쌀", "찹쌀", "겉보리쌀", "쌀보리쌀", "맥주보리쌀", "기타맥류", "밀가루", "옥수수", 
+        "기타잡곡", "콩", "팥", "땅콩", "기타두류", "고구마", "감자"
+    ];
+
+    let grainCheckboxesDiv = document.getElementById("grain-checkboxes");
+    grains.forEach(function(grain, index) {
+        let label = document.createElement("label");
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = "grain-checkbox";
+        checkbox.value = index;
+        checkbox.dataset.label = grain;
+        label.appendChild(checkbox);
+        label.appendChild(document.createTextNode(grain));
+        grainCheckboxesDiv.appendChild(label);
+    });
+document.querySelector("h1").addEventListener("click", function() {
+    // 페이지 새로고침
+    location.reload();
+});
+	
+</script>
+
+</body>
+</html>
+
