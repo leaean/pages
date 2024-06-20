@@ -200,7 +200,7 @@
 
 <body>
     <div class="title-container">
-        <h1 class="title" onclick="window.location.reset();">
+        <h1 class="title" onclick="window.location.reload();">
                 <img src="/pages/running_Botong(2).png" alt="">농사짓는 보통씨
                  </h1>
     </div>
@@ -228,8 +228,12 @@
         </div>
     </form>
 
-    <img src="/pages/qr.png" alt="" onclick="openModal('/pages/qr.png')">
     
+    <div class="title-container">
+        <h1 class="title" onclick="window.location.reset();">
+                <img src="/pages/qr.png" alt="" onclick="openModal('/pages/qr.png')">
+                 </h1>
+    </div>    
     <!-- 모달 요소 -->
     <div id="myModal" class="modal">
         <span class="close" onclick="closeModal()">&times;</span>
