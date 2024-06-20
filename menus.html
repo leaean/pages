@@ -78,12 +78,16 @@
             width: 100%;
             max-width: 900px;
             justify-content: center;
+            text-align: center; /* Center-align contents including images */
         }
+
         .modal-content img {
-            width: 70%;
-            height: auto;
-            justify-content: center;
+            width: 70%; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+            margin: auto; /* Center-align the image horizontally */
+            display: block; /* Ensure image behaves as a block element */
         }
+
         .close {
             position: absolute;
             top: 15px;
