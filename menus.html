@@ -43,6 +43,20 @@
             height: auto;
             margin-right: 10px;
         }
+
+        .item {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: center;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        .item img {
+            max-width: 80px;
+            height: auto;
+            cursor: pointer;
+        }
+        
                 /* 모달 스타일링 */
         .modal {
             display: none;
@@ -186,8 +200,10 @@
 <body>
     <div class="title-container">
         <h1 class="title" onclick="window.location.reload();">
-                <img src="/pages/running_Botong(2).png" alt="Title Image">농사짓는 보통씨</h1><h1><img src="/pages/qr.png" alt="" onclick="openModal('/pages/qr.png')"></h1>
-
+                <img src="/pages/running_Botong(2).png" alt="Title Image">농사짓는 보통씨</h1>
+    </div>
+    <div class="item">      
+        <img src="/pages/qr.png" alt="" onclick="openModal('/pages/qr.png')">
     </div>
     <form>
         <div class="menu-container">
