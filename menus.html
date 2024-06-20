@@ -201,9 +201,9 @@
     <div class="title-container">
         <h1 class="title" onclick="window.location.reload();">
                 <img src="/pages/running_Botong(2).png" alt="Title Image">농사짓는 보통씨</h1>
-    <div class="item">      
-        <img src="/pages/qr.png" alt="" onclick="openModal('/pages/qr.png')">
-    </div>
+        <div class="item">      
+                <img src="/pages/qr.png" alt="" onclick="openModal('/pages/qr.png')">
+        </div>
     </div>
     <form>
         <div class="menu-container">
@@ -228,6 +228,15 @@
 
         </div>
     </form>
+    <!-- 모달 요소 -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+            <img id="modal-image" src="">
+        </div>
+    </div>
+
+
     <div class="copyright">
         &copy; 2024 leaean, Honam Office. All rights reserved.
     </div>
