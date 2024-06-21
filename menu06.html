@@ -51,6 +51,28 @@
         a:hover {
             text-decoration: underline;
         }
+                /* 모바일 장치에서 폰트 크기 조정 */
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px; /* 모바일 화면에서 더 작은 폰트 크기 */
+            }
+
+            table {
+                font-size: 8px; /* 테이블 내의 폰트 크기 줄이기 */
+            }
+        }
+    /* 가로 화면에서 폰트 크기 확대 */
+    @media (min-width: 481px) {
+        body {
+            font-size: 18px; /* 가로 화면에서 더 큰 폰트 크기로 확대 */
+        }
+    
+        table {
+            font-size: 14px; /* 가로 화면에서 테이블 내 폰트 크기 확대 */
+        }
+    }
+
+
     </style>
 </head>
 <body>
