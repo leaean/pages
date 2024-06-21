@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>무게 변환 및 환산 계산기</title>
+    <title>곡종 중량 환산 / 가공물 변환</title>
 <style>
     /* 스타일 시트 */
     body {
@@ -97,9 +97,9 @@
             </select>
 
             <label for="crop">작물:</label>
-<select id="crop">
-    <option value="" disabled selected>선택</option>
-    <option value="참깨">참깨</option>
+                <select id="crop">
+                <option value="" disabled selected>선택</option>
+                <option value="참깨">참깨</option>
     <option value="들깨">들깨</option>
     <option value="흑임자">흑임자</option>
     <option value="대두/검정콩">대두/검정콩</option>
@@ -318,7 +318,7 @@ function convertWeight() {
     var maxResult = result * 1.1;
     
     // Display result with ±10% margin of error
-    document.getElementById("resultWeight").innerHTML = "환산결과 " + "<br>" + result.toFixed(2) + "kg" + " ( ±10% 오차범위: " + minResult.toFixed(2) + "kg ~ " + maxResult.toFixed(2) + "kg )";
+    document.getElementById("resultWeight").innerHTML = "환산결과 " + "<br>" + result.toFixed(2) + "kg"+ "<br>" + "( ±10% 오차범위: " + minResult.toFixed(2) + "kg ~ " + maxResult.toFixed(2) + "kg )";
 }
 
         // 초기화 함수
