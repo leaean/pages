@@ -170,21 +170,98 @@
             width: 100%;
             text-align: center;
         }
+
+        
+ /* 스마트폰 세로 화면 */
+@media (max-width: 600px) and (orientation: portrait) {
+    .title {
+        font-size: 40px; /* 폰트 크기 조정 */
+    }
+    .menu-container {
+        grid-template-columns: repeat(2, 1fr); /* 메뉴 그리드 레이아웃 조정 */
+    }
+}
+
+/* 스마트폰 가로 화면 */
+@media (max-width: 600px) and (orientation: landscape) {
+    .title {
+        font-size: 50px; /* 폰트 크기 조정 */
+    }
+    .menu-container {
+        grid-template-columns: repeat(3, 1fr); /* 메뉴 그리드 레이아웃 조정 */
+    }
+}
+
+/* 소형 태블릿 세로 화면 */
+@media (min-width: 601px) and (max-width: 800px) and (orientation: portrait) {
+    .title {
+        font-size: 50px; /* 폰트 크기 조정 */
+    }
+    .menu-container {
+        grid-template-columns: repeat(3, 1fr); /* 메뉴 그리드 레이아웃 조정 */
+    }
+}
+
+/* 소형 태블릿 가로 화면 */
+@media (min-width: 601px) and (max-width: 800px) and (orientation: landscape) {
+    .title {
+        font-size: 60px; /* 폰트 크기 조정 */
+    }
+    .menu-container {
+        grid-template-columns: repeat(4, 1fr); /* 메뉴 그리드 레이아웃 조정 */
+    }
+}
+
+/* 중형 태블릿 세로 화면 */
+@media (min-width: 801px) and (max-width: 1024px) and (orientation: portrait) {
+    .title {
+        font-size: 60px; /* 폰트 크기 조정 */
+    }
+    .menu-container {
+        grid-template-columns: repeat(4, 1fr); /* 메뉴 그리드 레이아웃 조정 */
+    }
+}
+
+/* 중형 태블릿 가로 화면 */
+@media (min-width: 801px) and (max-width: 1024px) and (orientation: landscape) {
+    .title {
+        font-size: 70px; /* 폰트 크기 조정 */
+    }
+    .menu-container {
+        grid-template-columns: repeat(5, 1fr); /* 메뉴 그리드 레이아웃 조정 */
+    }
+}
+
+/* 데스크탑 장치 */
+@media (min-width: 1025px) {
+    .title {
+        font-size: 70px; /* 폰트 크기 조정 */
+    }
+    .menu-container {
+        grid-template-columns: repeat(7, 1fr); /* 메뉴 그리드 레이아웃 조정 */
+    }
+    .menu {
+        font-size: 15pt;
+        width: 100px; /* 원의 지름 설정 */
+        height: 100px; /* 원의 지름 설정 */
+    }
+}
+       
         /* 스마트폰 세로 화면 */
-        @media (orientation: portrait) {
+ /*       @media (orientation: portrait) {
             .title {
                 font-size: 40px; /* 폰트 크기 조정 */
-            }
-            .menu-container {
+ /*           }
+/*            .menu-container {
                 grid-template-columns: repeat(4, 1fr);
             }
         }
 
         /* 스마트폰 가로 화면 */
-        @media (orientation: landscape) {
+/*        @media (orientation: landscape) {
             .title {
                 font-size: 60px; /* 폰트 크기 조정 */
-            }
+  /*          }
             .menu-container {
                 grid-template-columns: repeat(4, 1fr);
             }
