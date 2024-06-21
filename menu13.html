@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>투자손익 계산기</title>
+    <title>자본 수입 및 지출</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -83,7 +83,7 @@
 </head>
 <body>
 <div class="container">
-    <h2 onclick="location.reload()" style="cursor: pointer;">투자손익 계산기</h2>
+    <h2 onclick="location.reload()" style="cursor: pointer;">자본 수입 및 지출</h2>
     <form id="calculator">
         <label for="investmentAmount">투자액(원):</label>
         <input type="text" id="investmentAmount" name="investmentAmount" required><br>
@@ -95,7 +95,7 @@
         <p>*이자소득세, 배당소득세, 증권거래세, 양도소득세 등</p><br>
         <label for="commissionRate">거래수수료율(%):</label>
         <input type="number" id="commissionRate" name="commissionRate" step="0.00001" required>
-        <p>*투자액×거래수수료율=거래수수료</p><br>
+        <p>*매매거래액(매도시)×거래수수료율=거래수수료</p><br>
         <button type="submit">계산</button>
     </form>
     <div id="result"></div>
@@ -115,7 +115,7 @@
 
         var profit = investmentAmountValue * profitRate / 100;
         var incomeTax = (profit > 0) ? profit * incomeTaxRate / 100 : 0;
-        var commission = investmentAmountValue * commissionRate / 100;
+        var commission = investmentAmountValue * (1+profitRate/100) * commissionRate / 100;
 
         var capitalIncome = (profit > 0) ? profit : 0;
         var capitalExpense = (profit > 0) ? commission + incomeTax : investmentAmountValue + commission;
@@ -130,8 +130,8 @@ if (profit > 0) {
     result += "<p>투자자산 잔액은 약 " + (investmentAmountValue + capitalIncome - capitalExpense).toLocaleString() + "원입니다.</p>";
 } else {
     result += "<p>자본수입은 0원입니다.</p>";
-result += "<p>자본지출은 약 " + ( -profit + commission).toLocaleString() + "원 (투자손실: " + (-profit).toLocaleString() + "원 + 거래수수료: " + commission.toLocaleString() + "원)입니다.</p>";
-result += "<p>투자자산 잔액은 약 " + (investmentAmountValue - ( -profit + commission)).toLocaleString() + "원입니다.</p>";
+    result += "<p>자본지출은 약 " + ( -profit + commission).toLocaleString() + "원 (투자손실: " + (-profit).toLocaleString() + "원 + 거래수수료: " + commission.toLocaleString() + "원)입니다.</p>";
+    result += "<p>투자자산 잔액은 약 " + (investmentAmountValue - ( -profit + commission)).toLocaleString() + "원입니다.</p>";
 }
 
         document.getElementById('result').innerHTML = result;
