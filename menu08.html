@@ -162,6 +162,9 @@
 	<label for="crop">작물:</label>
                 <select id="crop">
                 <option value="" disabled selected>선택</option>
+                <option value="정조">정조(벼)</option>
+                <option value="현미">현미</option>
+                <option value="백미">백미</option>
                 <option value="참깨">참깨</option>
 		<option value="들깨">들깨</option>
                 <option value="흑임자">흑임자</option>
@@ -175,9 +178,6 @@
                 <option value="땅콩(정곡)">땅콩(정곡)</option>
                 <option value="유채">유채</option>
                 <option value="율무">율무</option>
-                <option value="정조">정조(벼 조곡)</option>
-                <option value="현미">현미</option>
-                <option value="백미">백미</option>
                 <option value="외미">외미</option>
                 <option value="대맥">대맥</option>
                 <option value="과맥">과맥</option>
@@ -290,6 +290,9 @@ function convertUnit() {
     };
 
 var hopWeight = {
+    "정조": 0.1,
+    "현미": 0.15,
+    "백미": 0.14,
     "참깨": 0.11,
     "들깨": 0.08,
     "흑임자": 0.09,
@@ -303,9 +306,6 @@ var hopWeight = {
     "땅콩(정곡)": 0.13,
     "유채": 0.11,
     "율무": 0.14,
-    "정조": 0.1,
-    "현미": 0.15,
-    "백미": 0.14,
     "외미": 0.1,
     "대맥": 0.1,
     "과맥": 0.14,
