@@ -72,13 +72,12 @@
         .form-group select {
             flex: 1 1 100%;
         }
+                    /* 모달 스타일링 */
         .title img {
             width: 100px;
             height: auto;
             margin-right: 10px;
         }
-        
-                /* 모달 스타일링 */
 
         .modal {
             display: none;
@@ -124,9 +123,6 @@
             text-decoration: none;
             cursor: pointer;
         }
-
-
-    
     }
 </style>
 </head>
@@ -136,7 +132,7 @@
 
     <div class="title-container">
         <h1 class="title" onclick="window.location.reset();">
-                <img src="/pages/ssal.png" alt="" onclick="openModal('/pages/ssal.png')">
+                <img src="/pages/hope.png" alt="" onclick="openModal('/pages/hope.png')">
                  </h1>
     </div>    
     <!-- 모달 요소 -->
@@ -146,6 +142,7 @@
             <img id="modal-image" src="">
         </div>
     </div>
+
 <form id="grain-consumption-form">
     <h2>가구의 한달 식사수</h2>
     <div class="form-group">
@@ -357,7 +354,7 @@
         location.reload();
     });
 
-        /*이미지 스크립트*/
+            /*이미지 스크립트*/
 
         function openModal(src) {
             document.getElementById('modal-image').src = src;
@@ -367,7 +364,6 @@
         function closeModal() {
             document.getElementById('myModal').style.display = "none";
         }
-
 
 </script>
 
