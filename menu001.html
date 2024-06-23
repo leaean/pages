@@ -342,7 +342,6 @@
 		['연간', '', '', '·토지임차료(사료작물용 제외) ', '', '']
 	],
     };
-
 // 검색 이벤트 핸들러
 document.getElementById("searchForm").addEventListener("submit", function(event) {
     event.preventDefault();
@@ -354,12 +353,28 @@ document.getElementById("searchForm").addEventListener("submit", function(event)
     const tablesDiv = document.getElementById("tables");
     tablesDiv.innerHTML = '';
 
+    const includeTerms = [];
+    const excludeTerms = [];
+
+    // 검색어를 파싱하여 포함 및 제외 단어를 구분
+    searchTerm.split(' ').forEach(term => {
+        if (term.startsWith('++')) {
+            includeTerms.push(term.substring(1));
+        } else if (term.startsWith('--')) {
+            excludeTerms.push(term.substring(1));
+        } else {
+            includeTerms.push(term);
+        }
+    });
+
     selectedFilters.forEach(category => {
         if (data.hasOwnProperty(category)) {
-            const matchedData = data[category].filter(item => 
-                (searchTerm === '' || item.some(field => field.toLowerCase().includes(searchTerm))) &&
-                (selectedMonths.includes('all') || selectedMonths.some(month => item[0].toLowerCase().includes(month)))
-            );
+            const matchedData = data[category].filter(item => {
+                const itemStr = item.join().toLowerCase();
+                return (includeTerms.every(term => itemStr.includes(term)) &&
+                        excludeTerms.every(term => !itemStr.includes(term))) &&
+                        (selectedMonths.includes('all') || selectedMonths.some(month => item[0].toLowerCase().includes(month)));
+            });
 
             if (matchedData.length > 0) {
                 hasResult = true;
@@ -464,7 +479,6 @@ document.querySelector('h1').addEventListener('click', function() {
         checkbox.checked = false;
     });
 });
-
 
 </script>
 </body>
