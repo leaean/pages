@@ -182,7 +182,7 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="entertainment_times">가구의 한달 접대 횟수:</label>
+        <label for="entertainment_times">가구의 한달 접대 횟수(잡곡 사용량 계산 위해 대체식품은 접대에서 제외):</label>
         <input type="number" id="entertainment_times" name="entertainment_times" placeholder="가구의 한달 동안의 접대 횟수를 입력하세요" required>
     </div>
     <div class="form-group">
@@ -250,7 +250,7 @@
             let formGroup3 = document.createElement("div");
             formGroup3.className = "form-group";
             let label3 = document.createElement("label");
-            label3.textContent = "가구원" + i + "의 한달 결식수:";
+            label3.textContent = "가구원" + i + "의 한달 결식수(잡곡 사용량 계산 위해 대체식품은 결식에 포함):";
             let input3 = document.createElement("input");
             input3.type = "number";
             input3.id = "member-skipped-meals-" + i;
@@ -353,8 +353,8 @@
             resultDiv.innerHTML += "<p>" + grain + ": " + grainUsage[grain] + " kg</p>";
         }
         resultDiv.innerHTML += "<p>가구 한달 외식 횟수: " + totalEatingOut + " 회</p>";
-        resultDiv.innerHTML += "<p>가구 한달 결식 횟수(잡곡 사용량 계산 위해 간편식 등은 결식에 포함): " + totalSkippedMeals + " 회</p>";
-        resultDiv.innerHTML += "<p>가구 한달 접대 횟수(잡곡 사용량 계산 위해 간편식 등은 접대에서 제외): " + totalEntertainment + " 회</p>";
+        resultDiv.innerHTML += "<p>가구 한달 결식 횟수(대체식품은 결식에 포함): " + totalSkippedMeals + " 회</p>";
+        resultDiv.innerHTML += "<p>가구 한달 접대 횟수(대체식품은 접대에서 제외): " + totalEntertainment + " 회</p>";
     });
 
     // 초기에 양곡 종류 체크박스 생성
