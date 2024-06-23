@@ -359,9 +359,9 @@ document.getElementById("searchForm").addEventListener("submit", function(event)
     // 검색어를 파싱하여 포함 및 제외 단어를 구분
     searchTerm.split(' ').forEach(term => {
         if (term.startsWith('++')) {
-            includeTerms.push(term.substring(1));
+            includeTerms.push(term.substring(2));
         } else if (term.startsWith('--')) {
-            excludeTerms.push(term.substring(1));
+            excludeTerms.push(term.substring(2));
         } else {
             includeTerms.push(term);
         }
@@ -428,13 +428,24 @@ function createTable(category, matchedData, tablesDiv) {
 }
 
 // 카테고리 체크박스 전체 선택 기능
-document.querySelector('.filterCheckbox[value="all"]').addEventListener('change', function() {
+const allFilterCheckbox = document.querySelector('.filterCheckbox[value="all"]');
+allFilterCheckbox.addEventListener('change', function() {
     const isChecked = this.checked;
     document.querySelectorAll('.filterCheckbox').forEach(checkbox => {
         if (checkbox.value !== "all") {
             checkbox.checked = isChecked;
         }
     });
+});
+
+// 개별 카테고리 체크박스 변경 핸들러
+document.querySelectorAll('.filterCheckbox').forEach(checkbox => {
+    if (checkbox.value !== "all") {
+        checkbox.addEventListener('change', function() {
+            const allChecked = Array.from(document.querySelectorAll('.filterCheckbox:not([value="all"])')).every(cb => cb.checked);
+            allFilterCheckbox.checked = allChecked;
+        });
+    }
 });
 
 // 월 선택 체크박스 전체 선택 기능
@@ -479,6 +490,7 @@ document.querySelector('h1').addEventListener('click', function() {
         checkbox.checked = false;
     });
 });
+
 
 </script>
 </body>
