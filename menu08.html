@@ -4,93 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>곡종 중량 단위 변환 / 원재료 중량</title>
-<style>
-    /* 스타일 시트 */
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f2f2f2;
-        margin: 0;
-        padding: 0;
-    }
-
-    .calculator-container {
-        display: flex;
-        flex-direction: column; /* 수직으로 배열 */
-        max-width: 400px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #fff;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-    }
-
-    .calculator {
-        padding: 20px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        margin-bottom: 20px; /* 각 계산기 사이의 간격 */
-    }
-
-    .calculator h2 {
-        margin-top: 0;
-        font-size: 20px;
-        color: #333;
-        cursor: pointer; /* 클릭 이벤트를 위해 커서를 포인터로 변경 */
-    }
-
-    label {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: bold;
-    }
-
-    select, input[type="number"] {
-        width: calc(100% - 22px);
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-    }
-
-    button {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #0056b3;
-    }
-
-    .result {
-        margin-top: 20px;
-        font-weight: bold;
-    }
-    .title {
-	font-size: 50pt; /* 원하는 크기로 조정 */
-	text-align: center;
-        font-weight: bold;
-	color: #0057A1; /* 정부청색 */
-        font-family: 'HakgyoansimKkokkomaR', sans-serif;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 그림자 설정 */
-        cursor: pointer;
-        margin-left: 10px; /* 이미지와 타이틀 간격 */
-        margin-top: 20px; /* 메뉴를 위로 이동 */
-        margin-bottom: 40px; /* 타이틀과 폼 간격 추가 */
-            }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
         }
 
-        /* 타이틀 이미지 스타일링 */
+        .calculator-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .calculator {
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        .calculator h2 {
+            margin-top: 0;
+            font-size: 20px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        select, input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .title {
+            font-size: 20pt;
+            text-align: center;
+            font-weight: bold;
+            color: #0057A1;
+            font-family: 'HakgyoansimKkokkomaR', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            margin-left: 10px;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
         .title img {
-            width: 5px; /* Set initial width to a smaller size */
+            width: 50px;
             height: auto;
             margin-right: 10px;
         }
 
-        /* Modal styling */
         .modal {
             display: none;
             position: fixed;
@@ -101,7 +98,7 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.9); /* Dark background */
+            background-color: rgba(0, 0, 0, 0.9);
         }
 
         .modal-content {
@@ -110,18 +107,16 @@
             width: 100%;
             max-width: 1800px;
             justify-content: center;
-            text-align: center; /* Center align contents */
+            text-align: center;
         }
 
-        /* Modal image styling */
         .modal-content img {
-            width: 70%; /* Adjust width as needed */
-            height: auto; /* Maintain aspect ratio */
-            margin: auto; /* Center align image */
-            display: block; /* Ensure image is block element */
+            width: 70%;
+            height: auto;
+            margin: auto;
+            display: block;
         }
 
-        /* Close button styling */
         .close {
             position: absolute;
             top: 15px;
@@ -138,20 +133,18 @@
             cursor: pointer;
         }
 
+        @media (max-width: 600px) {
+            .calculator-container {
+                padding: 10px;
+            }
 
-    
-@media (max-width: 600px) {
-    /* 모바일 화면에서는 한 줄에 하나씩 표시 */
-    .calculator-container {
-        padding: 10px;
-    }
+            .calculator {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
 
-    .calculator {
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-}
-</style>
 
 </head>
 <body>
@@ -258,20 +251,9 @@
     </div>
 
 
-<!-- 이미지 요소 -->	
-	<div class="title-container">
-	    <h1 class="title" onclick="window.location.reset();">
-       		 <img src="/pages/hope.png" alt="" onclick="openModal('/pages/hope.png')">
-	    </h1>
-	</div>    
-
-<!-- 모달 요소 -->
-	<div id="myModal" class="modal">
-	    <span class="close" onclick="closeModal()">&times;</span>
-	    <div class="modal-content">
-	        <img id="modal-image" src="">
-	    </div>
-	</div>
+    <h1 class="title" onclick="resetCalculators()">
+        <img src="/pages/hope.png" alt="희망 이미지" onclick="openModal('/pages/hope.png')">
+    </h1>
 
 
 
