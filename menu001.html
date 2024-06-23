@@ -357,48 +357,13 @@ document.getElementById("searchForm").addEventListener("submit", function(event)
     selectedFilters.forEach(category => {
         if (data.hasOwnProperty(category)) {
             const matchedData = data[category].filter(item => 
-                (searchTerm === '' || item.join().toLowerCase().includes(searchTerm)) && 
-                (selectedMonths.includes('all') || selectedMonths.includes(item[0].toLowerCase()))
+                (searchTerm === '' || item.some(field => field.toLowerCase().includes(searchTerm))) &&
+                (selectedMonths.includes('all') || selectedMonths.some(month => item[0].toLowerCase().includes(month)))
             );
 
             if (matchedData.length > 0) {
                 hasResult = true;
-
-                const table = document.createElement('table');
-                table.id = `${category}Table`;
-                table.innerHTML = `<thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>시기</th>
-                        <th>구분</th>
-                        <th>카드</th>
-                        <th>체크포인트</th>
-                        <th>관련 내용</th>
-                        <th>비고</th>
-                    </tr>
-                </thead>
-                <tbody id="resultBody_${category}"></tbody>`;
-
-                const h2 = document.createElement('h2');
-                h2.textContent = category;
-                tablesDiv.appendChild(h2);
-                tablesDiv.appendChild(table);
-
-                const resultBody = document.getElementById(`resultBody_${category}`);
-
-                matchedData.forEach((item, index) => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${index + 1}</td>
-                        <td>${item[0]}</td>
-                        <td>${item[1]}</td>
-                        <td>${item[2]}</td>
-                        <td>${item[3]}</td>
-                        <td>${item[4]}</td>
-                        <td>${item[5]}</td>
-                    `;
-                    resultBody.appendChild(row);
-                });
+                createTable(category, matchedData, tablesDiv);
             }
         }
     });
@@ -407,6 +372,45 @@ document.getElementById("searchForm").addEventListener("submit", function(event)
         alert('검색 결과가 없습니다.');
     }
 });
+
+// 테이블 생성 함수
+function createTable(category, matchedData, tablesDiv) {
+    const table = document.createElement('table');
+    table.id = `${category}Table`;
+    table.innerHTML = `<thead>
+        <tr>
+            <th>번호</th>
+            <th>시기</th>
+            <th>구분</th>
+            <th>카드</th>
+            <th>체크포인트</th>
+            <th>관련 내용</th>
+            <th>비고</th>
+        </tr>
+    </thead>
+    <tbody id="resultBody_${category}"></tbody>`;
+
+    const h2 = document.createElement('h2');
+    h2.textContent = category;
+    tablesDiv.appendChild(h2);
+    tablesDiv.appendChild(table);
+
+    const resultBody = document.getElementById(`resultBody_${category}`);
+
+    matchedData.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${item[0]}</td>
+            <td>${item[1]}</td>
+            <td>${item[2]}</td>
+            <td>${item[3]}</td>
+            <td>${item[4]}</td>
+            <td>${item[5]}</td>
+        `;
+        resultBody.appendChild(row);
+    });
+}
 
 // 카테고리 체크박스 전체 선택 기능
 document.querySelector('.filterCheckbox[value="all"]').addEventListener('change', function() {
@@ -418,7 +422,6 @@ document.querySelector('.filterCheckbox[value="all"]').addEventListener('change'
     });
 });
 
-
 // 월 선택 체크박스 전체 선택 기능
 document.querySelector('#allMonths').addEventListener('change', function() {
     const isChecked = this.checked;
@@ -426,17 +429,18 @@ document.querySelector('#allMonths').addEventListener('change', function() {
         checkbox.checked = isChecked;
     });
 });
-// 월 선택 체크박스 전체 선택 기능
+
+const quarterMap = {
+    '1분기': ['01월', '02월', '03월'],
+    '2분기': ['04월', '05월', '06월'],
+    '3분기': ['07월', '08월', '09월'],
+    '4분기': ['10월', '11월', '12월']
+};
+
+// 분기 체크박스 변경 핸들러
 document.querySelectorAll('.month input[type="checkbox"]').forEach(checkbox => {
     checkbox.addEventListener('change', function() {
         const isChecked = this.checked;
-        const quarterMap = {
-            '1분기': ['01월', '02월', '03월'],
-            '2분기': ['04월', '05월', '06월'],
-            '3분기': ['07월', '08월', '09월'],
-            '4분기': ['10월', '11월', '12월']
-        };
-
         if (quarterMap.hasOwnProperty(this.value)) {
             quarterMap[this.value].forEach(month => {
                 document.getElementById(month).checked = isChecked;
@@ -446,14 +450,6 @@ document.querySelectorAll('.month input[type="checkbox"]').forEach(checkbox => {
         // 전체 월 선택을 확인하여 1분기, 2분기, 3분기, 4분기 체크박스 상태 업데이트
         const allMonthsChecked = Array.from(document.querySelectorAll('.month input[type="checkbox"]')).every(checkbox => checkbox.checked);
         document.getElementById('allMonths').checked = allMonthsChecked;
-    });
-});
-
-// 월 선택 체크박스 전체 선택 기능
-document.querySelector('#allMonths').addEventListener('change', function() {
-    const isChecked = this.checked;
-    document.querySelectorAll('.month input[type="checkbox"]').forEach(checkbox => {
-        checkbox.checked = isChecked;
     });
 });
 
@@ -468,6 +464,8 @@ document.querySelector('h1').addEventListener('click', function() {
         checkbox.checked = false;
     });
 });
+
+
 </script>
 </body>
 </html>
