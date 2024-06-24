@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>곡종 중량 단위 변환 / 원재료 중량</title>
+    <title>곡종 중량 단위 변환/<br>원재료 중량</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -215,6 +215,8 @@
                 <option value="doen">되</option>
                 <option value="mal">말</option>
                 <option value="seom">섬</option>
+                <option value="ml">㎖</option>
+                <option value="l">ℓ</option>
             </select>
 
             <button onclick="convertUnit()">변환</button>
@@ -279,13 +281,17 @@ function convertUnit() {
             "hop": 1,   
             "doen": 10, 
             "mal": 100, 
-            "seom": 1000
+            "seom": 1000,
+            "ml": 1/180.39,
+            "l": 1/0.18039
         },
         "region2": {
             "hop": 1,   
             "doen": 5, 
             "mal": 50, 
-            "seom": 500
+            "seom": 500,
+            "ml": 1/180.39,
+            "l": 1/0.18039
         }
     };
 
