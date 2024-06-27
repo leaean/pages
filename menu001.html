@@ -204,6 +204,29 @@
 	/*    color: #5733FF; /* 색상 */
 	}
 
+#scrollToTopBtn {
+    display: none; /* 처음에는 숨김 */
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 50%;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #555;
+}
+
+
+
+	    
     </style>
 </head>
 <body>
@@ -250,6 +273,9 @@
     <button type="submit">검색</button>
     <button onclick="window.print()">인쇄</button>
 
+    <button onclick="scrollToTop()" id="scrollToTopBtn" title="위로가기">위로가기</button>
+
+	
 </form>
 
 <div id="tables"></div>
@@ -544,6 +570,51 @@ document.querySelector('h1').addEventListener('click', function() {
     });
 });
 
+// 맨 위로가기
+   var currentContent = null;
+
+    function toggleContent(contentId) {
+        var content = document.getElementById(contentId);
+        
+        // 모든 콘텐츠 숨기기
+        var contents = document.querySelectorAll('.content');
+        contents.forEach(function(item) {
+            item.style.display = 'none';
+        });
+
+        // 선택한 메뉴의 콘텐츠 표시
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+            currentContent = content; // 현재 콘텐츠 업데이트
+        } else {
+            content.style.display = "none";
+            currentContent = null; // 현재 콘텐츠 초기화
+        }
+    }
+
+    function resetContent() {
+        var contents = document.querySelectorAll('.content');
+        contents.forEach(function(item) {
+            item.style.display = 'none';
+        });
+        currentContent = null; // 현재 콘텐츠 초기화
+    }
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("scrollToTopBtn").style.display = "block";
+      } else {
+        document.getElementById("scrollToTopBtn").style.display = "none";
+      }
+    }
+
+    function scrollToTop() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+
+	
 </script>
 </body>
 </html>
