@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>건조율 계산기</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+        .container {
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin: 0 auto;
+        }
+
+        .calculator {
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .calculator h3 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        select, input[type="number"], input[type="text"], button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .calculator-container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 onclick="resetcalcForm1()">생중량 → 건중량</h1>
+        <div class="calculator-container">
+            <div class="calculator">
+                <h3></h3>
+                <form id="calcForm1">
+                    <label for="cropType1">작물 선택:</label>
+                    <select id="cropType1" onchange="updateDryRate(1)">
+                        <option value="">선택</option>
+                        <option value="고추">고추</option>
+                        <option value="마늘">마늘</option>
+                        <option value="양파">양파</option>
+                        <option value="볏짚">볏짚</option>
+                        <option value="고사리">고사리(비공식)</option>
+                        <option value="작두콩">작두콩(비공식)</option>
+                    </select>
+
+                    <label for="dryRate1">건조율(%):</label>
+                    <input type="number" id="dryRate1" name="dryRate1" readonly>
+
+                    <label for="freshWeight1">생중량(kg):</label>
+                    <input type="number" id="freshWeight1" name="freshWeight1" min="0" step="0.01" oninput="calculateDryWeight(1)" required>
+
+                    <button type="button" onclick="calculateDryWeight(1)">계산하기</button>
+
+                    <label for="dryWeight1">건중량(kg):</label>
+                    <input type="text" id="dryWeight1" name="dryWeight1" readonly>
+                </form>
+            </div>
+
+    <script>
+        const dryRates = {
+            '고추': 18.99,
+            '마늘': 67.61,
+            '양파': 94.1,
+            '볏짚': 35.07,
+            '고사리': 6.66,
+            '작두콩': 25,
+        };
+
+        function updateDryRate(formNumber) {
+            const cropType = document.getElementById(`cropType${formNumber}`).value;
+            document.getElementById(`dryRate${formNumber}`).value = dryRates[cropType] || "";
+        }
+
+        function calculateFreshWeight(formNumber) {
+            const dryWeight = parseFloat(document.getElementById(`dryWeight${formNumber}`).value);
+            const dryRate = parseFloat(document.getElementById(`dryRate${formNumber}`).value);
+
+            if (isNaN(dryWeight) || isNaN(dryRate)) {
+                alert('올바른 값을 입력해주세요.');
+                return;
+            }
+
+            const freshWeight = dryWeight / (dryRate / 100);
+            document.getElementById(`freshWeight${formNumber}`).value = freshWeight.toFixed(2);
+        }
+
+        function calculateDryWeight(formNumber) {
+            const freshWeight = parseFloat(document.getElementById(`freshWeight${formNumber}`).value);
+            const dryRate = parseFloat(document.getElementById(`dryRate${formNumber}`).value);
+
+            if (isNaN(freshWeight) || isNaN(dryRate)) {
+                alert('올바른 값을 입력해주세요.');
+                return;
+            }
+
+            const dryWeight = freshWeight * (dryRate / 100);
+            document.getElementById(`dryWeight${formNumber}`).value = dryWeight.toFixed(2);
+        }
+
+        function resetcalcForm1() {
+            document.getElementById("calcForm1").reset();
+            document.getElementById("calcForm2").reset();
+            document.getElementById("dryRate1").value = "";
+            document.getElementById("dryRate2").value = "";
+            document.getElementById("freshWeight1").value = "";
+            document.getElementById("freshWeight2").value = "";
+            document.getElementById("dryWeight1").value = "";
+            document.getElementById("dryWeight2").value = "";
+        }
+
+        updateDryRate(1);
+        updateDryRate(2);
+    </script>
+</body>
+</html>
