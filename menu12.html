@@ -23,18 +23,16 @@
                 font-size: 8px; /* 테이블 내의 폰트 크기 줄이기 */
             }
         }
-/* 가로 화면에서 폰트 크기 확대 */
-@media (min-width: 481px) {
-    body {
-        font-size: 18px; /* 가로 화면에서 더 큰 폰트 크기로 확대 */
-    }
+        /* 가로 화면에서 폰트 크기 확대 */
+        @media (min-width: 481px) {
+            body {
+                font-size: 18px; /* 가로 화면에서 더 큰 폰트 크기로 확대 */
+            }
 
-    table {
-        font-size: 14px; /* 가로 화면에서 테이블 내 폰트 크기 확대 */
-    }
-}
-
-
+            table {
+                font-size: 14px; /* 가로 화면에서 테이블 내 폰트 크기 확대 */
+            }
+        }
         h2 {
             color: #2c3e50;
             border-bottom: 2px solid #2c3e50;
@@ -340,21 +338,6 @@
 
     function toggleContent(contentId) {
         var content = document.getElementById(contentId);
-        
-        // 모든 콘텐츠 숨기기
-        var contents = document.querySelectorAll('.content');
-        contents.forEach(function(item) {
-            item.style.display = 'none';
-        });
-
-        // 선택한 메뉴의 콘텐츠 표시
-        if (content.style.display === "none" || content.style.display === "") {
-            content.style.display = "block";
-            currentContent = content; // 현재 콘텐츠 업데이트
-        } else {
-            content.style.display = "none";
-            currentContent = null; // 현재 콘텐츠 초기화
-        }
     }
 
     function resetContent() {
