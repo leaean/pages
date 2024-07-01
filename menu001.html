@@ -211,29 +211,37 @@
 	/*    color: #5733FF; /* 색상 */
 	}
 
-#scrollToTopBtn {
-    display: none; /* 처음에는 숨김 */
-    position: fixed;
-    bottom: 30px;
-    right: 20px;
-    z-index: 99;
-    font-size: 18px;
-    border: none;
-    outline: none;
-    background-color: #333;
-    color: white;
-    cursor: pointer;
-    padding: 15px;
-    border-radius: 50%;
-}
+        #scrollToTopBtn {
+            display: none; /* 처음에는 숨김 */
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            z-index: 99;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 50%;
+        }
+        #scrollToTopBtn:hover {
+            background-color: #555;
+        }
 
-#scrollToTopBtn:hover {
-    background-color: #555;
-}
-
-
-
-	    
+    /*내용만 출력*/
+    @media print {
+        body {
+            background-color: #fff;
+        }
+        form, h1, p {
+            display: none;
+        }
+        table {
+            box-shadow: none;
+        }
+    }   
     </style>
 </head>
 <body>
