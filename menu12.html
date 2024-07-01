@@ -334,19 +334,6 @@
     </table>
 <script>
 // 맨 위로가기
-   var currentContent = null;
-
-    function toggleContent(contentId) {
-        var content = document.getElementById(contentId);
-    }
-
-    function resetContent() {
-        var contents = document.querySelectorAll('.content');
-        contents.forEach(function(item) {
-            item.style.display = 'none';
-        });
-        currentContent = null; // 현재 콘텐츠 초기화
-    }
     window.onscroll = function() {scrollFunction()};
 
     function scrollFunction() {
