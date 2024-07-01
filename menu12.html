@@ -334,6 +334,34 @@
     </table>
 <script>
 // 맨 위로가기
+   var currentContent = null;
+
+    function toggleContent(contentId) {
+        var content = document.getElementById(contentId);
+        
+        // 모든 콘텐츠 숨기기
+        var contents = document.querySelectorAll('.content');
+        contents.forEach(function(item) {
+            item.style.display = 'none';
+        });
+
+        // 선택한 메뉴의 콘텐츠 표시
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+            currentContent = content; // 현재 콘텐츠 업데이트
+        } else {
+            content.style.display = "none";
+            currentContent = null; // 현재 콘텐츠 초기화
+        }
+    }
+
+    function resetContent() {
+        var contents = document.querySelectorAll('.content');
+        contents.forEach(function(item) {
+            item.style.display = 'none';
+        });
+        currentContent = null; // 현재 콘텐츠 초기화
+    }
     window.onscroll = function() {scrollFunction()};
 
     function scrollFunction() {
@@ -348,6 +376,7 @@
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     }
+
 
 </script>	
 </body>
