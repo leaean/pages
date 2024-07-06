@@ -275,6 +275,11 @@ body {
                 return; // 계산 중단
             }
 
+            // 결식 횟수가 한달의 총 끼니수를 초과할 경우 알림 표시
+            if (memberSkippedMeals > totalMealsPerMonth) {
+                alert("가구원 " + i + "의 결식 횟수는 한 달의 총 끼니수를 초과할 수 없습니다.");
+                return; // 계산 중단
+            }
             // 가구 한달 총 끼니수 * 가구원 n의 1끼 식사량 합계(kg)
             totalGrainConsumption += (totalMealsPerMonth - memberEatingOut - memberSkippedMeals) * memberMeals;
 
