@@ -174,67 +174,134 @@
         }
 
 
-        /* 작은 모바일 장치에서 폰트 크기 조정 */
-@media (max-width: 480px) {
+/* 320px 이하 장치에서 폰트 크기 조정 */
+@media (max-width: 320px) {
     body {
-        font-size: 14px; /* 작은 모바일 화면에서 폰트 크기 축소 */
+        font-size: 12px;
     }
 
     table {
-        font-size: 8px; /* 작은 모바일 화면에서 테이블 폰트 크기 축소 */
+        font-size: 8px;
     }
 }
 
-/* 중간 크기 장치에서 폰트 크기 조정 */
-@media (min-width: 481px) and (max-width: 768px) {
+/* 321px ~ 480px 장치에서 폰트 크기 조정 */
+@media (min-width: 321px) and (max-width: 480px) {
     body {
-        font-size: 16px; /* 중간 크기 장치에서 기본 폰트 크기 */
+        font-size: 14px;
     }
 
     table {
-        font-size: 12px; /* 중간 크기 장치에서 기본 테이블 폰트 크기 */
+        font-size: 10px;
     }
 }
 
-/* 중간 크기 태블릿 장치에서 폰트 크기 조정 */
-@media (min-width: 769px) and (max-width: 799px) {
+/* 481px ~ 600px 장치에서 폰트 크기 조정 */
+@media (min-width: 481px) and (max-width: 600px) {
     body {
-        font-size: 16.5px; /* 중간 크기 태블릿 장치에서 폰트 크기 조정 */
+        font-size: 15px;
     }
 
     table {
-        font-size: 12.5px; /* 중간 크기 태블릿 장치에서 테이블 폰트 크기 조정 */
+        font-size: 11px;
+    }
+}
+
+/* 601px ~ 768px 장치에서 폰트 크기 조정 */
+@media (min-width: 601px) and (max-width: 768px) {
+    body {
+        font-size: 16px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+}
+
+/* 작은 태블릿 (769px ~ 800px)에서 폰트 크기 및 레이아웃 조정 (portrait: repeat(4)) */
+@media (min-width: 769px) and (max-width: 800px) and (orientation: portrait) {
+    body {
+        font-size: 16.5px;
+    }
+
+    table {
+        font-size: 12.5px;
     }
     .menu-container {
-        grid-template-columns: repeat(3, 1fr); /* 3개의 열로 구성 */
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
-/* 큰 태블릿 장치에서 폰트 크기 조정 */
-@media (min-width: 800px) and (max-width: 1024px) {
+/* 큰 태블릿 (769px ~ 800px)에서 폰트 크기 및 레이아웃 조정 (landscape: repeat(3)) */
+@media (min-width: 769px) and (max-width: 800px) and (orientation: landscape) {
     body {
-        font-size: 17px; /* 큰 태블릿 장치에서 폰트 크기 확대 */
+        font-size: 16.5px;
     }
 
     table {
-        font-size: 13px; /* 큰 태블릿 장치에서 테이블 폰트 크기 확대 */
+        font-size: 12.5px;
     }
     .menu-container {
-        grid-template-columns: repeat(4, 1fr); /* 3개의 열로 구성 */
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
-/* 가로 화면 및 큰 데스크탑 장치에서 폰트 크기 확대 */
-@media (min-width: 1025px) {
+/* 큰 태블릿 및 작은 데스크탑 장치 (801px ~ 1024px) */
+@media (min-width: 801px) and (max-width: 1024px) {
     body {
-        font-size: 18px; /* 큰 데스크탑 화면에서 폰트 크기 확대 */
+        font-size: 17px;
     }
+
     table {
-        font-size: 14px; /* 큰 데스크탑 화면에서 테이블 폰트 크기 확대 */
+        font-size: 13px;
+    }
     .menu-container {
-        grid-template-columns: repeat(7, 1fr); /* 7개의 열로 구성 */
+        grid-template-columns: repeat(4, 1fr);
     }
 }
+
+/* 중간 크기 데스크탑 장치 (1025px ~ 1280px) */
+@media (min-width: 1025px) and (max-width: 1280px) {
+    body {
+        font-size: 18px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+    .menu-container {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* 큰 데스크탑 장치 (1281px ~ 1440px) */
+@media (min-width: 1281px) and (max-width: 1440px) {
+    body {
+        font-size: 19px;
+    }
+
+    table {
+        font-size: 15px;
+    }
+    .menu-container {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+/* 매우 큰 데스크탑 장치 (1441px 이상) */
+@media (min-width: 1441px) {
+    body {
+        font-size: 20px;
+    }
+
+    table {
+        font-size: 16px;
+    }
+    .menu-container {
+        grid-template-columns: repeat(7, 1fr);
+    }
+}
+
 
         
 /* 반응형 스타일링 */
