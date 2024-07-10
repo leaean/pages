@@ -196,16 +196,31 @@
     }
 }
 
-/* 큰 태블릿 및 작은 데스크탑 장치에서 폰트 크기 조정 */
-@media (min-width: 769px) and (max-width: 1024px) {
+/* 중간 크기 태블릿 장치에서 폰트 크기 조정 */
+@media (min-width: 769px) and (max-width: 799px) {
     body {
-        font-size: 17px; /* 큰 태블릿 및 작은 데스크탑에서 폰트 크기 확대 */
+        font-size: 16.5px; /* 중간 크기 태블릿 장치에서 폰트 크기 조정 */
     }
+
     table {
-        font-size: 13px; /* 큰 태블릿 및 작은 데스크탑에서 테이블 폰트 크기 확대 */
+        font-size: 12.5px; /* 중간 크기 태블릿 장치에서 테이블 폰트 크기 조정 */
     }
     .menu-container {
-        grid-template-columns: repeat(4, 1fr); /* 6개의 열로 구성 */
+        grid-template-columns: repeat(3, 1fr); /* 3개의 열로 구성 */
+    }
+}
+
+/* 큰 태블릿 장치에서 폰트 크기 조정 */
+@media (min-width: 800px) and (max-width: 1024px) {
+    body {
+        font-size: 17px; /* 큰 태블릿 장치에서 폰트 크기 확대 */
+    }
+
+    table {
+        font-size: 13px; /* 큰 태블릿 장치에서 테이블 폰트 크기 확대 */
+    }
+    .menu-container {
+        grid-template-columns: repeat(3, 1fr); /* 3개의 열로 구성 */
     }
 }
 
@@ -217,12 +232,10 @@
 
     table {
         font-size: 14px; /* 큰 데스크탑 화면에서 테이블 폰트 크기 확대 */
-    }
     .menu-container {
-        grid-template-columns: repeat(7, 1fr); /* 6개의 열로 구성 */
+        grid-template-columns: repeat(7, 1fr); /* 7개의 열로 구성 */
     }
 }
-
 
         
 /* 반응형 스타일링 */
