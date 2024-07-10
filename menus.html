@@ -301,8 +301,17 @@
 @media (min-width: 1920px) and (max-height: 1200px) and (orientation: portrait) {
     .menu-container {
         grid-template-columns: repeat(3, 1fr); /* portrait 모드에서는 3개의 열로 구성 */
+        max-width: 100%; /* 화면 너비를 초과하지 않도록 최대 너비 설정 */
+        overflow-x: auto; /* 가로로 넘치는 경우 스크롤 허용 */
+    }
+
+    .menu {
+        width: 120px; /* 메뉴 아이템 너비 조정 */
+        height: 120px; /* 메뉴 아이템 높이 조정 */
+        font-size: 16pt; /* 메뉴 아이템 폰트 크기 조정 */
     }
 }
+
 
 
         
