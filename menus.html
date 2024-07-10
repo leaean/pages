@@ -201,9 +201,11 @@
     body {
         font-size: 17px; /* 큰 태블릿 및 작은 데스크탑에서 폰트 크기 확대 */
     }
-
     table {
         font-size: 13px; /* 큰 태블릿 및 작은 데스크탑에서 테이블 폰트 크기 확대 */
+    }
+    .menu-container {
+        grid-template-columns: repeat(3, 1fr); /* 6개의 열로 구성 */
     }
 }
 
@@ -215,6 +217,9 @@
 
     table {
         font-size: 14px; /* 큰 데스크탑 화면에서 테이블 폰트 크기 확대 */
+    }
+    .menu-container {
+        grid-template-columns: repeat(7, 1fr); /* 6개의 열로 구성 */
     }
 }
 
