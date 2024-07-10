@@ -284,20 +284,31 @@
     }
 }
 
-/* 매우 큰 데스크탑 장치 (1441px 이상) */
-@media (min-width: 1441px) {
+/* 1441px ~ 1919px 장치에서 폰트 크기 및 레이아웃 조정 */
+@media (min-width: 1441px) and (max-width: 1919px) {
     body {
         font-size: 20px;
     }
-
     table {
         font-size: 16px;
     }
     .menu-container {
-        grid-template-columns: repeat(7, 1fr);
+        grid-template-columns: repeat(7, 1fr); /* 7개의 열로 구성 */
     }
 }
 
+/* 1920px 이상의 매우 큰 데스크탑 장치에서 폰트 크기 및 레이아웃 조정 */
+@media (min-width: 1920px) and (orientation: portrait) {
+    body {
+        font-size: 21px;
+    }
+    table {
+        font-size: 17px;
+    }
+    .menu-container {
+        grid-template-columns: repeat(3, 1fr); /* 3개의 열로 구성 */
+    }
+}
 
         
 /* 반응형 스타일링 */
