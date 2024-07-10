@@ -239,27 +239,47 @@
     }
 }
 
-/* 데스크탑 및 더 큰 화면 */
-@media (min-width: 1025px) {
-    /* 폰트 크기 조정 */
+/* 중간 크기 데스크탑 장치 (1025px ~ 1280px) */
+@media (min-width: 1025px) and (max-width: 1280px) {
     body {
         font-size: 18px;
     }
+
     table {
         font-size: 14px;
     }
-    /* 기타 스타일 조정 */
     .menu-container {
-        grid-template-columns: repeat(5, 1fr); /* 6개의 열로 구성 */
-/*        gap: 20px;*/
-    }
-    .menu {
-/*        font-size: 22px;*/
-        padding: 30px;
-        width: 160px;
-        height: 160px;
+        grid-template-columns: repeat(5, 1fr);
     }
 }
+
+/* 큰 데스크탑 장치 (1281px ~ 1440px) */
+@media (min-width: 1281px) and (max-width: 1440px) {
+    body {
+        font-size: 19px;
+    }
+
+    table {
+        font-size: 15px;
+    }
+    .menu-container {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+/* 1441px ~ 1919px 장치에서 폰트 크기 및 레이아웃 조정 */
+@media (min-width: 1441px) and (max-width: 1919px) {
+    body {
+        font-size: 20px;
+    }
+    table {
+        font-size: 16px;
+    }
+    .menu-container {
+        grid-template-columns: repeat(7, 1fr); /* 7개의 열로 구성 */
+    }
+}
+
 
 
     </style>
