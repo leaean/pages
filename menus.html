@@ -141,7 +141,7 @@
         .modal-content img {
             width: 70%; /* Adjust width as needed */
             height: auto; /* Maintain aspect ratio */
-            margin: auto; /* Center-align the image horizontally */
+            margin: 10px; /* Center-align the image horizontally */
             display: block; /* Ensure image behaves as a block element */
         }
 
@@ -185,6 +185,9 @@
         }
         /* Responsive styles */
         @media (max-width: 768px) and (orientation: portrait) {
+            body {
+                font-size: 17px;
+            }
             .menu {
                 flex-direction: column;
                 gap: 10px;
@@ -195,6 +198,9 @@
         }
 
         @media (max-width: 768px) and (orientation: landscape) {
+            body {
+                font-size: 18px;
+            }
             .menu {
                 flex-direction: row;
                 flex-wrap: wrap;
@@ -207,6 +213,9 @@
         }
 
         @media (min-width: 769px) {
+            body {
+                font-size: 19px;
+            }
             .menu {
                 flex-direction: row;
                 flex-wrap: wrap;
