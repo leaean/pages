@@ -163,22 +163,25 @@
             margin-bottom: 20px;
             color: #575757; /* 정부회색 */
             text-align: center; /* 가운데 정렬 추가 */
-        }
-
-        
+        }        
         .copyright {
             position: absolute;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
             margin-top: 00;
-            margin-bottom: -250px;
+            margin-bottom: -200px;
             font-size: 15px;
             color: #575757; /* 정부회색 */
             width: 100%;
             text-align: center;
         }
-
+        h1 {
+            font-size: 10px;
+            font-color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -186,7 +189,7 @@
         <h1 class="title" onclick="window.location.reload();">
             <img src="/pages/running_Botong(2).png" alt="">농사짓는 보통씨</h1>
     </div>
-            <h1 onclick="window.location.href='/pages/menus_old'">이전버전으로</h1>
+            <h1 style="cursor: pointer;" onclick="window.location.href='/pages/menus_old'">이전버전으로</h1>
     <div class="menu">
         <div class="menu-item">
             <button onclick="toggleDropdown('dropdown1')">조사 참고 자료<div class="arrow-down"></div></button>
