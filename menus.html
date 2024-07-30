@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="/pages/running_Botong(2).png">
     <link rel="apple-touch-icon" href="/pages/running_Botong(1).png">
     <title>농사짓는 보통씨</title>
@@ -46,6 +47,7 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
+            padding: 10px;
         }
         .menu-item {
             position: relative;
@@ -112,7 +114,7 @@
             cursor: pointer;
         }
         
-                /* 모달 스타일링 */
+        /* 모달 스타일링 */
 
         .modal {
             display: none;
@@ -150,7 +152,6 @@
             color: #f1f1f1;
             font-size: 40px;
             font-weight: bold;
-/*            transition: 0.3s;*/
         }
         .close:hover,
         .close:focus {
@@ -169,19 +170,54 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            margin-top: 00;
-            margin-bottom: -200px;
+            margin-top: 0;
+            margin-bottom: 20px; /* 수정된 여백으로 QR 코드와의 간격 조정 */
             font-size: 15px;
             color: #575757; /* 정부회색 */
             width: 100%;
             text-align: center;
         }
-        h2 {
+        h1 {
             font-size: 15px;
-            font-color: blue;
+            color: blue;
             text-decoration: underline;
             cursor: pointer;
         }
+        /* Responsive styles */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .menu {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .menu-item {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) and (orientation: landscape) {
+            .menu {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                gap: 20px;
+            }
+            .menu-item {
+                width: calc(50% - 20px);
+            }
+        }
+
+        @media (min-width: 769px) {
+            .menu {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                gap: 20px;
+            }
+            .menu-item {
+                width: calc(25% - 20px);
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -189,7 +225,7 @@
         <h1 class="title" onclick="window.location.reload();">
             <img src="/pages/running_Botong(2).png" alt="">농사짓는 보통씨</h1>
     </div>
-            <div><h2 onclick="window.location.href='/pages/menus_old'">이전버전으로</h2></div>
+    <div><h1 onclick="window.location.href='/pages/menus_old'">이전버전으로</h1></div>
     <div class="menu">
         <div class="menu-item">
             <button onclick="toggleDropdown('dropdown1')">조사 참고 자료<div class="arrow-down"></div></button>
@@ -239,8 +275,8 @@
 
     <div class="title-container">
         <h1 class="title" onclick="window.location.reset();">
-                <img src="/pages/qr.png" alt="" onclick="openModal('/pages/qr.png')">
-                 </h1>
+            <img src="/pages/qr.png" alt="" onclick="openModal('/pages/qr.png')">
+        </h1>
     </div>    
     <!-- 모달 요소 -->
     <div id="myModal" class="modal">
@@ -249,7 +285,6 @@
             <img id="modal-image" src="">
         </div>
     </div>
-
 
     <div class="copyright">
         &copy; 2024 leaean, Honam Office. All rights reserved.
@@ -269,8 +304,7 @@
             }
         }
 
-    /*qr이미지 스크립트*/
-
+        /* qr이미지 스크립트 */
         function openModal(src) {
             document.getElementById('modal-image').src = src;
             document.getElementById('myModal').style.display = "block";
@@ -279,7 +313,7 @@
         function closeModal() {
             document.getElementById('myModal').style.display = "none";
         }
-
     </script>
 </body>
 </html>
+
