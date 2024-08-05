@@ -119,7 +119,7 @@
             </select>
             <br><br>
             <label for="valueWeight">수량:</label>
-            <input type="number" id="valueWeight">
+            <input type="number" id="valueWeight" onkeypress="handleKeyPress(event)" >
             <br><br>
             <label for="unitWeight">단위 선택:</label>
             <select id="unitWeight">
@@ -205,7 +205,11 @@ function convertWeight() {
             document.getElementById("resultWeight").innerText = "";
         }
 
-        
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            calculate();
+        }
+    }        
     </script>
 </body>
 </html>
