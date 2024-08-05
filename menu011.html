@@ -15,16 +15,8 @@
         }
         h2 {
             color: black;
-	    font-size: 30px; /* 텍스트 크기 */
         }
-        .container {
-            width: 500px;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
-            margin: 0 auto; /* 가운데 정렬 */
-        }
+
         table {
             margin: 20px auto;
             border-collapse: collapse;
@@ -41,20 +33,17 @@
         th {
             background-color: #f2f2f2;
         }
-        input {
-            width: 40%;
-            margin-top: 5px;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-        select, button {
+        input, select, button {
+            width: 80%;
+            max-width: 300px;
             margin-top: 10px;
             padding: 10px;
             font-size: 16px;
             border-radius: 4px;
             border: 1px solid #ccc;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
         button {
             background-color: #007BFF;
@@ -78,13 +67,25 @@
             color: #28a745;
         }
 
+        /* 모바일 화면에서는 상하로 구현 */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+            p, span {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
 
 <h2 onclick="window.location.reload();" style="cursor: pointer;">정곡환산율 계산기</h2>
 
-    <div class="container">
+<div class="calculator-container">
     <!-- 계산기 영역 시작 -->
     <select id="cropSelect" onchange="displayConversionRate()">
         <option value="">곡종선택</option>
@@ -144,7 +145,7 @@
         var result = document.getElementById("result");
 
         var conversionRate = cropSelect.value;
-        var calculatedValue = inputValue * (conversionRate/100);
+        var calculatedValue = inputValue * (conversionRate / 100);
 
         result.textContent = calculatedValue.toFixed(2);
     }
@@ -154,7 +155,6 @@
             calculate();
         }
     }
-
 </script>
 
 </body>
