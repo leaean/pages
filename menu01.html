@@ -121,7 +121,9 @@
   </select>
   <div id="areaInput" style="display: block;">
     <strong><label for="area">재배면적</label></strong>
-    <input type="number" id="area" min="0" placeholder="재배면적을 입력하세요" required>
+    <input type="number" id="inputValue" placeholder="조곡(kg) 입력" onkeypress="handleKeyPress(event)">
+
+    <input type="number" id="area" min="0" placeholder="재배면적을 입력하세요" onkeypress="handleKeyPress(event)" required>
     <select id="unit">
       <option value="m2">m²</option>
       <option value="평">평</option>
@@ -131,7 +133,7 @@
   </div>
   <div id="seedingAmountInput" style="display: none;">
     <strong><label for="seedingAmount">종자량</label></strong>
-    <input type="number" id="seedingAmount" min="0" placeholder="종자량을 입력하세요" required>
+    <input type="number" id="seedingAmount" min="0" placeholder="종자량을 입력하세요"  onkeypress="handleKeyPress(event)" required>
     <span id="seedUnit">kg</span>
   </div>
   <button type="button" onclick="calculate()">계산하기</button>
@@ -242,6 +244,14 @@ function toggleInput() {
     result.innerHTML = `예측 재배면적: 약 ${area.toLocaleString('ko-KR', { maximumFractionDigits: 2 })}m²(약 ${pyeong.toLocaleString('ko-KR', { maximumFractionDigits: 2 })} 평)<br>(±20% 오차범위: ${areaMin.toLocaleString('ko-KR', { maximumFractionDigits: 2 })}m² ~ ${areaMax.toLocaleString('ko-KR', { maximumFractionDigits: 2 })}m²)<br>(${pyeongMin.toLocaleString('ko-KR', { maximumFractionDigits: 2 })}평 ~ ${pyeongMax.toLocaleString('ko-KR', { maximumFractionDigits: 2 })}평)`;
   }
 }
+
+  
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            calculate();
+        }
+    }
+
 
 </script>
 </body>
