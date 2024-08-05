@@ -144,7 +144,7 @@
                 <option value="백세미">백세미</option></select>
 
             <label for="value">수량:</label>
-            <input type="number" id="value">
+            <input type="number" id="value" onkeypress="handleKeyPress(event)" >
 
             <label for="unit">단위:</label>
             <select id="unit">
@@ -318,6 +318,12 @@ function convertWeight() {
             document.getElementById("unitWeight").selectedIndex = 0;
             document.getElementById("resultWeight").innerText = "";
         }
+
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            calculate();
+        }
+    }
     </script>
 </body>
 </html>
