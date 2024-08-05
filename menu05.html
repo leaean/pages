@@ -107,7 +107,7 @@
                     <input type="number" id="dryRate2" name="dryRate2" readonly>
 
                     <label for="dryWeight2">건중량(kg):</label>
-                    <input type="number" id="dryWeight2" name="dryWeight2" min="0" step="0.01" oninput="calculateFreshWeight(2)" required>
+                    <input type="number" id="dryWeight2" name="dryWeight2" min="0" step="0.01" oninput="calculateFreshWeight(2)" required onkeypress="handleKeyPress(event)" >
 
                     <button type="button" onclick="calculateFreshWeight(2)">계산하기</button>
 
@@ -172,6 +172,12 @@
 
         updateDryRate(1);
         updateDryRate(2);
+
+            function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            calculate();
+        }
+    }
     </script>
 </body>
 </html>
