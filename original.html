@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>원재료 중량</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .calculator-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .calculator {
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        .calculator h2 {
+            margin-top: 0;
+            font-size: 20px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        select, input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .title {
+            font-size: 20pt;
+            text-align: center;
+            font-weight: bold;
+            color: #0057A1;
+            font-family: 'HakgyoansimKkokkomaR', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            margin-left: 10px;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .title img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+        @media (max-width: 600px) {
+            .calculator-container {
+                padding: 10px;
+            }
+
+            .calculator {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+
+
+</head>
+<body>
+    <h1 style="text-align: center; cursor: pointer;" onclick="resetCalculators()">원재료 중량</h1>
+    <div class="calculator-container">
+        <div class="calculator">
+            <label for="item">품목:</label>
+            <select id="item" onchange="updateUnitOptions()">
+                <option value="" disabled selected>선택</option>
+                <option value="sesameOil">참기름→참깨</option>
+                <option value="perillaOil">들기름→들깨</option>
+                <option value="meju">메주→메주콩</option>
+                <option value="driedPepper">건고추</option>
+                <option value="waterCelery">미나리</option>
+                <option value="spinach">시금치</option>
+                <option value="ginseng">인삼</option>
+            </select>
+            <br><br>
+            <label for="valueWeight">수량:</label>
+            <input type="number" id="valueWeight">
+            <br><br>
+            <label for="unitWeight">단위 선택:</label>
+            <select id="unitWeight">
+                <option value="" disabled selected>선택</option>
+                <!-- 단위 옵션은 JavaScript로 업데이트됩니다. -->
+            </select>
+            <br>
+            <button onclick="convertWeight()">변환</button>
+            <div id="resultWeight" class="result"></div>
+        </div>
+    </div>
+
+
+    <script>
+        // JavaScript 코드
+
+// 두 번째 계산기의 JavaScript 코드
+function updateUnitOptions() {
+    var item = document.getElementById("item").value;
+    var unitSelect = document.getElementById("unitWeight");
+    unitSelect.innerHTML = ""; 
+    
+    var units = {
+        "sesameOil": ["병(350ml)"],
+        "perillaOil": ["병(350ml)"],
+        "meju": ["말"],
+        "driedPepper": ["근"],
+        "waterCelery": ["근"],
+        "spinach": ["근"],
+        "ginseng": ["채"]
+    };
+
+    units[item].forEach(function(unit) {
+        var option = document.createElement("option");
+        option.value = unit;
+        option.textContent = unit;
+        unitSelect.appendChild(option);
+    });
+}
+
+function convertWeight() {
+    var item = document.getElementById("item").value;
+    var value = parseFloat(document.getElementById("valueWeight").value);
+    var unit = document.getElementById("unitWeight").value;
+
+    var conversionTable = {
+        "sesameOil": { "병(350ml)": 0.75 },
+        "perillaOil": { "병(350ml)": 0.91 },
+        "meju": { "말": 7.2 },
+        "driedPepper": { "근": 0.6 },
+        "waterCelery": { "근": 0.2 },
+        "spinach": { "근": 0.15 },
+        "ginseng": { "채": 0.75 }
+    };
+
+    var result = value * conversionTable[item][unit];
+
+
+    // Add ±10% margin of error
+    var minResult = result * 0.9;
+    var maxResult = result * 1.1;
+    
+    // Display result with ±10% margin of error
+    document.getElementById("resultWeight").innerHTML = "환산결과 " + "<br>" + result.toFixed(2) + "kg"+ "<br>" + "( ±10% 오차범위: " + minResult.toFixed(2) + "kg ~ " + maxResult.toFixed(2) + "kg )";
+}
+
+        // 초기화 함수
+        function resetCalculators() {
+
+            // 두 번째 계산기 초기화
+            document.getElementById("item").selectedIndex = 0;
+            document.getElementById("valueWeight").value = "";
+            document.getElementById("unitWeight").selectedIndex = 0;
+            document.getElementById("resultWeight").innerText = "";
+        }
+
+        // 각 계산기의 초기화 함수
+
+        function resetWeightConverter() {
+            document.getElementById("item").selectedIndex = 0;
+            document.getElementById("valueWeight").value = "";
+            document.getElementById("unitWeight").selectedIndex = 0;
+            document.getElementById("resultWeight").innerText = "";
+        }
+
+        
+    </script>
+</body>
+</html>
