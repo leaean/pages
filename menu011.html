@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -14,14 +15,15 @@
         }
         h2 {
             color: black;
+	    font-size: 30px; /* 텍스트 크기 */
         }
-        .calculator-container {
-            max-width: 400px;
-            margin: 20px auto;
-            padding: 50px;
+        .container {
+            width: 500px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             background-color: #fff;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 50px;
+            margin: 0 auto; /* 가운데 정렬 */
         }
         table {
             margin: 20px auto;
@@ -76,21 +78,13 @@
             color: #28a745;
         }
 
-        /* 모바일 화면에서는 상하로 구현 */
-        @media (max-width: 600px) {
-            .calculator-container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-        }
     </style>
 </head>
 <body>
 
 <h2 onclick="window.location.reload();" style="cursor: pointer;">정곡환산율 계산기</h2>
 
-<div class="calculator-container">
+    <div class="container">
     <!-- 계산기 영역 시작 -->
     <select id="cropSelect" onchange="displayConversionRate()">
         <option value="">곡종선택</option>
