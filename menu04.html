@@ -206,7 +206,7 @@
     <option value="옥수수(노지풋옥수수)(개)(농촌진흥청)('16~'22)">옥수수(노지풋옥수수)(단위:개)(농촌진흥청)('16~'22)</option>
         </select>
         <strong><label for="area">재배면적</label></strong>
-        <input type="number" id="area" placeholder="재배면적을 입력하세요">
+        <input type="number" id="area" placeholder="재배면적을 입력하세요" onkeypress="handleKeyPress(event)" >
         <select id="unit">
             <option value="m2">m²</option>
             <option value="평">평</option>
@@ -214,7 +214,7 @@
             <option value="a">a</option>
         </select>
         <strong><label for="seeds">생산량</label></strong>
-        <input type="number" id="seeds" placeholder="생산량을 입력하세요">
+        <input type="number" id="seeds" placeholder="생산량을 입력하세요" onkeypress="handleKeyPress(event)" >
         <span id="seedUnit">kg</span>
         <button type="button" onclick="calculate()">검토</button>
     </form>
@@ -496,7 +496,13 @@ function resetForm() {
 document.addEventListener("DOMContentLoaded", function() {
     updateUnit();
 });
-</script>
 
+ 
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            calculate();
+        }
+    } 
+</script>
 </body>
 </html>
