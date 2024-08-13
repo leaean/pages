@@ -78,7 +78,7 @@
         .dropdown-content {
             display: none;
             position: absolute;
-            top: 60px;
+            top: 80px;
             left: 0;
             font-weight: bold;
             background-color: #f9f9f9;
@@ -89,6 +89,7 @@
             max-height: 300px; /* 최대 높이 설정 */
             overflow-y: auto; /* 스크롤 추가 */
             min-width: 340px; /* 하위 메뉴의 너비를 상위 메뉴와 동일하게 설정 */
+            max-width: 340px; /* 하위 메뉴의 너비를 상위 메뉴와 동일하게 설정 */
         }
         .dropdown-content a {
             color: black;
@@ -96,7 +97,7 @@
             text-decoration: none;
             display: block;
             white-space: nowrap; /* 줄 바꿈 방지 */
-            overflow: hidden; /* 넘치는 텍스트 숨기기 */
+            /*overflow: hidden; /* 넘치는 텍스트 숨기기 */*/
             text-overflow: ellipsis; /* 넘치는 텍스트에 ... 표시 */
             transition: background-color 0.3s;
         }
@@ -189,60 +190,92 @@
             margin-bottom: 60px; 
         }
 
-        /* Responsive styles */
-        @media (max-width: 768px) and (orientation: portrait) {
-            .title {
-                font-size: 35pt; /* 모바일 세로 모드에서 제목 크기 조정 */
-                font-weight: bold;
-            }
-            .title img {
-                width: 60px;
-            }
-            .menu {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .menu-item {
-                width: 100%;
-            }
-        }
+/* 모바일 장치 (작은 화면) */
+@media (max-width: 480px) {
+    .title {
+        font-size: 30pt; /* 작은 화면에 맞게 제목 크기 축소 */
+    }
+    .menu-item button {
+        font-size: 14px; /* 버튼 텍스트 크기 축소 */
+        padding: 15px; /* 패딩 축소 */
+    }
+    .dropdown-content a {
+        padding: 15px 30px; /* 하위 메뉴 항목 여백 축소 */
+    }
+}
 
-        @media (max-width: 768px) and (orientation: landscape) {
-            .title {
-                font-size: 50pt; /* 모바일 가로 모드에서 제목 크기 조정 */
-                font-weight: bold;
-            }
-            .title img {
-                width: 70px;
-            }
-            .menu {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: space-around;
-                gap: 20px;
-            }
-            .menu-item {
-                width: calc(50% - 20px);
-            }
-        }
+/* 태블릿 (가로 모드) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .title {
+        font-size: 40pt; /* 가로 모드에서 제목 크기 조정 */
+    }
+    .menu-item button {
+        font-size: 16px;
+        padding: 18px;
+    }
+    .dropdown-content a {
+        padding: 18px 35px;
+    }
+}
 
-        @media (min-width: 769px) {
-            .title {
-                font-size: 80pt; /* 데스크톱 화면에서 제목 크기 조정 */
-                font-weight: bold;
-            }
-            .menu {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: space-around;
-                gap: 20px;
-            }
-            .menu-item {
-                width: calc(25% - 20px);
-            }
-        }
+/* 태블릿 (세로 모드) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .title {
+        font-size: 50pt; /* 세로 모드에서 제목 크기 조정 */
+    }
+    .menu-item button {
+        font-size: 18px;
+        padding: 20px;
+    }
+    .dropdown-content a {
+        padding: 20px 40px;
+    }
+}
+
+/* 중간 크기 데스크탑 장치 (1025px ~ 1280px) */
+@media (min-width: 1025px) and (max-width: 1280px) {
+    .title {
+        font-size: 60pt; /* 중간 크기 화면에 맞게 제목 크기 조정 */
+    }
+    .menu-item button {
+        font-size: 20px;
+        padding: 22px;
+    }
+    .dropdown-content a {
+        padding: 22px 45px;
+    }
+}
+
+/* 큰 데스크탑 장치 (1281px ~ 1440px) */
+@media (min-width: 1281px) and (max-width: 1440px) {
+    .title {
+        font-size: 70pt; /* 큰 화면에 맞게 제목 크기 조정 */
+    }
+    .menu-item button {
+        font-size: 22px;
+        padding: 24px;
+    }
+    .dropdown-content a {
+        padding: 24px 50px;
+    }
+}
+
+/* 1441px ~ 1919px 장치에서 폰트 크기 및 레이아웃 조정 */
+@media (min-width: 1441px) and (max-width: 1920px) {
+    .title {
+        font-size: 80pt; /* 더 큰 화면에서 제목 크기 */
+    }
+    .menu-item button {
+        font-size: 24px;
+        padding: 26px;
+    }
+    .dropdown-content a {
+        padding: 26px 55px;
+    }
+}
 
     </style>
+
 </head>
 <body onclick="resetContent()">
     <div class="title-container">
@@ -317,17 +350,29 @@
 
 
     <script>
-        function toggleDropdown(id) {
-            var dropdown = document.getElementById(id);
-            var isVisible = dropdown.style.display === "block";
+                // Dropdown 토글 기능
+    function toggleDropdown(id) {
+        var dropdown = document.getElementById(id);
+        var isVisible = dropdown.style.display === "block";
+        var dropdowns = document.getElementsByClassName('dropdown-content');
+        for (var i = 0; i < dropdowns.length; i++) {
+            dropdowns[i].style.display = 'none';
+        }
+        if (!isVisible) {
+            dropdown.style.display = "block";
+        }
+    }
+
+    // 배경 클릭 시 메뉴 닫기
+    document.addEventListener('click', function(event) {
+        var isClickInsideMenu = event.target.closest('.menu-item');
+        if (!isClickInsideMenu) {
             var dropdowns = document.getElementsByClassName('dropdown-content');
             for (var i = 0; i < dropdowns.length; i++) {
                 dropdowns[i].style.display = 'none';
             }
-            if (!isVisible) {
-                dropdown.style.display = "block";
-            }
         }
+    });
 
         /* qr이미지 스크립트 */
         function openModal(src) {
