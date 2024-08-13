@@ -20,14 +20,13 @@
             flex-direction: column; /* 수직 방향으로 요소 배치 */
             justify-content: center;
             align-items: center;
-/*            margin: 0;  기본 여백 제거 */
         }
         .title:hover {
             color: #00437A; /* 정부청색 - 조금 더 어두운 톤 */
             text-decoration: bold; /* Underline on hover */
         }
         .title {
-            font-size: 80pt; /* 기본 크기 설정 */
+           font-size: calc(10px + 6vw); /* 화면 크기에 비례하는 폰트 크기 */
             text-align: center;
             font-weight: bold;
             color: #0057A1; /* 정부청색 */
@@ -192,9 +191,6 @@
 
 /* 모바일 장치 (작은 화면) */
 @media (max-width: 480px) {
-    .title {
-        font-size: 35pt; /* 작은 화면에 맞게 제목 크기 축소 */
-    }
     .title img {
         width: 50px;
         height: auto;
@@ -212,11 +208,22 @@
     }
 }
 
+@media (max-width: 768px) and (orientation: landscape) {
+    .menu-item button {
+        font-size: 22px;
+        padding: 20px; 
+    }
+    .dropdown-content {
+        top: 63px;
+    }
+    .dropdown-content a {
+        padding: 19px 30px;
+    }
+}
+
+
 /* 태블릿 (가로 모드) */
 @media (min-width: 481px) and (max-width: 768px) {
-    .title {
-        font-size: 35pt; /* 작은 화면에 맞게 제목 크기 축소 */
-    }
     .menu-item button {
         font-size: 16px;
         padding: 20px; 
@@ -231,9 +238,6 @@
 
 /* 태블릿 (세로 모드) */
 @media (min-width: 769px) and (max-width: 1024px) {
-/*    .title {
-        font-size: 50pt; /* 세로 모드에서 제목 크기 조정 */
-    }*/
     .menu-item button {
         font-size: 18px;
         padding: 20px; 
@@ -248,9 +252,6 @@
 
 /* 중간 크기 데스크탑 장치 (1025px ~ 1280px) */
 @media (min-width: 1025px) and (max-width: 1280px) {
-/*    .title {
-        font-size: 60pt; /* 중간 크기 화면에 맞게 제목 크기 조정 
-    }*/
     .menu-item button {
         font-size: 20px;
         padding: 20px; 
@@ -265,9 +266,6 @@
 
 /* 큰 데스크탑 장치 (1281px ~ 1440px) */
 @media (min-width: 1281px) and (max-width: 1440px) {
-/*    .title {
-        font-size: 70pt; /* 큰 화면에 맞게 제목 크기 조정 
-    }*/
     .menu-item button {
         font-size: 22px;
         padding: 20px; 
