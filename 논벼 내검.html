@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>논벼 1m²당 포기 수 계산기</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px;
+            max-width: 300px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            text-align: right;
+            padding-right: 10px;
+            line-height: 30px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        input[type="number"]:focus {
+            border-color: #007BFF;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 20px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .highlight {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <h2>논벼 1m²당 포기 수 계산기</h2>
+    <form id="spacingForm">
+        <label for="horizontal">가로 10포기간 간격 (cm)</label>
+        <input type="number" id="horizontal" name="horizontal" min="0" placeholder="가로 간격을 입력하세요" required onkeydown="moveToNext(event, 'vertical')">
+
+        <label for="vertical">세로 10포기간 간격 (cm)</label>
+        <input type="number" id="vertical" name="vertical" min="0" placeholder="세로 간격을 입력하세요" required onkeydown="moveToNext(event, 'calculateButton')">
+
+        <button type="button" id="calculateButton" onclick="calculate()">계산하기</button>
+    </form>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    // 입력란에서 엔터 키를 누르면 다음 입력란으로 이동하는 함수
+    function moveToNext(event, nextElementId) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            document.getElementById(nextElementId).focus();
+        }
+    }
+
+    // 과거 통계 평균치 설정
+    const historicalStats = {
+        2023: 18.0,
+        2022: 18.3,
+        2021: 18.4,
+        2020: 18.7,
+        2019: 18.8
+    };
+
+    function calculate() {
+        // 입력값 가져오기
+        const a = parseFloat(document.getElementById('horizontal').value);
+        const b = parseFloat(document.getElementById('vertical').value);
+
+        // 입력값 검증
+        if (isNaN(a) || isNaN(b) || a <= 0 || b <= 0) {
+            alert('모든 입력란에 올바른 숫자를 입력해 주세요.');
+            return;
+        }
+
+        // 가로 및 세로 1포기 길이 계산
+        const c = a / 10;
+        const d = b / 10;
+
+        // 1m²당 포기수 계산
+        const e = 10000 / (c * d);
+
+        // 과거 통계 평균치 계산 (최근 3년의 평균)
+        const avgHistorical = (historicalStats[2023] + historicalStats[2022] + historicalStats[2021]) / 3;
+
+        // f 계산
+        const f = avgHistorical / e;
+
+        // 결과 표시
+        let resultHTML = `
+            <table>
+                <tr><th>항목</th><th>값</th></tr>
+                <tr><td>가로 1포기 길이 (cm)</td><td>${c.toFixed(2)}</td></tr>
+                <tr><td>세로 1포기 길이 (cm)</td><td>${d.toFixed(2)}</td></tr>
+                <tr><td>1m²당 포기수</td><td>${e.toFixed(2)}</td></tr>
+                <tr><td>과거 통계 평균치(최근 5년)</td><td>${avgHistorical.toFixed(2)}</td></tr>
+                <tr><td>비율</td><td>${f.toFixed(2)}</td></tr>
+            </table>
+        `;
+
+        if (a < b) {
+            resultHTML += '<p class="highlight">일반적으로 가로 간격이 세로 간격보다 넓습니다. 다시 한번 확인 바랍니다.</p>';
+        }
+
+        if (f > 1.2) {
+            resultHTML += '<p class="highlight">과거 통계 평균치에 비해 1m²당 포기수가 너무 많습니다. 다시한번 확인 바랍니다.</p>';
+        } else if (f < 0.8) {
+            resultHTML += '<p class="highlight">과거 통계 평균치에 비해 1m²당 포기수가 너무 적습니다. 다시한번 확인 바랍니다.</p>';
+        }
+
+        document.getElementById('result').innerHTML = resultHTML;
+    }
+</script>
+
+</body>
+</html>
