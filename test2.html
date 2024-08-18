@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>포기당 이삭수 평균 최근접값 계산기</title>
+    <title>논벼 예상생산량조사를 위한 계산기</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f5f5f5;
+            display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* vh 대신 min-height 사용 */
             margin: 0;
-            padding: 0;
+            padding: 0 20px;
             box-sizing: border-box;
         }
-
         h2 {
             text-align: center;
             color: #333;
@@ -26,16 +26,15 @@
 
         form {
             display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-columns: auto 1fr auto; /* Add a third column for the differences */
             gap: 5px;
-            width: 100%;
-            max-width: 100%; /* 최대 너비를 100%로 설정하여 모바일 화면에 맞춤 */
+            max-width: 180%;
+            width: 400px;
             margin: auto;
             background-color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
         }
 
         label {
@@ -47,29 +46,28 @@
             font-size: 0.9rem;
         }
 
-        input[type="number"], select, input[type="text"] {
-            width: 100%; /* 입력 필드 너비를 100%로 설정하여 부모 요소에 맞춤 */
+        input[type="number"] {
+            width: 80%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             text-align: center;
             font-size: 16px;
-            box-sizing: border-box;
         }
 
-        input[type="number"]:focus, select:focus, input[type="text"]:focus {
+        input[type="number"]:focus {
             border-color: #007BFF;
             outline: none;
             box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
 
         .highlight-input {
-            border: 3px solid red;
-            box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+            border: 3px solid red; /* 진한 빨간 실선 */
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* 빨간 그림자 효과 */
         }
 
         .highlight-label {
-            background-color: yellow;
+            background-color: yellow; /* 노란색 하이라이트 */
         }
 
         .difference {
@@ -85,7 +83,7 @@
             font-size: 1.2rem;
             color: #333;
             font-weight: bold;
-            grid-column: 1 / -1;
+            grid-column: 1 / -1; /* Span across all columns */
         }
 
         .missing-numbers {
@@ -93,7 +91,7 @@
             margin-top: 10px;
             font-size: 1rem;
             color: red;
-            grid-column: 1 / -1;
+            grid-column: 1 / -1; /* Span across all columns */
         }
 
         .memo {
@@ -101,55 +99,37 @@
             margin-bottom: 10px;
             font-size: 1rem;
             color: #555;
-            grid-column: 1 / -1;
+            grid-column: 1 / -1; /* Span across all columns */
         }
 
-        @media (max-width: 768px) {
-            form {
-                grid-template-columns: 1fr; /* 모바일 화면에서 폼을 단일 열로 변경 */
-            }
-
-            label {
-                text-align: left;
-                padding-right: 0;
-                padding-bottom: 5px;
-            }
-
-            .difference {
-                text-align: right;
-            }
+        input[type="text"] {
+            width: 80%;
+            padding: 6px;
         }
 
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-
-            h2 {
-                font-size: 1.2rem;
-            }
-
-            input[type="number"], select, input[type="text"] {
-                font-size: 14px;
-                padding: 8px;
-            }
-
-            .result {
-                font-size: 1rem;
-            }
+        select {
+            width: 80%;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
         }
+
     </style>
 </head>
 <body>
 
 <div>
-    <h2 onclick="window.location.reload();">논벼 예상생산량조사를 위한 계산기</h2>  
+      <h2 onclick="window.location.reload();">논벼 예상생산량조사를 위한 계산기</h2>  
 
+    <!-- 메모 입력란 -->
     <div class="memo">
         <label for="memo">메모</label>
         <input type="text" id="memo" name="memo" placeholder="활용팁! 메모(지번 등), 주수 입력 후 캡처">
     </div>
 
+    <!-- 작황 선택 드롭다운 -->
     <div class="memo">
         <label for="cropCondition">작황</label>
         <select id="cropCondition" name="cropCondition">
@@ -207,6 +187,8 @@
         <input type="number" id="num10" name="num10" min="0" max="99" inputmode="numeric" pattern="[0-9]*" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 1)" required>
         <div class="difference" id="diff10"></div>
 
+
+
         <div class="missing-numbers" id="missingNumbers"></div>
         <div class="result" id="result"></div>
     </form>
@@ -217,7 +199,7 @@
         if (event.key === "Enter" || event.key === "ArrowDown") {
             document.getElementById('num' + nextId).focus();
         } else if (event.key === "ArrowUp") {
-            document.getElementById('num' + (nextId - 2)).focus();
+            document.getElementById('num' + (nextId - 2)).focus(); // 위로 이동할 때
         }
     }
 
@@ -231,23 +213,24 @@
                 missing.push(i + "번주");
                 allFilled = false;
             } else if (parseFloat(value) > 100) {
-                alert("100 미만의 값을 입력해야 합니다.");
-                document.getElementById('num' + i).value = ''; 
+                alert("번주는 100 미만의 값을 입력해야 합니다.");
+                document.getElementById('num' + i).value = ''; // 잘못된 값을 초기화
                 missing.push(i + "번주");
                 allFilled = false;
             }
 
+            // 입력란 및 라벨 강조 초기화
             document.getElementById('num' + i).classList.remove('highlight-input');
             document.getElementById('label' + i).classList.remove('highlight-label');
         }
 
         if (missing.length > 0) {
             document.getElementById('missingNumbers').textContent = "미입력 번호: " + missing.join(', ');
-            document.getElementById('result').innerHTML = "";
-            clearDifferences();
+            document.getElementById('result').innerHTML = "";  // 입력값이 지워진 경우 결과값을 초기화
+            clearDifferences();  // 편차 값 초기화
         } else {
-            document.getElementById('missingNumbers').textContent = "";
-            findClosest();
+            document.getElementById('missingNumbers').textContent = ""; // 미입력 번호가 없으면 초기화
+            findClosest();  // 모든 입력란이 채워진 경우에만 결과값 계산
         }
     }
 
@@ -266,13 +249,14 @@
 
         for (let i = 0; i < numbers.length; i++) {
             let diff = Math.abs(numbers[i] - average);
-            document.getElementById('diff' + (i + 1)).textContent = `편차: ${diff.toFixed(2)}`;
+            document.getElementById('diff' + (i + 1)).textContent = `편차: ${diff.toFixed(2)}`;  // 편차 값 표시
             if (diff < minDiff || (diff === minDiff && closestIndex > i)) {
                 minDiff = diff;
                 closestIndex = i;
             }
         }
 
+        // 평균에 가장 가까운 입력란과 라벨 강조 표시
         document.getElementById('num' + (closestIndex + 1)).classList.add('highlight-input');
         document.getElementById('label' + (closestIndex + 1)).classList.add('highlight-label');
 
@@ -281,7 +265,7 @@
 
     function clearDifferences() {
         for (let i = 1; i <= 10; i++) {
-            document.getElementById('diff' + i).textContent = '';
+            document.getElementById('diff' + i).textContent = ''; // 편차 값 초기화
         }
     }
 
