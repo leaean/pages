@@ -13,19 +13,23 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            padding: 0 20px;
+            box-sizing: border-box;
         }
 
         h2 {
             text-align: center;
             color: #333;
             margin-bottom: 20px;
+            font-size: 1.5rem;
         }
 
         form {
             display: grid;
             grid-template-columns: auto 1fr;
             gap: 10px;
-            max-width: 300px;
+            max-width: 100%;
+            width: 400px;
             margin: auto;
             background-color: white;
             padding: 20px;
@@ -39,10 +43,11 @@
             line-height: 30px;
             font-weight: bold;
             color: #555;
+            font-size: 0.9rem;
         }
 
         input[type="number"] {
-            width: 80%;
+            width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -68,9 +73,50 @@
         .result {
             text-align: center;
             margin-top: 20px;
-            font-size: 20px;
+            font-size: 1.2rem;
             color: #333;
             font-weight: bold;
+        }
+
+        .missing-numbers {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1rem;
+            color: red;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0 10px;
+            }
+
+            form {
+                grid-template-columns: auto 1fr;
+                padding: 15px;
+                width: 100%;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
+
+            label {
+                font-size: 0.8rem;
+            }
+
+            input[type="number"] {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .result {
+                font-size: 1rem;
+            }
+
+            .missing-numbers {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -80,37 +126,38 @@
     <h2>포기당 이삭수 평균 최근접값 계산기</h2>
     <form id="numberForm">
         <label id="label1" for="num1">1번주</label>
-        <input type="number" id="num1" name="num1" min="0" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 2)" required>
+        <input type="number" id="num1" name="num1" min="0" inputmode="numeric" pattern="[0-9]*" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 2)" required>
 
         <label id="label2" for="num2">2번주</label>
-        <input type="number" id="num2" name="num2" min="0" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 3)" required>
+        <input type="number" id="num2" name="num2" min="0" inputmode="numeric" pattern="[0-9]*" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 3)" required>
 
         <label id="label3" for="num3">3번주</label>
-        <input type="number" id="num3" name="num3" min="0" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 4)" required>
+        <input type="number" id="num3" name="num3" min="0" inputmode="numeric" pattern="[0-9]*" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 4)" required>
 
         <label id="label4" for="num4">4번주</label>
-        <input type="number" id="num4" name="num4" min="0" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 5)" required>
+        <input type="number" id="num4" name="num4" min="0" inputmode="numeric" pattern="[0-9]*" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 5)" required>
 
         <label id="label5" for="num5">5번주</label>
-        <input type="number" id="num5" name="num5" min="0" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 6)" required>
+        <input type="number" id="num5" name="num5" min="0" inputmode="numeric" pattern="[0-9]*" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 6)" required>
 
         <label id="label6" for="num6">6번주</label>
-        <input type="number" id="num6" name="num6" min="0" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 7)" required>
+        <input type="number" id="num6" name="num6" min="0" inputmode="numeric" pattern="[0-9]*" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 7)" required>
 
         <label id="label7" for="num7">7번주</label>
-        <input type="number" id="num7" name="num7" min="0" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 8)" required>
+        <input type="number" id="num7" name="num7" min="0" inputmode="numeric" pattern="[0-9]*" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 8)" required>
 
         <label id="label8" for="num8">8번주</label>
-        <input type="number" id="num8" name="num8" min="0" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 9)" required>
+        <input type="number" id="num8" name="num8" min="0" inputmode="numeric" pattern="[0-9]*" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 9)" required>
 
         <label id="label9" for="num9">9번주</label>
-        <input type="number" id="num9" name="num9" min="0" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 10)" required>
+        <input type="number" id="num9" name="num9" min="0" inputmode="numeric" pattern="[0-9]*" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 10)" required>
 
         <label id="label10" for="num10">10번주</label>
-        <input type="number" id="num10" name="num10" min="0" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 11)" required>
+        <input type="number" id="num10" name="num10" min="0" inputmode="numeric" pattern="[0-9]*" placeholder="숫자를 입력하세요" onkeydown="moveToNext(event, 11)" required>
     </form>
 
     <div class="result" id="result"></div>
+    <div class="missing-numbers" id="missingNumbers"></div>
 </div>
 
 <script>
@@ -127,14 +174,20 @@
 
     function checkAllFilled() {
         let allFilled = true;
+        let missing = [];
         for (let i = 1; i <= 10; i++) {
             if (document.getElementById('num' + i).value === "") {
                 allFilled = false;
-                break;
+                missing.push(i + "번주");
             }
         }
-        if (allFilled) {
-            findClosest();
+
+        if (missing.length > 0) {
+            document.getElementById('missingNumbers').textContent = "미입력 번호: " + missing.join(', ');
+            document.getElementById('result').innerHTML = "";  // 입력값이 지워진 경우 결과값을 초기화
+        } else {
+            document.getElementById('missingNumbers').textContent = ""; // 미입력 번호가 없으면 초기화
+            findClosest();  // 모든 입력란이 채워진 경우에만 결과값 계산
         }
     }
 
