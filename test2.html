@@ -47,7 +47,7 @@
         }
 
         input[type="number"] {
-            width: 70%;
+            width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -182,6 +182,12 @@
             }
         }
 
+        // 강조 표시 제거
+        for (let i = 1; i <= 10; i++) {
+            document.getElementById('num' + i).classList.remove('highlight-input');
+            document.getElementById('label' + i).classList.remove('highlight-label');
+        }
+
         if (missing.length > 0) {
             document.getElementById('missingNumbers').textContent = "미입력 번호: " + missing.join(', ');
             document.getElementById('result').innerHTML = "";  // 입력값이 지워진 경우 결과값을 초기화
@@ -210,12 +216,6 @@
                 minDiff = diff;
                 closestIndex = i;
             }
-        }
-
-        // 강조 표시 제거
-        for (let i = 1; i <= 10; i++) {
-            document.getElementById('num' + i).classList.remove('highlight-input');
-            document.getElementById('label' + i).classList.remove('highlight-label');
         }
 
         // 평균에 가장 가까운 입력란과 라벨 강조 표시
