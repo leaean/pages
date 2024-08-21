@@ -1,0 +1,375 @@
+
+<!<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>논벼품종부호검색(2024)</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            cursor: pointer;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        label {
+            display: inline-block;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+.filterCheckbox {
+    transform: scale(1.5);
+    margin-right: 10px;
+    color: #FF5733; /* 색상 */
+}
+
+.subCategoryCheckbox {
+    transform: scale(1.5);
+    margin-right: 10px;
+    color: ; #0057A1/* 변경할 색상 */
+    /* 다른 스타일 속성을 추가하려면 여기에 추가하세요 */
+}
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #0057A1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #searchTerm {
+            border: 1px solid #333;
+        }
+        button:hover {
+            background-color: #00437A;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+        }
+	th {
+	    background-color: #0057A1;
+	    color: #fff;
+	    text-align: center; /* 열 제목 가운데 정렬 추가 */
+	}
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        }
+/*열 제목*/
+th:nth-child(1) {
+    text-align: center; /* 왼쪽 정렬 */
+    width: 150px; /* 너비 */
+/*    font-size: 1.1em; /* 글자 크기 */
+/*    color: #FF5733; /* 색상 */
+}
+
+th:nth-child(2) {
+    text-align: center; /* 왼쪽 정렬 */
+    width: 150px; /* 너비 */
+/*    font-size: 1.2em; /* 글자 크기 */
+/*    color: #33FF57; /* 색상 */
+}
+
+th:nth-child(3) {
+    text-align: center; /* 오른쪽 정렬 */
+    width: 150px; /* 너비 */
+/*    font-size: 1.3em; /* 글자 크기 */
+/*    color: #5733FF; /* 색상 */
+}
+th:nth-child(4) {
+    text-align: center; /* 왼쪽 정렬 */
+    width: 150px; /* 너비 */
+/*    font-size: 1.3em; /* 글자 크기 */
+/*    color: #5733FF; /* 색상 */
+}
+th:nth-child(5) {
+    text-align: center; /* 오른쪽 정렬 */
+/*    width: 150px; /* 너비 */
+/*    font-size: 1.3em; /* 글자 크기 */
+/*    color: #5733FF; /* 색상 */
+}
+th:nth-child(6) {
+    text-align: center; /* 오른쪽 정렬 */
+/*    width: 150px; /* 너비 */
+/*    font-size: 1.3em; /* 글자 크기 */
+/*    color: #5733FF; /* 색상 */
+}
+
+/*열 데이터*/
+td:nth-child(1) {
+    text-align: center; /* 왼쪽 정렬 */
+    width: 50px; /* 너비 */
+/*    font-size: 1.1em; /* 글자 크기 */
+/*    color: #FF5733; /* 색상 */
+}
+td:nth-child(2) {
+    text-align: center; /* 가운데 정렬 */
+    width: 200px; /* 너비 */
+/*    font-size: 1.2em; /* 글자 크기 */
+/*    color: #33FF57; /* 색상 */
+}
+
+td:nth-child(3) {
+    text-align: center; /* 오른쪽 정렬 */
+    width: 50px; /* 너비 */
+/*    font-size: 1.3em; /* 글자 크기 */
+/*    color: #5733FF; /* 색상 */
+}
+td:nth-child(4) {
+    text-align: center; /* 오른쪽 정렬 */
+    width: 100px; /* 너비 */
+/*    font-size: 1.3em; /* 글자 크기 */
+/*    color: #5733FF; /* 색상 */
+}
+td:nth-child(5) {
+    text-align: center; /* 오른쪽 정렬 */
+    width: 50px; /* 너비 */
+/*    font-size: 1.3em; /* 글자 크기 */
+/*    color: #5733FF; /* 색상 */
+}
+td:nth-child(6) {
+    width: 500px; /* 너비 */
+/*    font-size: 1.3em; /* 글자 크기 */
+/*    color: #5733FF; /* 색상 */
+}
+
+    </style>
+</head>
+<body>
+    <h1>논벼품종부호검색(2024)</h1>
+<form id="searchForm">
+    <label for="searchTerm">키워드</label>
+    <input type="text" id="searchTerm" name="searchTerm">
+    <button type="submit">검색</button>
+</form>
+<div id="tables"></div>
+
+<script>
+const data = {
+    '농작물생산조사': [
+	['조생종', '고시히카리‘, ’360‘], 
+	['조생종', '만나벼‘, ’412‘], 
+	['조생종', '상미벼‘, ’328‘], 
+	['조생종', '상주찰벼‘, ’320‘], 
+	['조생종', '새일폼벼‘, ’511‘], 
+	['조생종', '오대1호‘, ’443‘], 
+	['조생종', '오대벼‘, ’236‘], 
+	['조생종', '오륜벼‘, ’518‘], 
+	['조생종', '운광벼‘, ’378‘], 
+	['조생종', '운붕벼‘, ’249‘], 
+	['조생종', '조광벼‘, ’449‘], 
+	['조생종', '조담벼‘, ’519‘], 
+	['조생종', '조생혹찰벼‘, ’452‘], 
+	['조생종', '조안벼‘, ’451‘], 
+	['조생종', '조평벼‘, ’521‘], 
+	['조생종', '주남조조제벼‘, ’454‘], 
+	['조생종', '진광벼‘, ’522‘], 
+	['조생종', '진미벼‘, ’258‘], 
+	['조생종', '진붕벼‘, ’458‘], 
+	['조생종', '진부찰벼‘, ’257‘], 
+	['조생종', '진옥벼‘, ’524‘], 
+	['조생종', '추광벼‘, ’227‘], 
+	['조생종', '태붕벼‘, ’330‘], 
+	['조생종', '해담쌀‘, ’530‘], 
+	['조생종', '향미벼2호‘, ’311‘], 
+	['조생종', '호반벼‘, ’483‘], 
+	['조생종', '황금보라벼‘, ’492‘], 
+	['조생종', '흑진주벼‘, ’321‘], 
+	['조생종', '히토메보레‘, ’359‘], 
+	['중생종', '강백벼‘, ’388‘], 
+	['중생종', '남천벼‘, ’310‘], 
+	['중생종', '다보벼‘, ’502‘], 
+	['중생종', '대보벼‘, ’503‘], 
+	['중생종', '맛드림벼‘, ’504‘], 
+	['중생종', '보람찰벼‘, ’507‘], 
+	['중생종', '붕광벼‘, ’217‘], 
+	['중생종', '삼광1호‘, ’508‘], 
+	['중생종', '삼덕벼‘, ’377‘], 
+	['중생종', '상옥벼‘, ’425‘], 
+	['중생종', '서안벼‘, ’265‘], 
+	['중생종', '설향찰벼‘, ’431‘], 
+	['중생종', '소비벼‘, ’432‘], 
+	['중생종', '수라벼‘, ’332‘], 
+	['중생종', '수안벼‘, ’515‘], 
+	['중생종', '신보벼‘, ’516‘], 
+	['중생종', '신선찰벼‘, ’234‘], 
+	['중생종', '주안벼‘, ’291‘], 
+	['중생종', '진상벼‘, ’523‘], 
+	['중생종', '청아벼‘, ’462‘], 
+	['중생종', '청안벼‘, ’463‘], 
+	['중생종', '청풍벼‘, ’526‘], 
+	['중생종', '팔방미‘, ’529‘], 
+	['중생종', '하이아미‘, ’475‘], 
+	['중생종', '한강찰1호‘, ’477‘], 
+	['중생종', '한아름벼‘, ’479‘], 
+	['중생종', '해평벼‘, ’341‘], 
+	['중생종', '해평찰벼‘, ’482‘], 
+	['중생종', '해폼벼‘, ’531‘], 
+	['중생종', '화선찰벼‘, ’285‘], 
+	['중생종', '화성벼‘, ’247‘], 
+	['중생종', '화영벼‘, ’283‘], 
+	['중생종', '흑설벼‘, ’495‘], 
+	['중만생종', '계화벼‘, ’267‘], 
+	['중만생종', '골든퀸3호‘, ’501‘], 
+	['중만생종', '남평벼‘, ’315‘], 
+	['중만생종', '다미벼‘, ’400‘], 
+	['중만생종', '대안벼‘, ’292‘], 
+	['중만생종', '동진1호‘, ’357‘], 
+	['중만생종', '동진2호‘, ’408‘], 
+	['중만생종', '동진벼‘, ’229‘], 
+	['중만생종', '동진찰벼‘, ’354‘], 
+	['중만생종', '동해진미벼‘, ’409‘], 
+	['중만생종', '드래찬벼‘, ’411‘], 
+	['중만생종', '말그미벼‘, ’417‘], 
+	['중만생종', '미폼벼‘, ’505‘], 
+	['중만생종', '미향벼‘, ’382‘], 
+	['중만생종', '백설찰벼‘, ’418‘], 
+	['중만생종', '백옥찰벼‘, ’419‘], 
+	['중만생종', '백진주벼‘, ’383‘], 
+	['중만생종', '보람찬벼‘, ’506‘], 
+	['중만생종', '삼광벼‘, ’370‘], 
+	['중만생종', '상보벼‘, ’509‘], 
+	['중만생종', '새누리벼‘, ’426‘], 
+	['중만생종', '새일미벼‘, ’510‘], 
+	['중만생종', '새청무벼‘, ’512‘], 
+	['중만생종', '새추청벼‘, ’345‘], 
+	['중만생종', '서간벼‘, ’427‘], 
+	['중만생종', '소다미벼‘, ’513‘], 
+	['중만생종', '수광벼‘, ’514‘], 
+	['중만생종', '수진벼‘, ’347‘], 
+	['중만생종', '신농흑찰벼‘, ’433‘], 
+	['중만생종', '신동진벼‘, ’346‘], 
+	['중만생종', '신토흑미벼‘, ’436‘], 
+	['중만생종', '아랑향찰벼‘, ’438‘], 
+	['중만생종', '영호진미벼‘, ’517‘], 
+	['중만생종', '온누리벼‘, ’444‘], 
+	['중만생종', '일미벼‘, ’305‘], 
+	['중만생종', '일폼벼‘, ’264‘], 
+	['중만생종', '조명1호‘, ’520‘], 
+	['중만생종', '주남벼‘, ’349‘], 
+	['중만생종', '진백벼‘, ’457‘], 
+	['중만생종', '진수미벼‘, ’460‘], 
+	['중만생종', '참드림벼‘, ’525‘], 
+	['중만생종', '청담벼‘, ’461‘], 
+	['중만생종', '청청진미벼‘, ’464‘], 
+	['중만생종', '추청벼‘, ’205‘], 
+	['중만생종', '친농벼‘, ’527‘], 
+	['중만생종', '친들벼‘, ’528‘], 
+	['중만생종', '칠보벼‘, ’465‘], 
+	['중만생종', '평안벼‘, ’372‘], 
+	['중만생종', '향미벼1호‘, ’273‘], 
+	['중만생종', '현품벼‘, ’532‘], 
+	['중만생종', '호진벼‘, ’348‘], 
+	['중만생종', '호평벼‘, ’373‘], 
+	['중만생종', '호품벼‘, ’484‘], 
+	['중만생종', '화신1호‘, ’489‘], 
+	['중만생종', '황금노들벼‘, ’490‘], 
+	['중만생종', '황급누리벼‘, ’491‘], 
+	['중만생종', '흑향벼‘, ’355‘], 
+	['기타', ‘기타‘, ’999‘]
+    ],
+};
+
+// 필터를 설정합니다.
+const selectedFilters = ['농작물생산조사'];  // 필터 예시
+const selectedSubCategories = []; // 서브 카테고리 예시 (비어있음)
+const selectedCard = 'all';  // 카드 선택 예시 (전체 선택)
+
+// 검색 기능 수정
+document.getElementById("searchForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const searchTerm = document.getElementById("searchTerm").value.toLowerCase();
+
+    let hasResult = false;
+
+    const tablesDiv = document.getElementById("tables");
+    tablesDiv.innerHTML = '';  // 검색 결과를 초기화합니다.
+
+    selectedFilters.forEach(category => {
+        if (data.hasOwnProperty(category)) {
+            const matchedData = data[category].filter(item => {
+                return (
+                    (selectedSubCategories.length === 0 || selectedSubCategories.includes('all') || selectedSubCategories.includes(item[0])) &&
+                    (selectedCard === 'all' || item[1] === selectedCard) &&
+                    (searchTerm === '' || item.join().toLowerCase().includes(searchTerm))
+                );
+            });
+
+            if (matchedData.length > 0) {
+                hasResult = true;
+
+                const h2 = document.createElement('h2');
+                h2.textContent = category;
+                tablesDiv.appendChild(h2);
+
+                const table = document.createElement('table');
+                table.innerHTML = `<thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>수확시기</th>
+                        <th>품종명</th>
+                        <th>부호</th>
+                    </tr>
+                </thead>
+                <tbody id="resultBody_${category}"></tbody>`;
+
+                tablesDiv.appendChild(table);
+
+                const resultBody = document.getElementById(`resultBody_${category}`);
+
+                matchedData.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${item[0] || ''}</td>
+                        <td>${item[1] || ''}</td>
+                        <td>${item[2] || ''}</td>
+                        <td>${item[3] || ''}</td>
+                    `;
+                    resultBody.appendChild(row);
+                });
+            }
+        }
+    });
+
+    if (!hasResult) {
+        alert('검색 결과가 없습니다.');
+    }
+});
+
+// 초기화 버튼 클릭 시 필터 및 검색어 초기화
+document.querySelector('h1').addEventListener('click', function() {
+    document.getElementById("searchTerm").value = '';
+    document.getElementById("tables").innerHTML = '';
+});
+</script>
+</body>
+</html>
