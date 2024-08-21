@@ -175,7 +175,7 @@ body {
     </div>
     <div class="form-group">
         <label for="entertainer_meals">가구의 접대인의 한끼 식사량(kg):</label>
-        <input type="number" id="entertainer_meals" name="entertainer_meals" step="0.01" placeholder="접대인의 한끼 식사량을 입력하세요" required>
+        <input type="number" id="entertainer_meals" name="entertainer_meals" step="0.0001" placeholder="접대인의 한끼 식사량을 입력하세요" required>
     </div>
     <div class="form-group">
         <label for="household_size">가구 인원수:</label>
@@ -207,7 +207,7 @@ body {
             householdMembersDiv.innerHTML += `
                 <div class="form-group">
                     <label for="member-meals-${i}">가구원 ${i}의 1끼 식사량(kg):</label>
-                    <input type="number" id="member-meals-${i}" name="member-meals-${i}" placeholder="가구원 ${i}의 1끼 식사량을 입력하세요" required step="0.01">
+                    <input type="number" id="member-meals-${i}" name="member-meals-${i}" placeholder="가구원 ${i}의 1끼 식사량을 입력하세요" required step="0.0001">
                 </div>
                 <div class="form-group">
                     <label for="member-eating-out-${i}">가구원 ${i}의 한달 외식수:</label>
