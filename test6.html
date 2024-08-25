@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>묘상면적 및 본포재배면적 계산기</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  p {
+    text-align: center;
+    color: #333;
+  }
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  .container {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  select, input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 5%;
+  }
+  button:hover {
+    opacity: 0.8;
+  }
+  #result {
+    margin-top: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+  h2 {
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2 onclick="window.location.reload();">묘상면적 및 본포재배면적 계산</h2>
+    <p>※ 참고자료: 농사로 홈페이지 등 인터넷 검색 자료</p>
+    <p class="note">(참고: <a href="/pages/menu006" target="_blank">참고</a>)</p>
+    <form id="calculatorForm">
+      <strong><label for="crop">작물 선택</label></strong>
+      <select id="crop" required onchange="updateUnit()">
+        <option value="" disabled selected>작물을 선택하세요</option>
+        <option value="논벼(중모)">논벼(중모)</option>
+        <option value="논벼(어린모)">논벼(어린모)</option>
+        <option value="고추(노지)">고추(노지)</option>
+        <option value="고추(촉성재배)">고추(촉성재배)</option>
+        <option value="양파">양파</option>
+        <option value="풋콩">풋콩</option>
+        <option value="대파">대파</option>
+        <option value="더덕">더덕</option>
+      </select>
+      <strong><label for="inputType">입력 유형</label></strong>
+      <select id="inputType" onchange="toggleInput()" required>
+        <option value="bonpoarea">본포면적</option>
+        <option value="myosangarea">묘상면적</option>
+      </select>
+
+      <div id="bonpoareaInput" style="display: block;">
+        <strong><label for="bonpoarea">본포면적</label></strong>
+        <input type="number" id="bonpoarea" min="0" placeholder="본포면적을 입력하세요" required onkeypress="handleKeyPress(event)">
+        <select id="bonpoareaunit">
+          <option value="m2">m²</option>
+          <option value="평">평</option>
+          <option value="마지기">마지기(200평)</option>
+          <option value="a">a</option>
+        </select>
+      </div>
+
+      <div id="myosangareaInput" style="display: none;">
+        <strong><label for="myosangarea">묘상면적</label></strong>
+        <input type="number" id="myosangarea" min="0" placeholder="묘상면적을 입력하세요" required onkeypress="handleKeyPress(event)">
+        <select id="myosangareaunit">
+          <option value="m2">m²</option>
+          <option value="평">평</option>
+          <option value="마지기">마지기(200평)</option>
+          <option value="a">a</option>
+        </select>
+      </div>
+
+      <button type="button" onclick="calculate()">계산하기</button>
+    </form>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function toggleInput() {
+      var inputType = document.getElementById("inputType").value;
+      var bonpoareaInput = document.getElementById("bonpoareaInput");
+      var myosangareaInput = document.getElementById("myosangareaInput");
+      
+      if (inputType === "bonpoarea") {
+        bonpoareaInput.style.display = "block";
+        myosangareaInput.style.display = "none";
+        // 입력값 초기화
+        document.getElementById("bonpoarea").value = "";
+        document.getElementById("bonpoareaunit").value = "m2";
+      } else {
+        bonpoareaInput.style.display = "none";
+        myosangareaInput.style.display = "block";
+        // 입력값 초기화
+        document.getElementById("myosangarea").value = "";
+        document.getElementById("myosangareaunit").value = "m2";
+      }
+      // 결과 초기화
+      document.getElementById("result").textContent = "";
+    }
+
+    function updateUnit() {
+      var crop = document.getElementById("crop").value;
+      // 업데이트 로직이 필요 없음
+    }
+
+    function calculate() {
+      var crop = document.getElementById("crop").value;
+      var inputType = document.getElementById("inputType").value;
+      var result = document.getElementById("result");
+
+      var areaunit = {
+        "평": 3.3,
+        "마지기": 660,
+        "a": 100,
+        "m2": 1
+      };
+
+      var pertena = {
+        "논벼(중모)": 6.6,
+        "논벼(어린모)": 3.3,
+        "고추(노지)": 3.4,
+        "고추(촉성재배)": 6.6,
+        "양파": 50,
+        "풋콩": 57.5,
+        "대파": 135,
+        "더덕": 40
+      };
+
+      if (!crop) {
+        result.textContent = "작물을 선택하세요.";
+        return;
+      }
+
+      if (inputType === "bonpoarea") {
+        var bonpoarea = parseFloat(document.getElementById("bonpoarea").value);
+        var bonpoareaunitLabel = document.getElementById("bonpoareaunit").value;
+        if (isNaN(bonpoarea) || bonpoarea <= 0) {
+          result.textContent = "유효한 본포면적을 입력하세요.";
+          return;
+        }
+
+        bonpoarea *= areaunit[bonpoareaunitLabel];
+        var myosangarea = pertena[crop] * bonpoarea / 1000;
+        var myosangareaMin = myosangarea * 0.8;
+        var myosangareaMax = myosangarea * 1.2;
+
+        result.innerHTML = `예측 묘상면적: 약 ${myosangarea.toLocaleString('ko-KR', { maximumFractionDigits: 2 })}m²<br>(±20% 오차범위: ${myosangareaMin.toLocaleString('ko-KR', { maximumFractionDigits: 2 })}m² ~ ${myosangareaMax.toLocaleString('ko-KR', { maximumFractionDigits: 2 })}m²)`;
+      } else {
+        var myosangarea = parseFloat(document.getElementById("myosangarea").value);
+        var myosangareaunitLabel = document.getElementById("myosangareaunit").value;
+        if (isNaN(myosangarea) || myosangarea <= 0) {
+          result.textContent = "유효한 묘상면적을 입력하세요.";
+          return;
+        }
+
+        myosangarea *= areaunit[myosangareaunitLabel];
+        var bonpoarea = myosangarea / (pertena[crop] / 1000);
+        var pyeong = bonpoarea / 3.3;    
+
+        var bonpoareaMin = bonpoarea * 0.8;
+        var bonpoareaMax = bonpoarea * 1.2;
+        var pyeongMin = pyeong * 0.8;
+        var pyeongMax = pyeong * 1.2;
+
+        result.innerHTML = `예측 본포면적: 약 ${bonpoarea.toLocaleString('ko-KR', { maximumFractionDigits: 2 })}m² (약 ${pyeong.toLocaleString('ko-KR', { maximumFractionDigits: 2 })} 평)<br>(±20% 오차범위: ${bonpoareaMin.toLocaleString('ko-KR', { maximumFractionDigits: 2 })}m² ~ ${bonpoareaMax.toLocaleString('ko-KR', { maximumFractionDigits: 2 })}m²)<br>(${pyeongMin.toLocaleString('ko-KR', { maximumFractionDigits: 2 })}평 ~ ${pyeongMax.toLocaleString('ko-KR', { maximumFractionDigits: 2 })}평)`;
+      }
+    }
+
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        calculate();
+      }
+    }
+  </script>
+</body>
+</html>
