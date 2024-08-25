@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>조사용 재료 추출기</title>
+    <title>조사용재료추출</title>
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -15,7 +15,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 100vh;
+        min-height: 50vh;
         flex-direction: column;
     }
     h1 {
@@ -25,8 +25,8 @@
         margin-bottom: 20px;
     }
     .container {
-        max-width: 600px;
-        width: 100%;
+        max-width: 500px;
+        width: 80%;
         background-color: white;
         padding: 20px;
         border-radius: 8px;
@@ -103,7 +103,8 @@
 </head>
 <body>
 
-    <h1 onclick="location.reload()">조사용 재료 추출(농작물생산조사)(수정중)</h1>
+        <h1 onclick="location.reload()">조사용 재료 추출<br>(농작물생산조사)<br>(수정중)</h1>
+
 
     <div class="container">
         <form>
@@ -122,7 +123,7 @@
                 <input type="number" id="randomNumber" min="10000" max="99999" placeholder="난수를 입력하세요">
             </div>
 
-            <button type="button" onclick="extractSamples()">추출 시작</button>
+            <button type="button" onclick="extractSamples()">추출</button>
         </form>
 
         <div class="result" id="result"></div>
