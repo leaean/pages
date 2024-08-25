@@ -111,7 +111,15 @@
             border-top: 5px solid white;
             margin-left: 10px;
         }
-
+        
+        .arrow-up {
+            width: 0; 
+            height: 0; 
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid white;
+            margin-left: 10px;
+        }
         .item img {
             max-width: 80px;
             height: auto;
@@ -294,9 +302,6 @@
         padding: 19px 30px;
     }
 }
-
-
-
     </style>
 
 </head>
@@ -307,18 +312,7 @@
     </div>
     <div class="menu">
         <div class="menu-item">
-            <button onclick="toggleDropdown('dropdown1')">조사 참고 자료<div class="arrow-down"></div></button>
-            <div id="dropdown1" class="dropdown-content">
-                <a href='/pages/menu001'">시기별 주요 체크포인트</a>
-                <a href='/pages/menu002'">자료실</a>
-                <a href='/pages/menu006'">주요 농자재 규격</a>
-                <a href='/pages/menu005'">작물 재식거리</a>
-                <a href='/pages/menu008'">작물 단위(개)당 중량</a>
-                <a href='/pages/menu017'">축종별 사양관리 프로그램</a>
-            </div>
-        </div>
-        <div class="menu-item">
-            <button onclick="toggleDropdown('dropdown2')">농작물 계산 및 검토<div class="arrow-down"></div></button>
+            <button onclick="toggleDropdown('dropdown2', this)">농작물 계산 및 검토<div class="arrow-down"></div></button>
             <div id="dropdown2" class="dropdown-content">
                 <a href='/pages/test2'">논벼 예상생산량(A포구)</a>
                 <a href='/pages/menu003'">종자량 & 재배면적</a>
@@ -331,7 +325,18 @@
             </div>
         </div>
         <div class="menu-item">
-            <button onclick="toggleDropdown('dropdown3')">기타 도구<div class="arrow-down"></div></button>
+            <button onclick="toggleDropdown('dropdown1', this)">조사 참고 자료<div class="arrow-down"></div></button>
+            <div id="dropdown1" class="dropdown-content">
+                <a href='/pages/menu001'">시기별 주요 체크포인트</a>
+                <a href='/pages/menu002'">자료실</a>
+                <a href='/pages/menu006'">주요 농자재 규격</a>
+                <a href='/pages/menu005'">작물 재식거리</a>
+                <a href='/pages/menu008'">작물 단위(개)당 중량</a>
+                <a href='/pages/menu017'">축종별 사양관리 프로그램</a>
+            </div>
+        </div>
+        <div class="menu-item">
+            <button onclick="toggleDropdown('dropdown3', this)">기타 도구<div class="arrow-down"></div></button>
             <div id="dropdown3" class="dropdown-content">
                 <a href='/pages/test3'">농작물부호검색(농작물생산조사)</a>
                 <a href='/pages/test5'">논벼품종부호검색(농작물생산조사)</a>
@@ -348,7 +353,7 @@
             </div>
         </div>
         <div class="menu-item">
-            <button onclick="toggleDropdown('dropdown4')">고객지원<div class="arrow-down"></div></button>
+            <button onclick="toggleDropdown('dropdown4', this)">고객지원<div class="arrow-down"></div></button>
             <div id="dropdown4" class="dropdown-content">
                 <a href=''">(준비중) 레퍼런스</a>
                 <a href='https://forms.gle/1TWPNfpY3oYmE8do7'">건의사항 (모바일)</a>
@@ -377,16 +382,28 @@
 
 
     <script>
-                // Dropdown 토글 기능
-    function toggleDropdown(id) {
+// Dropdown 토글 기능
+    function toggleDropdown(id, button) {
         var dropdown = document.getElementById(id);
         var isVisible = dropdown.style.display === "block";
         var dropdowns = document.getElementsByClassName('dropdown-content');
+        var arrows = document.querySelectorAll('button div');
+    
+        // Close all dropdowns and reset arrows
         for (var i = 0; i < dropdowns.length; i++) {
             dropdowns[i].style.display = 'none';
         }
+        for (var i = 0; i < arrows.length; i++) {
+            arrows[i].className = 'arrow-down';
+        }
+    
+        // Toggle current dropdown and arrow
         if (!isVisible) {
             dropdown.style.display = "block";
+            button.querySelector('div').className = 'arrow-up';
+        } else {
+            dropdown.style.display = "none";
+            button.querySelector('div').className = 'arrow-down';
         }
     }
 
