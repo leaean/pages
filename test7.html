@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -197,7 +198,8 @@ function extractSamples() {
         return;
     }
 
-    const interval = normalPlants / numSamples;
+    const interval = Math.round((normalPlants / numSamples) * 10) / 10;
+
     let samples = [];
 
     let tableHTML = `<table>
