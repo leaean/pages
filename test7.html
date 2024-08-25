@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>조사용 재료 추출기</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f9;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+    h1 {
+        color: black;
+        cursor: pointer;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .container {
+        max-width: 600px;
+        width: 100%;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; /* Aligns items to the start (left) */
+    }
+    label {
+        font-weight: bold;
+        display: block;
+        color: black;
+        margin-right: 10px;
+        flex: 0 0 150px; /* Fixed width for labels */
+        text-align: left; /* Left-aligns text within labels */
+    }
+    input, button {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        flex: 1;
+    }
+    input[type="number"] {
+        width: 100%;
+    }
+    button {
+        background-color: #00437A;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+    }
+    button:hover {
+        background-color: #00325a;
+    }
+    .result, .error {
+        font-size: 1.2em;
+        margin-top: 20px;
+        text-align: left; /* Align result and error text to the left */
+        color: black; /* Set text color to black */
+    }
+    .calculation-table {
+        margin-top: 20px;
+        text-align: center; /* Center-aligns the table within the div */
+    }
+    .calculation-table table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto; /* Center-aligns the table horizontally */
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .calculation-table th, .calculation-table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center; /* Center-aligns text in table headers and cells */
+    }
+    .calculation-table th {
+        background-color: #00437A;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+    @media (max-width: 600px) {
+        .form-group {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        label {
+            margin-right: 0;
+            margin-bottom: 5px;
+            flex: none;
+        }
+        input, button {
+            width: 100%;
+            margin-top: 5px;
+        }
+        .calculation-table table {
+            width: 100%;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <h1 onclick="location.reload()">조사용 재료 추출(농작물생산조사)</h1>
+
+    <div class="container">
+        <form>
+            <div class="form-group">
+                <label for="normalPlants">정상포기수:</label>
+                <input type="number" id="normalPlants" min="1" placeholder="정상포기수를 입력하세요">
+            </div>
+
+            <div class="form-group">
+                <label for="numSamples">추출재료수:</label>
+                <input type="number" id="numSamples" min="1" placeholder="추출재료수를 입력하세요">
+            </div>
+
+            <div class="form-group">
+                <label for="randomNumber">난수(5자리):</label>
+                <input type="number" id="randomNumber" min="10000" max="99999" placeholder="난수를 입력하세요">
+            </div>
+
+            <button type="button" onclick="extractSamples()">추출 시작</button>
+        </form>
+
+        <div class="result" id="result"></div>
+        <div class="error" id="error"></div>
+        <div class="calculation-table" id="calculation-table"></div>
+    </div>
+
+    <script>
+function extractSamples() {
+    const normalPlantsInput = document.getElementById("normalPlants").value;
+    const numSamplesInput = document.getElementById("numSamples").value;
+    const randomNumberInput = document.getElementById("randomNumber").value;
+
+    // Check for empty input fields and alert the user
+    if (normalPlantsInput === "") {
+        alert("정상포기수를 입력하세요.");
+        return;
+    }
+    if (numSamplesInput === "") {
+        alert("추출 재료수를 입력하세요.");
+        return;
+    }
+    if (randomNumberInput === "") {
+        alert("난수를 입력하세요.");
+        return;
+    }
+
+    const normalPlants = parseInt(normalPlantsInput);
+    const numSamples = parseInt(numSamplesInput);
+    const randomNumber = parseInt(randomNumberInput);
+
+    // Validate the values and alert if they are not valid
+    if (!Number.isInteger(normalPlants) || normalPlants <= 0 ||
+        !Number.isInteger(numSamples) || numSamples <= 0 ||
+        !Number.isInteger(randomNumber) || randomNumber <= 0) {
+        alert("모든 값을 올바르게 입력해주세요.");
+        return;
+    }
+
+    if (randomNumber < 10000 || randomNumber > 99999) {
+        alert("난수는 5자리 숫자여야 합니다.");
+        return;
+    }
+
+    // Extract start point (rounded to one decimal place)
+    let startPoint = Math.floor(randomNumber / 1000) / 10;
+    
+    const resultDiv = document.getElementById("result");
+    const calculationTableDiv = document.getElementById("calculation-table");
+    resultDiv.innerHTML = "";
+    calculationTableDiv.innerHTML = "";
+
+    if (startPoint < 1) {
+        alert("시작점이 1 미만입니다. 다음 난수를 선택해 주세요");
+        return;
+    }
+
+    const interval = normalPlants / numSamples;
+    let samples = [];
+
+    let tableHTML = `<table>
+                        <tr>
+                            <th>재료 번호</th>
+                            <th>계산된 값</th>
+                            <th>소수점 절사 결과</th>
+                        </tr>`;
+
+    for (let i = 0; i < numSamples; i++) {
+        let calculatedValue = startPoint + i * interval;
+        let samplePosition = Math.floor(calculatedValue);
+
+        if (samplePosition > normalPlants) {
+            alert("추출가능 포기수보다 추출포기수가 많습니다. 정상포기수 또는 난수를 재검토하세요");
+            return;
+        }
+
+        samples.push(samplePosition);
+
+        if (i === 0) {
+            tableHTML += `<tr>
+                            <td>${i + 1}번 재료 (추출 시작점)</td>
+                            <td>${startPoint.toFixed(1)}</td>
+                            <td>${samplePosition}</td>
+                          </tr>`;
+        } else {
+            let previousValue = startPoint + (i - 1) * interval;
+            tableHTML += `<tr>
+                            <td>${i + 1}번 재료</td>
+                            <td>${previousValue.toFixed(1)} + ${interval.toFixed(1)} = ${calculatedValue.toFixed(1)}</td>
+                            <td>${samplePosition}</td>
+                          </tr>`;
+        }
+    }
+
+    tableHTML += `</table>`;
+
+    resultDiv.innerHTML = `<div style="text-align: center;">
+                             <strong>- 결  과 -</strong>
+                           </div><br>
+                           <div style="text-align: left;">
+                             <strong>추출된 재료 위치:</strong> ${samples.join(", ")}<br>
+                             <strong>추출 시작점:</strong> ${startPoint.toFixed(1)}<br>
+                             <strong>추출 간격:</strong> ${interval.toFixed(1)}
+                           </div>`;
+
+    calculationTableDiv.innerHTML = tableHTML;
+}
+
+        // Add event listener to trigger button click on Enter key press
+        document.getElementById("randomNumber").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevent default Enter key behavior (e.g., form submission)
+                document.querySelector("button").click(); // Trigger the button click
+            }
+        });
+    </script>
+
+</body>
+</html>
