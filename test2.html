@@ -132,7 +132,7 @@
     <!-- 메모 입력란 -->
     <div class="memo">
         <label for="memo">메모</label>
-        <input type="text" id="memo" name="memo" placeholder="활용팁! 메모(지번 등), 주수 입력 후 캡처">
+        <input type="text" id="memo" name="memo" placeholder="메모(지번, 피해율 등), 주수 입력 후 캡처">
     </div>
 
     <!-- 작황 선택 드롭다운 -->
@@ -151,6 +151,26 @@
             <option value="하하">하하</option>
         </select>
     </div>
+    <!-- 피해상황 선택 드롭다운 -->
+    <div class="memo">
+        <label for="harm">피해상황</label>
+        <select id="harm" name="harm">
+            <option value="" selected disabled>해당 필지의 피해상황을 선택하세요</option>
+            <option value="정상">정상</option>
+            <option value="병해">병해</option>
+            <option value="충해">충해</option>
+            <option value="수해">수해</option>
+            <option value="한해">한해</option>
+            <option value="냉해">냉해</option>
+            <option value="풍해">풍해</option>
+            <option value="약해">약해</option>
+            <option value="조수해">조수해</option>
+            <option value="습해">습해</option>
+            <option value="우박해">우박해</option>
+            <option value="기타">기타</option>
+        </select>
+    </div>
+
 
     <form id="numberForm">
         <label id="label1" for="num1">1번주</label>
