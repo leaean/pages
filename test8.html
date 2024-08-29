@@ -1,96 +1,222 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>농업 계산기</title>
+    <title>논벼 예상생산량을 위한 계산기(2)</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .section {
+
+        h1 {
+            color: black;
+            cursor: pointer;
+            text-align: center;
             margin-bottom: 20px;
         }
-        .result {
+
+        .main-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .calculator-container {
+            max-width: 500px;
+            width: 100%;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        label {
+            font-weight: bold;
+            color: black;
+            margin-right: 10px;
+            flex: 0 0 150px;
+            text-align: left;
+        }
+
+        input, button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            flex: 1;
+        }
+
+        input[type="number"] {
+            width: 80%;
+        }
+
+        button {
+            background-color: #00437A;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #00325a;
+        }
+
+        .result, .error {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-align: left;
+            color: black;
+        }
+
+        .calculation-result {
             font-weight: bold;
             color: red;
         }
-        input {
-            margin: 5px 0;
-            padding: 8px;
-            width: 100%;
+
+        p {
+            font-size: calc(80%);
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="section">
-            <h2>1m²당 포기수 계산기</h2>
-            <label for="width">가로 1포기간 길이(cm):</label>
-            <input type="number" id="width" step="0.01" min="0" placeholder="예: 30">
-            
-            <label for="height">세로 1포기간 길이(cm):</label>
-            <input type="number" id="height" step="0.01" min="0" placeholder="예: 15">
-            
-            <button onclick="calculatePlantDensity()">계산하기</button>
-            <p>1m²당 포기수는 <span id="density-result" class="result">--</span>입니다.</p>
+    <h1 onclick="window.location.reload();">논벼 예상생산량을 위한 계산기(2)</h1>
+
+    <div class="main-container">
+        <!-- 첫 번째 계산기 컨테이너 -->
+        <div class="calculator-container">
+            <div class="section">
+                <h2>1m²당 포기수 계산기</h2>
+                <div class="form-group">
+                    <label for="width">가로 1포기간 길이(cm):</label>
+                    <input type="number" id="width" step="0.01" min="0" placeholder="예: 30">
+                </div>
+
+                <div class="form-group">
+                    <label for="height">세로 1포기간 길이(cm):</label>
+                    <input type="number" id="height" step="0.01" min="0" placeholder="예: 15">
+                </div>
+
+                <button id="density-btn">계산하기</button>
+		<p class="result" id="density-result-container" style="display: none;">1m²당 포기수는 <span id="density-result" class="calculation-result"></span>입니다.</p>
+            </div>
         </div>
 
-        <div class="section">
-            <h2>10a당 예상생산량 계산기 (백미기준)</h2>
-            <label for="avgPlants">1m²당 평균 포기수(A포구·B포구):</label>
-            <input type="number" id="avgPlants" step="0.01" min="0" placeholder="예: 20">
-            
-            <label for="earPerPlant">포기당 평균 이삭수:</label>
-            <input type="number" id="earPerPlant" step="0.01" min="0" placeholder="예: 20">
-            
-            <label for="grainPerEar">이삭당 완전 낟알 수:</label>
-            <input type="number" id="grainPerEar" step="0.01" min="0" placeholder="예: 60">
-            
-            <label for="thousandGrainWeight">천립중(g):</label>
-            <input type="number" id="thousandGrainWeight" step="0.01" min="0" placeholder="예: 25">
-            
-            <button onclick="calculateYield()">계산하기</button>
-            <p>해당 필지의 10a당 예상생산량 (백미기준)은 <span id="yield-result" class="result">--</span>입니다.</p>
+        <!-- 두 번째 계산기 컨테이너 -->
+        <div class="calculator-container">
+            <div class="section">
+                <h2>10a당 예상생산량 계산기(백미기준)</h2>
+                <div class="form-group">
+                    <label for="avgPlants">1m²당 평균 포기수:</label>
+                    <input type="number" id="avgPlants" step="0.01" min="0" placeholder="예: 20">
+                </div>
+
+                <div class="form-group">
+                    <label for="earPerPlant">포기당 평균 이삭수:</label>
+                    <input type="number" id="earPerPlant" step="0.01" min="0" placeholder="예: 20">
+                </div>
+
+                <div class="form-group">
+                    <label for="grainPerEar">이삭당 완전 낟알 수:</label>
+                    <input type="number" id="grainPerEar" step="0.01" min="0" placeholder="예: 60">
+                </div>
+
+                <div class="form-group">
+                    <label for="thousandGrainWeight">천립중(g):</label>
+                    <input type="number" id="thousandGrainWeight" step="0.01" min="0" placeholder="예: 25">
+                </div>
+
+                <button id="yield-btn">계산하기</button>
+		<p class="result" id="yield-result-container" style="display: none;">해당 필지의 10a당 예상생산량은 <span id="yield-result" class="calculation-result"></span>입니다.</p>
+            </div>
         </div>
     </div>
 
     <script>
+        // 유효한 입력값인지 확인하는 함수
+        function validateInput(value) {
+            return value && !isNaN(value) && value > 0;
+        }
+
+        // 포기수 계산 함수
         function calculatePlantDensity() {
-            const width = parseFloat(document.getElementById('width').value);
-            const height = parseFloat(document.getElementById('height').value);
+    const width = parseFloat(document.getElementById('width').value);
+    const height = parseFloat(document.getElementById('height').value);
 
-            if (width > 0 && height > 0) {
-                const density = 10000 / (width * height);
-                document.getElementById('density-result').innerText = density.toFixed(2);
-            } else {
-                document.getElementById('density-result').innerText = '입력을 확인하세요';
-            }
-        }
+    if (validateInput(width) && validateInput(height)) {
+        const density = 10000 / (width * height);
+        document.getElementById('density-result').innerText = density.toFixed(2);
+        document.getElementById('density-result-container').style.display = 'block';  // 결과를 보여줌
+    } else {
+        alert('입력을 확인하세요');  // alert 창으로 입력 오류 메시지 표시
+        document.getElementById('density-result-container').style.display = 'none';  // 잘못된 입력 시 결과 숨김
+    }
+}
 
+
+        // 예상생산량 계산 함수
         function calculateYield() {
-            const avgPlants = parseFloat(document.getElementById('avgPlants').value);
-            const earPerPlant = parseFloat(document.getElementById('earPerPlant').value);
-            const grainPerEar = parseFloat(document.getElementById('grainPerEar').value);
-            const thousandGrainWeight = parseFloat(document.getElementById('thousandGrainWeight').value);
+    const avgPlants = parseFloat(document.getElementById('avgPlants').value);
+    const earPerPlant = parseFloat(document.getElementById('earPerPlant').value);
+    const grainPerEar = parseFloat(document.getElementById('grainPerEar').value);
+    const thousandGrainWeight = parseFloat(document.getElementById('thousandGrainWeight').value);
 
-            if (avgPlants > 0 && earPerPlant > 0 && grainPerEar > 0 && thousandGrainWeight > 0) {
-                const yieldAmount = (avgPlants * earPerPlant * grainPerEar * thousandGrainWeight) / 1000;
-                document.getElementById('yield-result').innerText = yieldAmount.toFixed(2)+"kg";
-            } else {
-                document.getElementById('yield-result').innerText = '입력을 확인하세요';
+    if (validateInput(avgPlants) && validateInput(earPerPlant) && validateInput(grainPerEar) && validateInput(thousandGrainWeight)) {
+        const yieldAmount = (avgPlants * earPerPlant * grainPerEar * thousandGrainWeight) / 1000;
+        document.getElementById('yield-result').innerText = yieldAmount.toFixed(2) + "kg";
+        document.getElementById('yield-result-container').style.display = 'block';  // 결과를 보여줌
+    } else {
+        alert('입력을 확인하세요');  // alert 창으로 입력 오류 메시지 표시
+        document.getElementById('yield-result-container').style.display = 'none';  // 잘못된 입력 시 결과 숨김
+    }
+}
+
+        // 엔터 키로 계산 실행하기 위한 함수
+        function handleEnterPress(event, calculationFunction) {
+            if (event.key === 'Enter') {
+                calculationFunction();
             }
         }
+
+        // 포기수 계산 버튼 이벤트
+        document.getElementById('density-btn').addEventListener('click', calculatePlantDensity);
+        // 예상생산량 계산 버튼 이벤트
+        document.getElementById('yield-btn').addEventListener('click', calculateYield);
+
+        // 엔터 키로 포기수 계산 실행
+        document.getElementById('width').addEventListener('keypress', (event) => handleEnterPress(event, calculatePlantDensity));
+        document.getElementById('height').addEventListener('keypress', (event) => handleEnterPress(event, calculatePlantDensity));
+
+        // 엔터 키로 예상생산량 계산 실행
+        document.getElementById('avgPlants').addEventListener('keypress', (event) => handleEnterPress(event, calculateYield));
+        document.getElementById('earPerPlant').addEventListener('keypress', (event) => handleEnterPress(event, calculateYield));
+        document.getElementById('grainPerEar').addEventListener('keypress', (event) => handleEnterPress(event, calculateYield));
+        document.getElementById('thousandGrainWeight').addEventListener('keypress', (event) => handleEnterPress(event, calculateYield));
+
     </script>
 </body>
 </html>
