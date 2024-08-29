@@ -140,18 +140,22 @@
             max-width: 600px;
             text-align: center;
         }
+    /* Close button styling */
         .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
             color: #aaa;
-            float: right;
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
-        }
+        }    
         .modal-close:hover,
         .modal-close:focus {
             color: black;
             text-decoration: none;
         }
+
         .copyright {
             position: absolute;
             bottom: 0;
@@ -348,19 +352,17 @@
 
     <!-- QR 코드 이미지 모달 -->
     <div class="title-container">
-        <h1 class="title" onclick="window.location.reset();">
-            <img src="/pages/qrimg.png" alt="" onclick="openModal('/pages/qrimg.png')">
+        <h1 class="title">
+            <img src="/pages/qrimg.png" alt="" onclick="openModal('/pages/qrimg.png')" style="cursor: pointer;">
         </h1>
     </div>
-    
+
     <div id="myModal" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
+        <span class="modal-close" onclick="closeModal()">&times;</span>
         <div class="modal-content">
             <img id="modal-image" src="">
         </div>
     </div>
-    <br>
-    <br>
     <br>
     <br>
     <div class="copyright">
