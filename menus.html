@@ -375,53 +375,76 @@
         &copy; 2024 S.H.Lee, Honam Regional Statistics Office. All rights reserved.
     </div>
 
-    <script>
-        // Dropdown 토글 기능
-        function toggleDropdown(id, button) {
-            var dropdown = document.getElementById(id);
-            var isVisible = dropdown.style.display === "block";
-            var dropdowns = document.getElementsByClassName('dropdown-content');
-            var arrows = document.querySelectorAll('button div');
-        
-            // Close all dropdowns and reset arrows
-            for (var i = 0; i < dropdowns.length; i++) {
-                dropdowns[i].style.display = 'none';
-            }
-            for (var i = 0; i < arrows.length; i++) {
-                arrows[i].className = 'arrow-down';
-            }
-        
-            // Toggle current dropdown and arrow
-            if (!isVisible) {
-                dropdown.style.display = "block";
-                button.querySelector('div').className = 'arrow-up';
-            } else {
-                dropdown.style.display = "none";
-                button.querySelector('div').className = 'arrow-down';
-            }
+<script>
+    // Dropdown 토글 기능
+    function toggleDropdown(id, button) {
+        var dropdown = document.getElementById(id);
+        var isVisible = dropdown.style.display === "block";
+        var dropdowns = document.getElementsByClassName('dropdown-content');
+        var arrows = document.querySelectorAll('button div');
+    
+        // Close all dropdowns and reset arrows
+        for (var i = 0; i < dropdowns.length; i++) {
+            dropdowns[i].style.display = 'none';
+        }
+        for (var i = 0; i < arrows.length; i++) {
+            arrows[i].className = 'arrow-down';
+        }
+    
+        // Toggle current dropdown and arrow
+        if (!isVisible) {
+            dropdown.style.display = "block";
+            button.querySelector('div').className = 'arrow-up';
+        } else {
+            dropdown.style.display = "none";
+            button.querySelector('div').className = 'arrow-down';
         }
 
-        // 모달 열고 닫는 기능 (활용팁)
-        function openFullScreenModal() {
-            document.getElementById('fullScreenModal').style.display = "block";
-        }
+        // Stop event propagation to prevent the document click event
+        event.stopPropagation();
+    }
 
-        function closeFullScreenModal() {
-            document.getElementById('fullScreenModal').style.display = "none";
-        }
+    // 모달 열고 닫는 기능 (활용팁)
+    function openFullScreenModal() {
+        document.getElementById('fullScreenModal').style.display = "block";
+    }
 
-        // QR 이미지 모달
-        function openModal(src) {
-            var modal = document.getElementById("myModal");
-            var modalImg = document.getElementById("modal-image");
-            modal.style.display = "block";
-            modalImg.src = src;
-        }
+    function closeFullScreenModal() {
+        document.getElementById('fullScreenModal').style.display = "none";
+    }
 
-        function closeModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "none";
+    // QR 이미지 모달
+    function openModal(src) {
+        var modal = document.getElementById("myModal");
+        var modalImg = document.getElementById("modal-image");
+        modal.style.display = "block";
+        modalImg.src = src;
+    }
+
+    function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+    }
+
+    // 배경 클릭 시 모든 드롭다운 닫기
+    document.addEventListener('click', function() {
+        var dropdowns = document.getElementsByClassName('dropdown-content');
+        var arrows = document.querySelectorAll('button div');
+
+        for (var i = 0; i < dropdowns.length; i++) {
+            dropdowns[i].style.display = 'none';
         }
-    </script>
+        for (var i = 0; i < arrows.length; i++) {
+            arrows[i].className = 'arrow-down';
+        }
+    });
+
+    // 메뉴 버튼 클릭 시 이벤트 전파 막기
+    document.querySelectorAll('.menu-item button').forEach(function(button) {
+        button.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    });
+</script>
 </body>
 </html>
